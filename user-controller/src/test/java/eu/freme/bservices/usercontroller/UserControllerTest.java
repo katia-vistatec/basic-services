@@ -53,9 +53,9 @@ public class UserControllerTest{
 		context = SpringApplication.run(UserControllerTest.class);
 		TestHelper testHelper = context.getBean(TestHelper.class);
 		
-		adminUsername = testHelper.getAdminUsername(context);
-		adminPassword = testHelper.getAdminPassword(context);
-		baseUrl = testHelper.getAPIBaseUrl(context);
+		adminUsername = testHelper.getAdminUsername();
+		adminPassword = testHelper.getAdminPassword();
+		baseUrl = testHelper.getAPIBaseUrl();
 	}
 	
 	@Test
