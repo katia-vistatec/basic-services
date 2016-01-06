@@ -22,7 +22,7 @@ import eu.freme.common.FREMECommonConfig;
 import eu.freme.common.rest.BaseRestController;
 import eu.freme.bservices.testhelper.TestHelper;
 
-@ComponentScan({"eu.freme.bservices.usercontroller"})
+@ComponentScan({"eu.freme.bservices.usercontroller", "eu.freme.bservices.testhelper"})
 @Import(FREMECommonConfig.class)
 public class UserControllerTest{
 
