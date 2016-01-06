@@ -4,14 +4,12 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
+import eu.freme.bservices.testhelper.AbstractTestHelper;
 import eu.freme.common.rest.BaseRestController;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import eu.freme.bservices.testhelper.AbstractTestHelper;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,15 +22,12 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
 
     Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
 
-    //private String baseUrl;
-    //private String adminUsername;
-    //private String adminPassword;
-
     private static String tokenWithPermission;
     private static String tokenWithOutPermission;
     private static String tokenAdmin;
 
     private static boolean authenticated = false;
+    private static boolean authenticatedRemoved = false;
 
     protected final String usernameWithPermission = "userwithpermission";
     protected final String passwordWithPermission = "testpassword";
@@ -87,8 +82,11 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
     }
 
     public void removeAuthenticatedUsers() throws UnirestException {
-        deleteUser(usernameWithPermission, tokenWithPermission);
-        deleteUser(usernameWithoutPermission, tokenWithOutPermission);
+        if(!authenticatedRemoved) {
+            deleteUser(usernameWithPermission, tokenWithPermission);
+            deleteUser(usernameWithoutPermission, tokenWithOutPermission);
+            authenticatedRemoved = true;
+        }
     }
 
     /**
