@@ -10,5 +10,10 @@
 	<artifactId>user-controller</artifactId>
 
 	<dependencies>
+		<dependency>
+			<groupId>eu.freme</groupId>
+			<artifactId>test-helper</artifactId>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

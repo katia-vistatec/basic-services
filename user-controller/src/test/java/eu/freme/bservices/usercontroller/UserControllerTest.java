@@ -20,7 +20,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import eu.freme.common.FREMECommonConfig;
 import eu.freme.common.rest.BaseRestController;
-import eu.freme.common.test.TestHelper;
+import eu.freme.bservices.testhelper.TestHelper;
 
 @ComponentScan({"eu.freme.bservices.usercontroller"})
 @Import(FREMECommonConfig.class)
