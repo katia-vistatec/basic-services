@@ -12,13 +12,14 @@ import org.junit.Before;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 import eu.freme.bservices.testhelper.TestHelper;
+import org.springframework.stereotype.Component;
 
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.
  */
-
+@Component
 public class AuthenticatedTestHelper extends TestHelper{
 
     private static String tokenWithPermission;
@@ -32,16 +33,6 @@ public class AuthenticatedTestHelper extends TestHelper{
     protected final String usernameWithoutPermission = "userwithoutpermission";
     protected final String passwordWithoutPermission = "testpassword";
 
-    @Before
-    public void setup()throws UnirestException{
-        authenticateUsers();
-    }
-
-    @After
-    public void exit() throws UnirestException{
-        deleteUser(usernameWithPermission, tokenWithPermission);
-        deleteUser(usernameWithoutPermission, tokenWithOutPermission);
-    }
 
     public void createUser(String username, String password) throws UnirestException {
         HttpResponse<String> response = Unirest.post(getAPIBaseUrl() + "/user")
@@ -53,6 +44,7 @@ public class AuthenticatedTestHelper extends TestHelper{
 
     public void deleteUser(String username, String token) throws UnirestException{
         HttpResponse<String> response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/user/"+username), token).asString();
+        assertTrue(response.getStatus() == HttpStatus.NO_CONTENT.value());
     }
 
     public String authenticateUser(String username, String password) throws UnirestException{
@@ -73,16 +65,25 @@ public class AuthenticatedTestHelper extends TestHelper{
      * Furthermore the admin token is created.
      * @throws UnirestException
      */
-    private void authenticateUsers() throws UnirestException {
-        //Creates two users, one intended to have permission, the other not
-        createUser(usernameWithPermission, passwordWithPermission);
-        tokenWithPermission = authenticateUser(usernameWithPermission, passwordWithPermission);
-        createUser(usernameWithoutPermission, passwordWithoutPermission);
-        tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
-        //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
-        tokenAdmin = authenticateUser(getAdminUsername(), getAdminPassword());
-        authenticated = true;
+    public void authenticateUsers() throws UnirestException {
+        if(!authenticated) {
+            //Creates two users, one intended to have permission, the other not
+            createUser(usernameWithPermission, passwordWithPermission);
+            tokenWithPermission = authenticateUser(usernameWithPermission, passwordWithPermission);
+            createUser(usernameWithoutPermission, passwordWithoutPermission);
+            tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
+            //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
+            tokenAdmin = authenticateUser(getAdminUsername(), getAdminPassword());
+            authenticated = true;
+        }
     }
+
+    public void removeUsers() throws UnirestException {
+        deleteUser(usernameWithPermission, tokenWithPermission);
+        deleteUser(usernameWithoutPermission, tokenWithOutPermission);
+    }
+
+
 
     /**
      * Use this method to add an authentication header to the request.
