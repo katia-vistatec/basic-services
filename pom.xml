@@ -8,6 +8,7 @@
 	<modules>
 		<module>rate-limiter</module>
 		<module>user-controller</module>
+		<module>test-helper</module>
 	</modules>
 
 	<parent>
