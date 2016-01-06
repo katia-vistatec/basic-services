@@ -18,6 +18,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class LoggingHelper {
 
+    public static final String accessDeniedExceptions = "eu.freme.broker.exception.AccessDeniedException || EXCEPTION ~=org.springframework.security.access.AccessDeniedException";
+
     /**
      * Sets specific LoggingFilters and initiates suppression of specified Exceptions in Log4j.
      * @param x Class of Exception

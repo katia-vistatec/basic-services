@@ -12,6 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import eu.freme.common.rest.BaseRestController;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.Assert.assertTrue;
 
 @Component
@@ -58,5 +63,14 @@ public class TestHelper implements ApplicationContextAware{
 			throws BeansException {
 		this.context = applicationContext;
 		
+	}
+
+	//Reads a text file line by line. Use this when testing API with examples from /test/resources/
+	public static String readFile(String file) throws IOException {
+		StringBuilder bldr = new StringBuilder();
+		for (String line: Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8)) {
+			bldr.append(line).append('\n');
+		}
+		return bldr.toString();
 	}
 }
