@@ -29,24 +29,13 @@ public class UserControllerTest{
 	Logger logger = Logger.getLogger(UserControllerTest.class);
 
 	String adminUsername;
-
 	String adminPassword;
-
-//	public UserControllerTest() {
-//		super("");
-//	}
 
 	@Before
 	public void setup() throws UnirestException {
-		//baseUrl = IntegrationTestSetup.getURLEndpoint();
-		
 		context = SpringApplication.run(UserControllerTest.class);
 		SimpleTestHelper testHelper = context.getBean(SimpleTestHelper.class);
 
-		/*AuthenticatedTestHelper authenticatedTestHelper = context.getBean(AuthenticatedTestHelper.class);
-		authenticatedTestHelper.setTestHelper(testHelper);
-		authenticatedTestHelper.authenticateUsers();*/
-		
 		adminUsername = testHelper.getAdminUsername();
 		adminPassword = testHelper.getAdminPassword();
 		baseUrl = testHelper.getAPIBaseUrl();

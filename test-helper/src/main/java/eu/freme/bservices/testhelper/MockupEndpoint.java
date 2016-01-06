@@ -24,7 +24,7 @@ public class MockupEndpoint {
 
 	) throws IOException{
 
-		File file = new File("src/test/resources/mockup-endpoint-data/"+filename);
+		File file = new File("src/main/resources/mockup-endpoint-data/"+filename);
 		String fileContent = FileUtils.readFileToString(file);
 		HttpHeaders headers = new HttpHeaders();
 

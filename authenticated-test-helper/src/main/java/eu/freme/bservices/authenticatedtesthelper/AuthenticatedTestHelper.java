@@ -34,6 +34,77 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
     protected final String usernameWithoutPermission = "userwithoutpermission";
     protected final String passwordWithoutPermission = "testpassword";
 
+    /**
+     * This method creates and authenticates two users, userwithpermission and userwithoutpermission.
+     * Furthermore the admin token is created.
+     * @throws UnirestException
+     */
+    public void authenticateUsers() throws UnirestException {
+        if(!authenticated) {
+            //Creates two users, one intended to have permission, the other not
+            createUser(usernameWithPermission, passwordWithPermission);
+            tokenWithPermission = authenticateUser(usernameWithPermission, passwordWithPermission);
+            createUser(usernameWithoutPermission, passwordWithoutPermission);
+            tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
+            //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
+            tokenAdmin = authenticateUser(getAdminUsername(), getAdminPassword());
+            authenticated = true;
+        }
+    }
+
+    /**
+     * This method deletes the users created for authentication purposes.
+     * @throws UnirestException
+     */
+    public void removeAuthenticatedUsers() throws UnirestException {
+        if(!authenticatedRemoved) {
+            deleteUser(usernameWithPermission, tokenWithPermission);
+            deleteUser(usernameWithoutPermission, tokenWithOutPermission);
+            authenticatedRemoved = true;
+        }
+    }
+
+    /**
+     * Use this method to add an authentication header to the request.
+     * If the given token is null, the request will not be modified.
+     * @param request The request to add the authentication
+     * @param token The authentication Token
+     * @param <T>
+     * @return The modified request
+     */
+    @SuppressWarnings("unchecked")
+    private <T extends HttpRequest> T addAuthentication(T request, String token){
+        if(token==null)
+            return request;
+        return (T)request.header("X-Auth-Token", token);
+    }
+
+    /**
+     * Add authentication for the user intended to have permission to the given request.
+     * @param request the request to modify
+     * @return the modified request
+     */
+    public <T extends HttpRequest> T addAuthentication(T request){
+        return addAuthentication(request, tokenWithPermission);
+    }
+
+    /**
+     * Add authentication for the user intended to have no permission to the given request.
+     * @param request the request to modify
+     * @return the modified request
+     */
+    public <T extends HttpRequest> T addAuthenticationWithoutPermission(T request){
+        return addAuthentication(request, tokenWithOutPermission);
+    }
+
+    /**
+     * Add authentication for the admin user to the given request.
+     * @param request the request to modify
+     * @return the modified request
+     */
+    public <T extends HttpRequest> T addAuthenticationWithAdmin(T request){
+        return addAuthentication(request, tokenAdmin);
+    }
 
 
     public void createUser(String username, String password) throws UnirestException {
@@ -61,59 +132,6 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
         assertTrue(response.getStatus() == HttpStatus.OK.value());
         String token = new JSONObject(response.getBody()).getString("token");
         return token;
-    }
-
-    /**
-     * This method creates and authenticats two users, userwithpermission and userwithoutpermission.
-     * Furthermore the admin token is created.
-     * @throws UnirestException
-     */
-    public void authenticateUsers() throws UnirestException {
-        if(!authenticated) {
-            //Creates two users, one intended to have permission, the other not
-            createUser(usernameWithPermission, passwordWithPermission);
-            tokenWithPermission = authenticateUser(usernameWithPermission, passwordWithPermission);
-            createUser(usernameWithoutPermission, passwordWithoutPermission);
-            tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
-            //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
-            tokenAdmin = authenticateUser(getAdminUsername(), getAdminPassword());
-            authenticated = true;
-        }
-    }
-
-    public void removeAuthenticatedUsers() throws UnirestException {
-        if(!authenticatedRemoved) {
-            deleteUser(usernameWithPermission, tokenWithPermission);
-            deleteUser(usernameWithoutPermission, tokenWithOutPermission);
-            authenticatedRemoved = true;
-        }
-    }
-
-    /**
-     * Use this method to add an authentication header to the request.
-     * If the given token is null, the request will not be modified.
-     * @param request The request to add the authentication
-     * @param token The authentication Token
-     * @param <T>
-     * @return The modified request
-     */
-    @SuppressWarnings("unchecked")
-    private <T extends HttpRequest> T addAuthentication(T request, String token){
-        if(token==null)
-            return request;
-        return (T)request.header("X-Auth-Token", token);
-    }
-
-    public <T extends HttpRequest> T addAuthentication(T request){
-        return addAuthentication(request, tokenWithPermission);
-    }
-
-    public <T extends HttpRequest> T addAuthenticationWithoutPermission(T request){
-        return addAuthentication(request, tokenWithOutPermission);
-    }
-
-    public <T extends HttpRequest> T addAuthenticationWithAdmin(T request){
-        return addAuthentication(request, tokenAdmin);
     }
 
 }

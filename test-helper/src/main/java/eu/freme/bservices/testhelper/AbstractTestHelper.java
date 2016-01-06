@@ -1,6 +1,5 @@
 package eu.freme.bservices.testhelper;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -14,8 +13,6 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 
 	private ApplicationContext context;
 
-	Logger logger = Logger.getLogger(AbstractTestHelper.class);
-	
 	/**
 	 * Returns the base url of the API given the spring application context, e.g. http://localhost:8080
 	 * @return
@@ -51,10 +48,6 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 			throws BeansException {
 		this.context = applicationContext;
 		
-	}
-
-	public ApplicationContext getContext() {
-		return context;
 	}
 
 	//Reads a text file line by line. Use this when testing API with examples from /test/resources/

@@ -19,7 +19,12 @@ public class ValidationHelper {
     @Autowired
     public RDFConversionService converter;
 
-    //General NIF Validation: can be used to test all NiF Responses on their validity.
+    /**
+     * General NIF Validation: can be used to test all NiF Responses on their validity.
+     * @param response the response containing the NIF content
+     * @param nifformat the NIF format
+     * @throws IOException
+     */
     public void validateNIFResponse(HttpResponse<String> response, RDFConstants.RDFSerialization nifformat) throws IOException {
 
         //basic tests on response
