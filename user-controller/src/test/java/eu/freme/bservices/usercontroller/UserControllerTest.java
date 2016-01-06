@@ -7,18 +7,12 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -28,8 +22,7 @@ import eu.freme.common.FREMECommonConfig;
 import eu.freme.common.rest.BaseRestController;
 import eu.freme.common.test.TestHelper;
 
-@SpringBootApplication
-@ComponentScan({"eu.freme.common", "eu.freme.services.usercontroller"})
+@ComponentScan({"eu.freme.bservices.usercontroller"})
 @Import(FREMECommonConfig.class)
 public class UserControllerTest{
 
