@@ -17,14 +17,19 @@
  */
 package eu.freme.bservices.usercontroller;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequest;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
 import eu.freme.common.persistence.dao.UserDAO;
 import eu.freme.common.persistence.tools.AccessLevelHelper;
 
+import eu.freme.common.rest.BaseRestController;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -32,6 +37,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.vote.AbstractAccessDecisionManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +46,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import eu.freme.common.persistence.model.User;
 import eu.freme.common.security.PasswordHasher;
+
+import static org.junit.Assert.assertTrue;
 
 @RestController
 public class UserController {

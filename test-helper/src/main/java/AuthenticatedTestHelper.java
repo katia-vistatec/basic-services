@@ -4,23 +4,34 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
-import com.mashape.unirest.request.HttpRequestWithBody;
 import eu.freme.common.rest.BaseRestController;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
-import eu.freme.bservices.testhelper.TestHelper;
 import org.springframework.stereotype.Component;
+import eu.freme.bservices.testhelper.AbstractTestHelper;
+
+import javax.annotation.PostConstruct;
 
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.
  */
+
 @Component
-public class AuthenticatedTestHelper extends TestHelper{
+public class AuthenticatedTestHelper extends AbstractTestHelper {
+
+    ApplicationContext context;
+
+    Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
+
+    //private String baseUrl;
+    //private String adminUsername;
+    //private String adminPassword;
 
     private static String tokenWithPermission;
     private static String tokenWithOutPermission;
@@ -32,6 +43,7 @@ public class AuthenticatedTestHelper extends TestHelper{
     protected final String passwordWithPermission = "testpassword";
     protected final String usernameWithoutPermission = "userwithoutpermission";
     protected final String passwordWithoutPermission = "testpassword";
+
 
 
     public void createUser(String username, String password) throws UnirestException {
@@ -107,4 +119,25 @@ public class AuthenticatedTestHelper extends TestHelper{
     protected <T extends HttpRequest> T addAuthenticationWithoutPermission(T request){
         return addAuthentication(request, tokenWithOutPermission);
     }
+
+    protected <T extends HttpRequest> T addAuthenticationWithAdmin(T request){
+        return addAuthentication(request, tokenAdmin);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.context = applicationContext;
+    }
+
+    /*public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    public void setAdminUsername(String adminUsername) {
+        this.adminUsername = adminUsername;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }*/
 }

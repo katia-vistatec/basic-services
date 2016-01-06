@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
@@ -20,7 +19,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import eu.freme.common.FREMECommonConfig;
 import eu.freme.common.rest.BaseRestController;
-import eu.freme.bservices.testhelper.TestHelper;
+import eu.freme.bservices.testhelper.SimpleTestHelper;
 
 @ComponentScan({"eu.freme.bservices.usercontroller", "eu.freme.bservices.testhelper"})
 @Import(FREMECommonConfig.class)
@@ -40,11 +39,15 @@ public class UserControllerTest{
 //	}
 
 	@Before
-	public void setup() {
+	public void setup() throws UnirestException {
 		//baseUrl = IntegrationTestSetup.getURLEndpoint();
 		
 		context = SpringApplication.run(UserControllerTest.class);
-		TestHelper testHelper = context.getBean(TestHelper.class);
+		SimpleTestHelper testHelper = context.getBean(SimpleTestHelper.class);
+
+		/*AuthenticatedTestHelper authenticatedTestHelper = context.getBean(AuthenticatedTestHelper.class);
+		authenticatedTestHelper.setTestHelper(testHelper);
+		authenticatedTestHelper.authenticateUsers();*/
 		
 		adminUsername = testHelper.getAdminUsername();
 		adminPassword = testHelper.getAdminPassword();
