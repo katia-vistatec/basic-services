@@ -1,7 +1,11 @@
 package eu.freme.bservices.usercontroller;
 
-import static org.junit.Assert.assertTrue;
-
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.freme.bservices.testhelper.SimpleTestHelper;
+import eu.freme.common.FREMECommonConfig;
+import eu.freme.common.rest.BaseRestController;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.junit.After;
@@ -13,13 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import eu.freme.common.FREMECommonConfig;
-import eu.freme.common.rest.BaseRestController;
-import eu.freme.bservices.testhelper.SimpleTestHelper;
+import static org.junit.Assert.assertTrue;
 
 @ComponentScan({"eu.freme.bservices.usercontroller", "eu.freme.bservices.testhelper"})
 @Import(FREMECommonConfig.class)

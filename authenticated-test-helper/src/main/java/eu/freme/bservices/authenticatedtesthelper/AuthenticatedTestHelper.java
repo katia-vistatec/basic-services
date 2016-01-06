@@ -1,4 +1,4 @@
-package eu.freme.bservices.testhelper;
+package eu.freme.bservices.authenticatedtesthelper;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -9,12 +9,9 @@ import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import eu.freme.bservices.testhelper.AbstractTestHelper;
-
-import javax.annotation.PostConstruct;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 @Component
 public class AuthenticatedTestHelper extends AbstractTestHelper {
-
-    ApplicationContext context;
 
     Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
 
@@ -47,14 +42,15 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
 
 
     public void createUser(String username, String password) throws UnirestException {
+        logger.info("create user: "+username);
         HttpResponse<String> response = Unirest.post(getAPIBaseUrl() + "/user")
                 .queryString("username", username)
                 .queryString("password", password).asString();
-        logger.debug("STATUS: " + response.getStatus());
         assertTrue(response.getStatus() == HttpStatus.OK.value());
     }
 
     public void deleteUser(String username, String token) throws UnirestException{
+        logger.info("delete user: "+username);
         HttpResponse<String> response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/user/"+username), token).asString();
         assertTrue(response.getStatus() == HttpStatus.NO_CONTENT.value());
     }
@@ -90,12 +86,10 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
         }
     }
 
-    public void removeUsers() throws UnirestException {
+    public void removeAuthenticatedUsers() throws UnirestException {
         deleteUser(usernameWithPermission, tokenWithPermission);
         deleteUser(usernameWithoutPermission, tokenWithOutPermission);
     }
-
-
 
     /**
      * Use this method to add an authentication header to the request.
@@ -106,38 +100,22 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
      * @return The modified request
      */
     @SuppressWarnings("unchecked")
-    protected <T extends HttpRequest> T addAuthentication(T request, String token){
+    private <T extends HttpRequest> T addAuthentication(T request, String token){
         if(token==null)
             return request;
         return (T)request.header("X-Auth-Token", token);
     }
 
-    protected <T extends HttpRequest> T addAuthentication(T request){
+    public <T extends HttpRequest> T addAuthentication(T request){
         return addAuthentication(request, tokenWithPermission);
     }
 
-    protected <T extends HttpRequest> T addAuthenticationWithoutPermission(T request){
+    public <T extends HttpRequest> T addAuthenticationWithoutPermission(T request){
         return addAuthentication(request, tokenWithOutPermission);
     }
 
-    protected <T extends HttpRequest> T addAuthenticationWithAdmin(T request){
+    public <T extends HttpRequest> T addAuthenticationWithAdmin(T request){
         return addAuthentication(request, tokenAdmin);
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.context = applicationContext;
-    }
-
-    /*public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
-
-    public void setAdminUsername(String adminUsername) {
-        this.adminUsername = adminUsername;
-    }
-
-    public void setAdminPassword(String adminPassword) {
-        this.adminPassword = adminPassword;
-    }*/
 }

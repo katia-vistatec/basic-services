@@ -4,18 +4,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.Assert.assertTrue;
-
 public abstract class AbstractTestHelper implements ApplicationContextAware{
 
-	ApplicationContext context;
+	private ApplicationContext context;
 
 	Logger logger = Logger.getLogger(AbstractTestHelper.class);
 	
@@ -33,8 +30,7 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 	
 	/**
 	 * Return the username of the administrator user of the REST API.
-	 * 
-	 * @param context
+	 *
 	 * @return
 	 */
 	public String getAdminUsername(){
@@ -43,8 +39,7 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 	
 	/**
 	 * Return the password of the administrator user of the REST API.
-	 * 
-	 * @param context
+	 *
 	 * @return
 	 */
 	public String getAdminPassword(){
@@ -56,6 +51,10 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 			throws BeansException {
 		this.context = applicationContext;
 		
+	}
+
+	public ApplicationContext getContext() {
+		return context;
 	}
 
 	//Reads a text file line by line. Use this when testing API with examples from /test/resources/

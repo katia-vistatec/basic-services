@@ -1,7 +1,5 @@
 package eu.freme.bservices.filter.ratelimiter;
 
-import org.springframework.security.core.Authentication;
-
 import eu.freme.bservices.filter.ratelimiter.exception.ForbiddenException;
 
 /**

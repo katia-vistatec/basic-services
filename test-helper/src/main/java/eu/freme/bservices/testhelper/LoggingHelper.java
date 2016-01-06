@@ -1,17 +1,10 @@
 package eu.freme.bservices.testhelper;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.filter.ExpressionFilter;
-import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
 
 import java.util.Enumeration;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.

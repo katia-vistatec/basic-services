@@ -9,17 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>test-helper</artifactId>
+    <artifactId>authenticated-test-helper</artifactId>
+
     <dependencies>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.3</version>
+            <groupId>eu.freme</groupId>
+            <artifactId>test-helper</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>eu.freme</groupId>
-            <artifactId>e-link</artifactId>
-            <version>0.5-SNAPSHOT</version>
+            <groupId>eu.freme.bservices</groupId>
+            <artifactId>user-controller</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -2,7 +2,6 @@ package eu.freme.bservices.testhelper;
 
 import com.hp.hpl.jena.shared.AssertionFailureException;
 import com.mashape.unirest.http.HttpResponse;
-import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +9,7 @@ import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.

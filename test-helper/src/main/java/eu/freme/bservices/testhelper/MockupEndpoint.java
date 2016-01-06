@@ -1,9 +1,6 @@
 package eu.freme.bservices.testhelper;
 
-import eu.freme.common.FREMECommonConfig;
-import eu.freme.common.rest.BaseRestController;
 import org.apache.commons.io.FileUtils;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

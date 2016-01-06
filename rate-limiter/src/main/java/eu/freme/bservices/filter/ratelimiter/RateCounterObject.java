@@ -1,12 +1,9 @@
 package eu.freme.bservices.filter.ratelimiter;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.SynchronousQueue;
-
 import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.InternalServerErrorException;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 18.11.15.
