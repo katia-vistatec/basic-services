@@ -49,13 +49,4 @@ public abstract class AbstractTestHelper implements ApplicationContextAware{
 		this.context = applicationContext;
 		
 	}
-
-	//Reads a text file line by line. Use this when testing API with examples from /test/resources/
-	public static String readFile(String file) throws IOException {
-		StringBuilder bldr = new StringBuilder();
-		for (String line: Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8)) {
-			bldr.append(line).append('\n');
-		}
-		return bldr.toString();
-	}
 }

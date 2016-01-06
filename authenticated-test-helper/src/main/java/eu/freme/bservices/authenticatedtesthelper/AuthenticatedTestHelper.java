@@ -29,10 +29,10 @@ public class AuthenticatedTestHelper extends AbstractTestHelper {
     private static boolean authenticated = false;
     private static boolean authenticatedRemoved = false;
 
-    protected final String usernameWithPermission = "userwithpermission";
-    protected final String passwordWithPermission = "testpassword";
-    protected final String usernameWithoutPermission = "userwithoutpermission";
-    protected final String passwordWithoutPermission = "testpassword";
+    private final String usernameWithPermission = "userwithpermission";
+    private final String passwordWithPermission = "testpassword";
+    private final String usernameWithoutPermission = "userwithoutpermission";
+    private final String passwordWithoutPermission = "testpassword";
 
     /**
      * This method creates and authenticates two users, userwithpermission and userwithoutpermission.
