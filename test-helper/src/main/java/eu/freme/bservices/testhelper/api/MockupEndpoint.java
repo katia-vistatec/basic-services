@@ -1,4 +1,4 @@
-package eu.freme.bservices.testhelper;
+package eu.freme.bservices.testhelper.api;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.HttpHeaders;

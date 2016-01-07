@@ -2,10 +2,13 @@ package eu.freme.bservices.testhelper;
 
 import com.hp.hpl.jena.shared.AssertionFailureException;
 import com.mashape.unirest.http.HttpResponse;
+
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
@@ -14,6 +17,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.
  */
+@Component
 public class ValidationHelper {
 
     @Autowired
