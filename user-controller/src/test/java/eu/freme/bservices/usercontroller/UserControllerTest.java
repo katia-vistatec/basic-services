@@ -7,23 +7,17 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import eu.freme.common.FREMECommonConfig;
 import eu.freme.common.rest.BaseRestController;
+import eu.freme.common.starter.FREMEStarter;
 import eu.freme.common.test.TestHelper;
 
-@ComponentScan({"eu.freme.bservices.usercontroller"})
-@Import(FREMECommonConfig.class)
 public class UserControllerTest{
 
 	ConfigurableApplicationContext context;
@@ -34,16 +28,12 @@ public class UserControllerTest{
 	String adminUsername;
 
 	String adminPassword;
-
-//	public UserControllerTest() {
-//		super("");
-//	}
-
+	
 	@Before
 	public void setup() {
-		//baseUrl = IntegrationTestSetup.getURLEndpoint();
 		
-		context = SpringApplication.run(UserControllerTest.class);
+		context = FREMEStarter.startPackageFromClasspath("spring-configurations/user-controller-test-package.xml");
+		
 		TestHelper testHelper = context.getBean(TestHelper.class);
 		
 		adminUsername = testHelper.getAdminUsername();
