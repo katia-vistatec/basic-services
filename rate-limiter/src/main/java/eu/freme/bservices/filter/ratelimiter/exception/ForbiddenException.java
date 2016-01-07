@@ -18,10 +18,9 @@
  */
 package eu.freme.bservices.filter.ratelimiter.exception;
 
+import eu.freme.common.exception.FREMEHttpException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
-import eu.freme.common.exception.FREMEHttpException;
 
 /**
  * @author Gerald Haesendonck
