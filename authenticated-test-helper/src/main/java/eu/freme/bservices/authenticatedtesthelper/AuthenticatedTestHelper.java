@@ -4,7 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
-import eu.freme.bservices.testhelper.AbstractTestHelper;
+import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.common.rest.BaseRestController;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
  */
 
 @Component
-public class AuthenticatedTestHelper extends AbstractTestHelper {
+public class AuthenticatedTestHelper extends TestHelper {
 
     Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
 

@@ -3,13 +3,13 @@ package eu.freme.bservices.testhelper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-public abstract class AbstractTestHelper implements ApplicationContextAware{
+/**
+ * @author Jan Nehring - jan.nehring@dfki.de
+ */
+@Component
+public class TestHelper implements ApplicationContextAware{
 
 	private ApplicationContext context;
 

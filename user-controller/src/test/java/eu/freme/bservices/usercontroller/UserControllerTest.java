@@ -3,19 +3,20 @@ package eu.freme.bservices.usercontroller;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.common.rest.BaseRestController;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
 
 import static org.junit.Assert.assertTrue;
 import eu.freme.common.starter.FREMEStarter;
-import eu.freme.common.test.TestHelper;
 
 public class UserControllerTest{
 
@@ -30,7 +31,7 @@ public class UserControllerTest{
 	@Before
 	public void setup() {
 		
-		context = FREMEStarter.startPackageFromClasspath("spring-configurations/user-controller-test-package.xml");
+		context = FREMEStarter.startPackageFromClasspath("user-controller-test-package.xml");
 		
 		TestHelper testHelper = context.getBean(TestHelper.class);
 		
