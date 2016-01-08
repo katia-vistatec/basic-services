@@ -1,7 +1,6 @@
 //package eu.freme.bservices.authenticatedtesthelper;
 //
 //import static org.junit.Assert.assertTrue; 
-
 //
 //import org.apache.log4j.Logger;
 //import org.junit.After;
