@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>eu.freme</groupId>
-		<artifactId>bservices</artifactId>
+		<artifactId>basic-services-parent</artifactId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>eu.freme.bservices</groupId>
