@@ -9,6 +9,7 @@
 		<module>user-controller</module>
 		<module>test-helper</module>
 		<module>authenticated-test-helper</module>
+		<module>package-maker</module>
 	</modules>
 
 	<parent>
@@ -20,7 +21,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.freme</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>common2</artifactId>
 			<version>0.5-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
@@ -38,4 +39,5 @@
 			</plugin>
 		</plugins>
 	</build>
+	<groupId>eu.freme.bservices</groupId>
 </project>

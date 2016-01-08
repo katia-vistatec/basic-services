@@ -5,6 +5,5 @@
     <artifactId>basic-services-parent</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
-  <groupId>eu.freme.bservices.filter</groupId>
-  <artifactId>rate-limiter</artifactId>
+  <artifactId>package-maker</artifactId>
 </project>
