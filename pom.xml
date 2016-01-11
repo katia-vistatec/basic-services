@@ -4,6 +4,8 @@
 
 	<artifactId>basic-services-parent</artifactId>
 	<packaging>pom</packaging>
+	<groupId>eu.freme.bservices</groupId>
+	
 	<modules>
 		<module>rate-limiter</module>
 		<module>user-controller</module>
@@ -25,19 +27,4 @@
 			<version>0.5-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<groupId>eu.freme.bservices</groupId>
 </project>
