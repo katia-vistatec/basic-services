@@ -1,26 +1,21 @@
-package eu.freme.bservices.authenticatedtesthelper;
+package eu.freme.bservices.filtercontroller;
 
-import static org.junit.Assert.assertTrue; 
-
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
+//import eu.freme.bservices.
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-
-import eu.freme.common.FREMECommonConfig;
-
-@ComponentScan({"eu.freme.bservices.authenticatedtesthelper", "eu.freme.bservices.usercontroller"})
-@Import(FREMECommonConfig.class)
-public class AuthenticatedTestHelperTest{
-
+/**
+ * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
+ */
+public class FilterControllerTest {
+/*
     ConfigurableApplicationContext context;
-    Logger logger = Logger.getLogger(AuthenticatedTestHelperTest.class);
+    Logger logger = Logger.getLogger(FilterControllerTest.class);
 
     AuthenticatedTestHelper testHelper;
 
@@ -41,5 +36,5 @@ public class AuthenticatedTestHelperTest{
         testHelper.removeAuthenticatedUsers();
         context.stop();
         logger.info("test successful");
-    }
+    }*/
 }
