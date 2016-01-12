@@ -30,7 +30,7 @@ public class BaseTest {
     @After
     public void after() throws UnirestException {
         context.stop();
-        logger.info("test successful");
+        logger.info("test finished");
     }
 
     public ConfigurableApplicationContext getContext() {

@@ -1,4 +1,4 @@
-package eu.freme.bservice.filtercontroller;
+package eu.freme.bservices.filtercontroller;
 
 
 import com.google.common.base.Strings;
@@ -15,7 +15,6 @@ import eu.freme.common.rest.NIFParameterSet;
 import eu.freme.common.rest.RestrictedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +30,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/toolbox/filter")
-@Profile("broker")
 public class FilterController extends RestrictedResourceManagingController<Filter> {
 
     Logger logger = Logger.getLogger(FilterController.class);
