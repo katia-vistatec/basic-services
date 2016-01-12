@@ -11,6 +11,9 @@ import org.junit.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -35,12 +38,6 @@ public class AuthenticatedBaseTest extends BaseTest {
     public void setup() throws UnirestException {
         super.setup();
         authenticateUsers();
-    }
-
-    @After
-    public void after() throws UnirestException {
-        removeAuthenticatedUsers();
-        super.after();
     }
 
 

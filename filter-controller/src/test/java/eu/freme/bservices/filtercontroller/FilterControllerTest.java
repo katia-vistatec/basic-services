@@ -41,9 +41,15 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
 
     @Test
     public void testFilterManagement() throws UnirestException {
+        HttpResponse<String> response;
+
+        logger.info("get all filters");
+        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+
         logger.info("create filter1");
         String url = getAPIBaseUrl() + "/toolbox/filter/manage";
-        HttpResponse<String> response = addAuthentication(Unirest.post(url))
+        response = addAuthentication(Unirest.post(url))
                 .queryString("entityId", "filter1")
                 .body(filterSelect)
                 .asString();
@@ -92,8 +98,14 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
 
     @Test
     public void testFiltering() throws Exception {
+        HttpResponse<String> response;
+
+        logger.info("get all filters");
+        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+
         logger.info("create filter1");
-        HttpResponse<String> response = addAuthentication(Unirest.post(getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = addAuthentication(Unirest.post(getAPIBaseUrl() + "/toolbox/filter/manage"))
                 .queryString("entityId", "filter1")
                 .body(filterSelect)
                 .asString();

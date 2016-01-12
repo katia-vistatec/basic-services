@@ -1,36 +1,33 @@
 package eu.freme.bservices.testhelper;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.starter.FREMEStarter;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
  */
 public class BaseTest {
     private ConfigurableApplicationContext context;
-    private String packeFN;
+    private String packageConfigFN;
 
     protected Logger logger;
 
     public void init(Class clazz, String xmlPackageFilename){
         logger = Logger.getLogger(clazz);
-        packeFN = xmlPackageFilename;
+        packageConfigFN = xmlPackageFilename;
     }
 
     @Before
     public void setup() throws UnirestException {
-        context = FREMEStarter.startPackageFromClasspath(packeFN);
-    }
-
-    @After
-    public void after() throws UnirestException {
-        context.stop();
-        logger.info("test finished");
+        context = IntegrationTestSetup.getContext(packageConfigFN);
     }
 
     public ConfigurableApplicationContext getContext() {
