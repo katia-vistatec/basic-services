@@ -16,8 +16,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import eu.freme.common.FREMECommonConfig;
 
-//@ComponentScan({"eu.freme.bservices.authenticatedtesthelper", "eu.freme.bservices.usercontroller"})
-//@Import(FREMECommonConfig.class)
 public class AuthenticatedTestHelperTest{
 
     ConfigurableApplicationContext context;
@@ -28,7 +26,6 @@ public class AuthenticatedTestHelperTest{
     @Before
     public void setup() throws UnirestException {
         context = FREMEStarter.startPackageFromClasspath("authenticated-test-helper-test-package.xml");
-        //context = SpringApplication.run(AuthenticatedTestHelperTest.class);
         testHelper = context.getBean(AuthenticatedTestHelper.class);
         testHelper.authenticateUsers();
     }

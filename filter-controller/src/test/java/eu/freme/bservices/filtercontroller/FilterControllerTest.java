@@ -1,6 +1,8 @@
 package eu.freme.bservices.filtercontroller;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.freme.bservices.authenticatedtesthelper.AuthenticatedTestHelper;
+import eu.freme.common.starter.FREMEStarter;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +15,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
  */
 public class FilterControllerTest {
-/*
+
     ConfigurableApplicationContext context;
     Logger logger = Logger.getLogger(FilterControllerTest.class);
 
@@ -21,7 +23,7 @@ public class FilterControllerTest {
 
     @Before
     public void setup() throws UnirestException {
-        context = SpringApplication.run(AuthenticatedTestHelperTest.class);
+        context = FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
         testHelper = context.getBean(AuthenticatedTestHelper.class);
         testHelper.authenticateUsers();
     }
@@ -36,5 +38,5 @@ public class FilterControllerTest {
         testHelper.removeAuthenticatedUsers();
         context.stop();
         logger.info("test successful");
-    }*/
+    }
 }
