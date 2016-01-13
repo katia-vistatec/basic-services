@@ -30,7 +30,7 @@ public class RateLimitingFilterTest {
     AuthenticatedTestHelper testHelper;
 
     public RateLimitingFilterTest() throws  UnirestException {
-        testHelper= new AuthenticatedTestHelper("ratelimiter-test-package.xml");
+        testHelper = new AuthenticatedTestHelper("ratelimiter-test-package.xml");
     }
 
 

@@ -7,12 +7,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<import resource="classpath:spring-configurations/freme-common.xml" />
-	<import resource="classpath:spring-configurations/rate-limiter.xml" />
-	<import resource="classpath:spring-configurations/user-controller.xml" />
-	<import resource="classpath:spring-configurations/test-helper.xml"/>
-	<import resource="classpath:spring-configurations/logging-filter.xml"/>
-	
+	<context:component-scan base-package="eu.freme.bservices.filter.ratelimiter" />
 </beans>
 
 

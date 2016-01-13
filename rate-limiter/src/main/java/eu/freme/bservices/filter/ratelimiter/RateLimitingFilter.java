@@ -55,7 +55,7 @@ public class RateLimitingFilter extends GenericFilterBean {
 	@Autowired
 	RateLimiterInMemory rateLimiterInMemory;
 
-	@Value("${ratelimiter.enabled:false}")
+	@Value("${ratelimiter.enabled:true}")
 	boolean rateLimiterEnabled;
 
 
