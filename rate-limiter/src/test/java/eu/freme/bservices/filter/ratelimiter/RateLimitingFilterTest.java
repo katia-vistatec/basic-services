@@ -42,7 +42,6 @@ public class RateLimitingFilterTest {
     String testusername="ratelimitertestuser";
     String testpassword="ratelimiterpassword";
 
-
     @Test
     public void testRatelimiting() throws UnirestException, IOException {
         logger.info("starting ratelimiter test");
@@ -53,23 +52,25 @@ public class RateLimitingFilterTest {
         String ratelimiterToken = testHelper.authenticateUser(testusername, testpassword);
         logger.info("trying /e-link/templates call as ratelimitertestuser - should work the first time");
 
-        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/ratelimiting"), ratelimiterToken).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting"), ratelimiterToken).asString();
         logger.info(response.getBody());
         assertNotEquals(HttpStatus.TOO_MANY_REQUESTS.value(),response.getStatus());
         logger.info("trying /e-entity/freme-ner/datasets call as ratelimitertestuser - should not work the second time");
         LoggingHelper.loggerIgnore("TooManyRequestsException");
-        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/ratelimiting"), ratelimiterToken).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting"), ratelimiterToken).asString();
         assertEquals(HttpStatus.TOO_MANY_REQUESTS.value(),response.getStatus());
         LoggingHelper.loggerUnignore("TooManyRequestsException");
 
         logger.info("trying /e-translate/tilde test with huge size as ratelimitertestuser - should not work");
         LoggingHelper.loggerIgnore("TooManyRequestsException");
-        response = testHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl()+"/mockups/ratelimiting2"), ratelimiterToken)
+
+        String content = testHelper.getResourceContent("mockups/file/ratelimiting");
+        response = testHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting2"), ratelimiterToken)
                 .queryString("informat", "text")
                 .queryString("outformat","turtle")
                 .queryString("source-lang","en")
                 .queryString("target-lang","de")
-                .body(FileUtils.readFileToString(new File("src/test/resources/rdftest/e-translate/ELINK.ttl")))
+                .body(content)
                 .asString();
         assertEquals(HttpStatus.TOO_MANY_REQUESTS.value(),response.getStatus());
         LoggingHelper.loggerUnignore("TooManyRequestsException");

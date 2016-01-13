@@ -4,9 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -64,6 +66,12 @@ public class TestHelper{
 	 */
 	public String getAdminPassword(){
 		return context.getEnvironment().getProperty("admin.password");
+	}
+
+	public String getResourceContent(String resourceLocation) throws IOException {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource(resourceLocation).getFile());
+		return FileUtils.readFileToString(file);
 	}
 
 }

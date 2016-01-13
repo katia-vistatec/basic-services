@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class TestHelperTest {
 
     Logger logger = Logger.getLogger(TestHelperTest.class);
-    TestHelper testHelper = new TestHelper("mockup-endpoint-test-package.xml");
+    TestHelper testHelper = new TestHelper("test-helper-test-package.xml");
 
     @Test
     public void testMockupEndpoint() throws UnirestException {

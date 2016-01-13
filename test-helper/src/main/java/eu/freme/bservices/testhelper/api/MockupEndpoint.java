@@ -1,6 +1,8 @@
 package eu.freme.bservices.testhelper.api;
 
+import eu.freme.common.exception.FileNotFoundException;
 import org.apache.commons.io.FileUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +25,15 @@ public class MockupEndpoint {
 			@PathVariable String filename
 
 	) throws IOException{
-
-		File file = new File("src/main/resources/mockup-endpoint-data/"+filename);
-		String fileContent = FileUtils.readFileToString(file);
+		String fileContent;
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			File file = new File(classLoader.getResource("mockup-endpoint-data/" + filename).getFile());
+			//File file = new File("src/main/resources/mockup-endpoint-data/"+filename);
+			fileContent = FileUtils.readFileToString(file);
+		}catch (Exception ex){
+			throw new FileNotFoundException("could not load file: "+filename);
+		}
 		HttpHeaders headers = new HttpHeaders();
 
 		contentType= (contentType == null) ? "text/turtle" : contentType;

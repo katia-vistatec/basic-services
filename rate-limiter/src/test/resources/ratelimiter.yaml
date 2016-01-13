@@ -16,9 +16,9 @@ rate-limits:
     default:
       - 0
       - 0
-    /mockups/ratelimiting:
+    /mockups/file/ratelimiting:
       - 2
       - 1000
-    /mockups/ratelimiting2:
+    /mockups/file/ratelimiting2:
       - 1000
       - 1

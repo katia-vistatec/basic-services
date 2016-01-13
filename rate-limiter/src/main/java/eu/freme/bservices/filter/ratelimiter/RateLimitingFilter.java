@@ -85,7 +85,6 @@ public class RateLimitingFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		System.err.println("asdasdsad");
 
 
 		if (rateLimiterEnabled) {
