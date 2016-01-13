@@ -3,8 +3,15 @@ package eu.freme.bservices.testhelper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
+import eu.freme.common.starter.FREMEStarter;
+
 import org.apache.log4j.Logger;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
 import static org.junit.Assert.assertTrue;
@@ -15,14 +22,17 @@ import static org.junit.Assert.assertTrue;
 public class TestHelperTest {
 
     Logger logger = Logger.getLogger(TestHelperTest.class);
-    TestHelper testHelper = new TestHelper("test-helper-test-package.xml");
-
+    //TestHelper testHelper = new TestHelper("test-helper-test-package.xml");
+ 
+   	ApplicationContext context = FREMEStarter.startPackageFromClasspath("test-helper-test-package.xml");    	
+    
     @Test
     public void testMockupEndpoint() throws UnirestException {
+    	
+    	TestHelper testHelper = (TestHelper)context.getBean(TestHelper.class);
         String filename = "ELINK.ttl";
         logger.info("request file: "+filename);
         HttpResponse<String> response = Unirest.post(testHelper.getAPIBaseUrl() + "/mockups/file/"+filename).asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
     }
-
-}
+ }

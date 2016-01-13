@@ -25,17 +25,17 @@ import eu.freme.common.conversion.rdf.RDFConversionService;
 /**
  * @author Jan Nehring - jan.nehring@dfki.de
  */
-//@Component
-public class TestHelper{
+@Component
+public class TestHelper implements ApplicationContextAware{
 
 	protected ApplicationContext context;
 	
 	@Autowired
 	RDFConversionService rdfConversionService;
 
-	public TestHelper(String packageConfigFileName){
-		context = IntegrationTestSetup.getContext(packageConfigFileName);
-	}
+//	public TestHelper(String packageConfigFileName){
+//		context = IntegrationTestSetup.getContext(packageConfigFileName);
+//	}
 
 
 	/**
@@ -74,4 +74,9 @@ public class TestHelper{
 		return FileUtils.readFileToString(file);
 	}
 
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		context = applicationContext;
+	}
 }

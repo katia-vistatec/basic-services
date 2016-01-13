@@ -1,21 +1,31 @@
 package eu.freme.bservices.testhelper;
 
+import javax.annotation.PostConstruct;
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
+
 import eu.freme.common.rest.BaseRestController;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.junit.Before;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 13.01.2016.
  */
-public class AuthenticatedTestHelper extends TestHelper {
+@Component
+public class AuthenticatedTestHelper {
+	
+	@Autowired
+	TestHelper testHelper;
 
     Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
 
@@ -29,11 +39,6 @@ public class AuthenticatedTestHelper extends TestHelper {
     private final String passwordWithPermission = "testpassword";
     private final String usernameWithoutPermission = "userwithoutpermission";
     private final String passwordWithoutPermission = "testpassword";
-
-    public AuthenticatedTestHelper(String packageConfigFileName) throws UnirestException {
-        super(packageConfigFileName);
-        authenticateUsers();
-    }
 
     /**
      * This method creates and authenticates two users, userwithpermission and userwithoutpermission.
@@ -49,7 +54,7 @@ public class AuthenticatedTestHelper extends TestHelper {
             createUser(usernameWithoutPermission, passwordWithoutPermission);
             tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
             //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
-            tokenAdmin = authenticateUser(getAdminUsername(), getAdminPassword());
+            tokenAdmin = authenticateUser(testHelper.getAdminUsername(), testHelper.getAdminPassword());
             authenticated = true;
         }
     }
@@ -116,7 +121,7 @@ public class AuthenticatedTestHelper extends TestHelper {
 
     public void createUser(String username, String password) throws UnirestException {
         logger.info("create user: " + username);
-        HttpResponse<String> response = Unirest.post(getAPIBaseUrl() + "/user")
+        HttpResponse<String> response = Unirest.post(testHelper.getAPIBaseUrl() + "/user")
                 .queryString("username", username)
                 .queryString("password", password).asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
@@ -124,7 +129,7 @@ public class AuthenticatedTestHelper extends TestHelper {
 
     public void deleteUser(String username, String token) throws UnirestException {
         logger.info("delete user: " + username);
-        HttpResponse<String> response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/user/" + username), token).asString();
+        HttpResponse<String> response = addAuthentication(Unirest.delete(testHelper.getAPIBaseUrl() + "/user/" + username), token).asString();
         assertTrue(response.getStatus() == HttpStatus.NO_CONTENT.value());
     }
 
@@ -133,7 +138,7 @@ public class AuthenticatedTestHelper extends TestHelper {
 
         logger.info("login with new user / create token");
         response = Unirest
-                .post(getAPIBaseUrl() + BaseRestController.authenticationEndpoint)
+                .post(testHelper.getAPIBaseUrl() + BaseRestController.authenticationEndpoint)
                 .header("X-Auth-Username", username)
                 .header("X-Auth-Password", password).asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
