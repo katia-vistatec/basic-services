@@ -15,15 +15,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.freme.bservices.ratelimiter;
+package eu.freme.bservices.filter.ratelimiter;
 
-import eu.freme.bservices.ratelimiter.exception.TooManyRequestsException;
+import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.ExceptionHandlerService;
 import eu.freme.common.persistence.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,7 +40,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-import eu.freme.bservices.ratelimiter.RateLimiterInMemory;
 /**
  * Filter that limits number of requets made by each user
  *

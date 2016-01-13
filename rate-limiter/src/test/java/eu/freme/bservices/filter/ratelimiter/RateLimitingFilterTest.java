@@ -1,4 +1,4 @@
-package eu.freme.bservices.ratelimiter;
+package eu.freme.bservices.filter.ratelimiter;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -7,12 +7,9 @@ import eu.freme.bservices.testhelper.*;
 import eu.freme.common.FREMECommonConfig;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
@@ -49,7 +46,7 @@ public class RateLimitingFilterTest {
     String testusername="ratelimitertestuser";
     String testpassword="ratelimiterpassword";
 
-
+    @Ignore
     @Test
     public void testRatelimiting() throws UnirestException, IOException {
         logger.info("starting ratelimiter test");

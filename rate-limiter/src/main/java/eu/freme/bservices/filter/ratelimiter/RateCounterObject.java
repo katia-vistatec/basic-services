@@ -1,6 +1,6 @@
-package eu.freme.bservices.ratelimiter;
+package eu.freme.bservices.filter.ratelimiter;
 
-import eu.freme.bservices.ratelimiter.exception.TooManyRequestsException;
+import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.InternalServerErrorException;
 
 import java.util.concurrent.ConcurrentLinkedQueue;

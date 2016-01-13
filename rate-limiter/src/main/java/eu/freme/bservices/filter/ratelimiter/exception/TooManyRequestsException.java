@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.freme.bservices.ratelimiter.exception;
+package eu.freme.bservices.filter.ratelimiter.exception;
 
 import eu.freme.common.exception.FREMEHttpException;
 import org.springframework.http.HttpStatus;

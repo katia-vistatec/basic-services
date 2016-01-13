@@ -1,4 +1,4 @@
-package eu.freme.bservices.ratelimiter;
+package eu.freme.bservices.filter.ratelimiter;
 
 /**
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 18.11.15.
