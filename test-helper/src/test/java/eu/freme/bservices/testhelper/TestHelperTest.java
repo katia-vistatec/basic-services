@@ -24,7 +24,7 @@ public class TestHelperTest {
     Logger logger = Logger.getLogger(TestHelperTest.class);
     //TestHelper testHelper = new TestHelper("test-helper-test-package.xml");
  
-   	ApplicationContext context = FREMEStarter.startPackageFromClasspath("test-helper-test-package.xml");    	
+   	ApplicationContext context = IntegrationTestSetup.getContext("test-helper-test-package.xml");//FREMEStarter.startPackageFromClasspath("test-helper-test-package.xml");
     
     @Test
     public void testMockupEndpoint() throws UnirestException {

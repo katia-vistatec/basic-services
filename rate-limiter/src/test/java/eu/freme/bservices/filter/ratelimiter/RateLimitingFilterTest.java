@@ -5,17 +5,12 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import eu.freme.bservices.testhelper.*;
-import eu.freme.common.FREMECommonConfig;
+import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.starter.FREMEStarter;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
@@ -23,22 +18,17 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.File;
-
 /**
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 25.11.15.
  */
 
 public class RateLimitingFilterTest {
 
-    AuthenticatedTestHelper authenticatedTestHelper;
-    TestHelper testHelper;
+    AuthenticatedTestHelper ath;
 
     public RateLimitingFilterTest() throws  UnirestException {
-    	ApplicationContext context = FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
-        authenticatedTestHelper = context.getBean(AuthenticatedTestHelper.class);
-        testHelper = context.getBean(TestHelper.class);
-        
+    	ApplicationContext context = IntegrationTestSetup.getContext("ratelimiter-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
+        ath = context.getBean(AuthenticatedTestHelper.class);
     }
 
 
@@ -55,17 +45,17 @@ public class RateLimitingFilterTest {
         logger.info("starting ratelimiter test");
 
         logger.info("creating User for ratelimiter test");
-        authenticatedTestHelper.createUser(testusername, testpassword);
+        ath.createUser(testusername, testpassword);
         logger.info("authenticating this user");
-        String ratelimiterToken = authenticatedTestHelper.authenticateUser(testusername, testpassword);
+        String ratelimiterToken = ath.authenticateUser(testusername, testpassword);
         logger.info("trying /e-link/templates call as ratelimitertestuser - should work the first time");
 
-        response = authenticatedTestHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting_requests"), ratelimiterToken).asString();
+        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl()+"/mockups/file/ratelimiting_requests"), ratelimiterToken).asString();
         logger.info(response.getBody());
         assertNotEquals(HttpStatus.TOO_MANY_REQUESTS.value(),response.getStatus());
         logger.info("trying /e-entity/freme-ner/datasets call as ratelimitertestuser - should not work the second time");
         LoggingHelper.loggerIgnore("TooManyRequestsException");
-        response = authenticatedTestHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting_requests"), ratelimiterToken).asString();
+        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl()+"/mockups/file/ratelimiting_requests"), ratelimiterToken).asString();
         assertEquals(HttpStatus.TOO_MANY_REQUESTS.value(),response.getStatus());
         LoggingHelper.loggerUnignore("TooManyRequestsException");
 
@@ -73,7 +63,7 @@ public class RateLimitingFilterTest {
         LoggingHelper.loggerIgnore("TooManyRequestsException");
 
         //String content = testHelper.getResourceContent("mockups/file/ratelimiting");
-        response = authenticatedTestHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting_size"), ratelimiterToken)
+        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl()+"/mockups/file/ratelimiting_size"), ratelimiterToken)
                 .queryString("informat", "text")
                 .queryString("outformat","turtle")
                 .queryString("source-lang","en")
@@ -84,7 +74,7 @@ public class RateLimitingFilterTest {
         LoggingHelper.loggerUnignore("TooManyRequestsException");
 
         logger.info("trying anoter call for which there is no rate-limiting, should work");
-        response = Unirest.get(testHelper.getAPIBaseUrl()+"/mockups/file/ratelimiting_default").asString();
+        response = Unirest.get(ath.getAPIBaseUrl()+"/mockups/file/ratelimiting_default").asString();
         assertNotEquals(HttpStatus.TOO_MANY_REQUESTS.value(), response.getStatus());
     }
 }

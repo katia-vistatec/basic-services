@@ -40,6 +40,10 @@ public class AuthenticatedTestHelper {
     private final String usernameWithoutPermission = "userwithoutpermission";
     private final String passwordWithoutPermission = "testpassword";
 
+    public String getAPIBaseUrl(){
+        return testHelper.getAPIBaseUrl();
+    }
+
     /**
      * This method creates and authenticates two users, userwithpermission and userwithoutpermission.
      * Furthermore the admin token is created.
