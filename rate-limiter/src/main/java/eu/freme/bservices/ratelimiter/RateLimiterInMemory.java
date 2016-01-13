@@ -1,6 +1,6 @@
-package eu.freme.bservices.filter.ratelimiter;
+package eu.freme.bservices.ratelimiter;
 
-import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
+import eu.freme.bservices.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.InternalServerErrorException;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.FileSystemResource;
@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import eu.freme.bservices.ratelimiter.RateCounterInterface;
 
 /**
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 18.11.15.

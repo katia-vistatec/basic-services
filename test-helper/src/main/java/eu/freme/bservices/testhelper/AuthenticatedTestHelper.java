@@ -77,7 +77,7 @@ public class AuthenticatedTestHelper extends TestHelper {
      * @return The modified request
      */
     @SuppressWarnings("unchecked")
-    private <T extends HttpRequest> T addAuthentication(T request, String token) {
+    public <T extends HttpRequest> T addAuthentication(T request, String token) {
         if (token == null)
             return request;
         return (T) request.header("X-Auth-Token", token);

@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2015 Agro-Know, Deutsches Forschungszentrum für Künstliche Intelligenz, iMinds,
  * Institut für Angewandte Informatik e. V. an der Universität Leipzig,
@@ -16,23 +15,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.freme.bservices.filter.ratelimiter.exception;
+package eu.freme.bservices.ratelimiter.exception;
 
 import eu.freme.common.exception.FREMEHttpException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * @author Gerald Haesendonck
+ * @author Jan Nehring - jan.nehring@dfki.de
  */
 @SuppressWarnings("serial")
-@ResponseStatus(value= HttpStatus.FORBIDDEN, reason="")
-public class ForbiddenException extends FREMEHttpException {
-    public ForbiddenException() {
-        super();
-    }
+@ResponseStatus(value=HttpStatus.TOO_MANY_REQUESTS, reason="")
+public class TooManyRequestsException extends FREMEHttpException{
 
-    public ForbiddenException(String msg) {
-        super(msg);
-    }
+	public TooManyRequestsException(String msg){
+		super(msg);
+	}
 }
