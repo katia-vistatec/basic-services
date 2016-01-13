@@ -26,9 +26,10 @@ public class MockupEndpoint {
 
 	) throws IOException{
 		String fileContent;
+		File file;
 		try {
 			ClassLoader classLoader = getClass().getClassLoader();
-			File file = new File(classLoader.getResource("mockup-endpoint-data/" + filename).getFile());
+			file = new File(classLoader.getResource("mockup-endpoint-data/" + filename).getFile());
 			//File file = new File("src/main/resources/mockup-endpoint-data/"+filename);
 			fileContent = FileUtils.readFileToString(file);
 		}catch (Exception ex){
@@ -41,6 +42,7 @@ public class MockupEndpoint {
 		headers.add("Content-Type", contentType);
 		outformat= (outformat == null) ? "turtle" : outformat;
 		headers.add("outformat",outformat);
+		headers.add("content-length", file.length()+"");
 
 		ResponseEntity<String> response = new ResponseEntity<String>(fileContent, headers, HttpStatus.OK);
 		return response;
