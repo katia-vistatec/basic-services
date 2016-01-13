@@ -24,7 +24,6 @@ public class AuthenticatedTestHelper extends TestHelper {
     private static String tokenAdmin;
 
     private static boolean authenticated = false;
-    private static boolean authenticatedRemoved = false;
 
     private final String usernameWithPermission = "userwithpermission";
     private final String passwordWithPermission = "testpassword";
@@ -61,10 +60,10 @@ public class AuthenticatedTestHelper extends TestHelper {
      * @throws UnirestException
      */
     public void removeAuthenticatedUsers() throws UnirestException {
-        if (!authenticatedRemoved) {
+        if (authenticated) {
             deleteUser(usernameWithPermission, tokenWithPermission);
             deleteUser(usernameWithoutPermission, tokenWithOutPermission);
-            authenticatedRemoved = true;
+            authenticated = false;
         }
     }
 
