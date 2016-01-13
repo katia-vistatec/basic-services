@@ -52,7 +52,6 @@ public class FilterControllerTest  {
 
 
 
-    @Ignore
     @Test
     public void testFilterManagement() throws UnirestException {
         HttpResponse<String> response;
@@ -110,7 +109,6 @@ public class FilterControllerTest  {
 
     }
 
-    @Ignore
     @Test
     public void testFiltering() throws Exception {
         HttpResponse<String> response;
