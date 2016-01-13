@@ -25,11 +25,7 @@ import java.io.File;
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 25.11.15.
  */
 
-@ComponentScan({"eu.freme.bservices.authenticatedtesthelper, eu.freme.bservices.usercontroller"})
-
-@Import(FREMECommonConfig.class)
 public class RateLimitingFilterTest {
-    ConfigurableApplicationContext context;
 
     AuthenticatedTestHelper testHelper;
 
@@ -46,7 +42,7 @@ public class RateLimitingFilterTest {
     String testusername="ratelimitertestuser";
     String testpassword="ratelimiterpassword";
 
-    @Ignore
+
     @Test
     public void testRatelimiting() throws UnirestException, IOException {
         logger.info("starting ratelimiter test");

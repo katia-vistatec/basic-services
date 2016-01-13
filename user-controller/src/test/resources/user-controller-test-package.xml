@@ -9,6 +9,7 @@
 
 	<import resource="classpath:spring-configurations/freme-common.xml" />
 	<import resource="classpath:spring-configurations/user-controller.xml" />
+	<import resource="classpath:spring-configurations/logging-filter.xml" />
 	
 </beans>
 
