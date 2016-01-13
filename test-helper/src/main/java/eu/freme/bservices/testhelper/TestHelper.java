@@ -26,7 +26,7 @@ import eu.freme.common.conversion.rdf.RDFConversionService;
 //@Component
 public class TestHelper{
 
-	private ApplicationContext context;
+	protected ApplicationContext context;
 	
 	@Autowired
 	RDFConversionService rdfConversionService;
