@@ -16,6 +16,7 @@ import eu.freme.common.starter.FREMEStarter;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,7 @@ public class FilterControllerTest  {
 
 
 
+    @Ignore
     @Test
     public void testFilterManagement() throws UnirestException {
         HttpResponse<String> response;
@@ -108,6 +110,7 @@ public class FilterControllerTest  {
 
     }
 
+    @Ignore
     @Test
     public void testFiltering() throws Exception {
         HttpResponse<String> response;

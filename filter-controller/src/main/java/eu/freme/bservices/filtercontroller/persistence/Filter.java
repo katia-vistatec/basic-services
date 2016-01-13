@@ -15,7 +15,6 @@ import javax.persistence.Transient;
 /**
  * Created by Arne on 11.12.2015.
  */
-@Component
 @Entity
 @Table(name = "filter")
 public class Filter extends OwnedResource {
