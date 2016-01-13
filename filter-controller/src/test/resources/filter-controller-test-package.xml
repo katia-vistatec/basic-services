@@ -8,9 +8,11 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<import resource="classpath:spring-configurations/freme-common.xml" />
+	<import resource="classpath:spring-configurations/filter-controller.xml" />
 	<import resource="classpath:spring-configurations/user-controller.xml" />
 	<import resource="classpath:spring-configurations/logging-filter.xml" />
-	
+	<import resource="classpath:spring-configurations/test-helper.xml" />
+
 </beans>
 
 

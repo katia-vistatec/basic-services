@@ -10,8 +10,9 @@
 		<module>rate-limiter</module>
 		<module>user-controller</module>
 		<module>test-helper</module>
-		<module>authenticated-test-helper</module>
 		<module>package-maker</module>
+		<module>filter-controller</module>
+		<module>logging-filter</module>
 	</modules>
 
 	<parent>

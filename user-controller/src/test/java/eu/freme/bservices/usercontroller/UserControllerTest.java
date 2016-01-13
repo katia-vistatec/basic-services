@@ -4,7 +4,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.common.rest.BaseRestController;
 
 import org.apache.log4j.Logger;
@@ -32,12 +31,15 @@ public class UserControllerTest{
 	public void setup() {
 		
 		context = FREMEStarter.startPackageFromClasspath("user-controller-test-package.xml");
-		
-		TestHelper testHelper = context.getBean(TestHelper.class);
-		
-		adminUsername = testHelper.getAdminUsername();
-		adminPassword = testHelper.getAdminPassword();
-		baseUrl = testHelper.getAPIBaseUrl();
+
+		String port = context.getEnvironment().getProperty("server.port");
+		if( port == null){
+			port = "8080";
+		}
+		baseUrl = "http://localhost:" + port;
+
+		adminUsername = context.getEnvironment().getProperty("admin.username");
+		adminPassword = context.getEnvironment().getProperty("admin.password");
 	}
 	
 	@Test

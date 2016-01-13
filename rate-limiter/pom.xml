@@ -7,4 +7,19 @@
   </parent>
   <groupId>eu.freme.bservices.filter</groupId>
   <artifactId>rate-limiter</artifactId>
+  <dependencies>
+    <dependency>
+      <groupId>eu.freme.bservices</groupId>
+      <artifactId>test-helper</artifactId>
+      <version>0.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>eu.freme.bservices</groupId>
+      <artifactId>logging-filter</artifactId>
+      <version>0.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
 </project>

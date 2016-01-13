@@ -2,6 +2,7 @@ package eu.freme.bservices.filter.ratelimiter;
 
 import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.InternalServerErrorException;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 

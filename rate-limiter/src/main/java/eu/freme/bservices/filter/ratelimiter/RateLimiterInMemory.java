@@ -4,6 +4,7 @@ import eu.freme.bservices.filter.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.InternalServerErrorException;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
@@ -14,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 18.11.15.
  */
 
-
+@Component
 public class RateLimiterInMemory implements RateCounterInterface {
 
 
@@ -33,9 +34,10 @@ public class RateLimiterInMemory implements RateCounterInterface {
     public void refresh(String rateLimiterYaml) throws IOException{
         clear();
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        URL yamlfile = getClass().getClassLoader().getResource(rateLimiterYaml);;
+        URL yamlfile = getClass().getClassLoader().getResource(rateLimiterYaml);
         try {
-            yaml.setResources(new FileSystemResource(yamlfile.getFile()));
+            FileSystemResource fileSystemResource = new FileSystemResource(yamlfile.getFile());
+            yaml.setResources(fileSystemResource);
             rateLimiterProperties = yaml.getObject();
             this.time_frame = (int) rateLimiterProperties.get("time-frame") * 1000;
         } catch (NullPointerException e) {

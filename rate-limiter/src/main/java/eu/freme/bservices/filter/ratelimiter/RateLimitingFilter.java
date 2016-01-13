@@ -55,7 +55,7 @@ public class RateLimitingFilter extends GenericFilterBean {
 	@Autowired
 	RateLimiterInMemory rateLimiterInMemory;
 
-	@Value("${ratelimiter.enabled:false}")
+	@Value("${ratelimiter.enabled:true}")
 	boolean rateLimiterEnabled;
 
 
@@ -65,6 +65,7 @@ public class RateLimitingFilter extends GenericFilterBean {
 
 	@PostConstruct
 	public void setup () {
+		System.err.println(rateLimiterEnabled);
 		try {
 			rateLimiterInMemory.refresh(rateLimiterYaml);
 		} catch (IOException e) {
@@ -84,7 +85,6 @@ public class RateLimitingFilter extends GenericFilterBean {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-
 
 
 		if (rateLimiterEnabled) {

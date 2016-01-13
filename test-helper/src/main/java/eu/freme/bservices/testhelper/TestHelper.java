@@ -4,8 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 
+import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -25,10 +28,15 @@ import eu.freme.common.conversion.rdf.RDFConversionService;
 @Component
 public class TestHelper implements ApplicationContextAware{
 
-	private ApplicationContext context;
+	protected ApplicationContext context;
 	
 	@Autowired
 	RDFConversionService rdfConversionService;
+
+//	public TestHelper(String packageConfigFileName){
+//		context = IntegrationTestSetup.getContext(packageConfigFileName);
+//	}
+
 
 	/**
 	 * Returns the base url of the API given the spring application context, e.g. http://localhost:8080
@@ -60,10 +68,15 @@ public class TestHelper implements ApplicationContextAware{
 		return context.getEnvironment().getProperty("admin.password");
 	}
 
+	public String getResourceContent(String resourceLocation) throws IOException {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource(resourceLocation).getFile());
+		return FileUtils.readFileToString(file);
+	}
+
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
-		this.context = applicationContext;
-		
+		context = applicationContext;
 	}
 }
