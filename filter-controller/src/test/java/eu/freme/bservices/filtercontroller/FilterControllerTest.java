@@ -6,10 +6,11 @@ import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import eu.freme.bservices.testhelper.AuthenticatedBaseTest;
+import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -26,10 +27,10 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
  */
-public class FilterControllerTest extends AuthenticatedBaseTest {
-    public FilterControllerTest() {
-        init(FilterControllerTest.class, "filter-controller-test-package.xml");
-    }
+public class FilterControllerTest  {
+    private Logger logger = Logger.getLogger(FilterControllerTest.class);
+
+    private AuthenticatedTestHelper testHelper;
 
     final String entityHeader = "entity";
     final String propertyIdentifier = "http://www.w3.org/2005/11/its/rdf#taIdentRef";
@@ -38,60 +39,64 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
     final String filterSelect = "SELECT ?"+ entityHeader +" WHERE {[] <"+propertyIdentifier+"> ?"+ entityHeader +"}";
     final String filterConstruct = "CONSTRUCT {?s <"+propertyIdentifier+"> ?"+ entityHeader +"} WHERE {?s <"+propertyIdentifier+"> ?"+ entityHeader +"}";
 
+    public FilterControllerTest() throws UnirestException {
+        testHelper = new AuthenticatedTestHelper("filter-controller-test-package.xml");
+    }
+
 
     @Test
     public void testFilterManagement() throws UnirestException {
         HttpResponse<String> response;
 
         logger.info("get all filters");
-        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter1");
-        String url = getAPIBaseUrl() + "/toolbox/filter/manage";
-        response = addAuthentication(Unirest.post(url))
+        String url = testHelper.getAPIBaseUrl() + "/toolbox/filter/manage";
+        response = testHelper.addAuthentication(Unirest.post(url))
                 .queryString("entityId", "filter1")
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("get filter1");
-        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         JSONObject json = new JSONObject(response.getBody());
         assertEquals(filterSelect, json.getString("query"));
 
         logger.info("update filter1");
-        response = addAuthentication(Unirest.put(getAPIBaseUrl() + "/toolbox/filter/manage/filter1"))
+        response = testHelper.addAuthentication(Unirest.put(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter1"))
                 .body(filterConstruct)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("get updated filter1");
-        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         json = new JSONObject(response.getBody());
         assertEquals(filterConstruct, json.getString("query"));
 
         logger.info("create filter2");
-        response = addAuthentication(Unirest.post(getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = testHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage"))
                 .queryString("entityId", "filter2")
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("get all filters");
-        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         JSONArray jsonArray = new JSONArray(response.getBody());
         assertTrue((filterConstruct.equals(((JSONObject)jsonArray.get(0)).getString("query")) && filterSelect.equals(((JSONObject)jsonArray.get(1)).getString("query")))
                 || (filterConstruct.equals(((JSONObject)jsonArray.get(1)).getString("query")) && filterSelect.equals(((JSONObject)jsonArray.get(0)).getString("query"))));
 
         logger.info("delete filter1");
-        response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
+        response =testHelper.addAuthentication(Unirest.delete(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         logger.info("delete filter2");
-        response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
+        response = testHelper.addAuthentication(Unirest.delete(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
     }
@@ -101,18 +106,18 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
         HttpResponse<String> response;
 
         logger.info("get all filters");
-        response = addAuthentication(Unirest.get(getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        response = testHelper.addAuthentication(Unirest.get(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter1");
-        response = addAuthentication(Unirest.post(getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = testHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage"))
                 .queryString("entityId", "filter1")
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter2");
-        response = addAuthentication(Unirest.post(getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = testHelper.addAuthentication(Unirest.post(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage"))
                 .queryString("entityId", "filter2")
                 .body(filterConstruct)
                 .asString();
@@ -139,7 +144,7 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
 
 
         logger.info("filter nif with filter1(select)");
-        response = Unirest.post(getAPIBaseUrl() + "/toolbox/filter/documents/filter1")
+        response = Unirest.post(testHelper.getAPIBaseUrl() + "/toolbox/filter/documents/filter1")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.JSON.contentType())
                 .body(nifContent)
@@ -152,7 +157,7 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
         assertFalse(resultSet.hasNext());
 
         logger.info("filter nif with filter2(construct)");
-        response = Unirest.post(getAPIBaseUrl() + "/toolbox/filter/documents/filter2")
+        response = Unirest.post(testHelper.getAPIBaseUrl() + "/toolbox/filter/documents/filter2")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .body(nifContent)
@@ -173,10 +178,10 @@ public class FilterControllerTest extends AuthenticatedBaseTest {
         assertEquals(1,resultSet.nextSolution().getLiteral("count").getInt());
 
         logger.info("delete filter1");
-        response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
+        response = testHelper.addAuthentication(Unirest.delete(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         logger.info("delete filter2");
-        response = addAuthentication(Unirest.delete(getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
+        response = testHelper.addAuthentication(Unirest.delete(testHelper.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 

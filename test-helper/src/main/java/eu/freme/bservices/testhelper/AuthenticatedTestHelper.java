@@ -5,22 +5,20 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import eu.freme.common.rest.BaseRestController;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
-import org.junit.After;
 import org.junit.Before;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
+ * Created by Arne Binder (arne.b.binder@gmail.com) on 13.01.2016.
  */
-@Component
-public class AuthenticatedBaseTest extends BaseTest {
+public class AuthenticatedTestHelper extends TestHelper {
+
+    Logger logger = Logger.getLogger(AuthenticatedTestHelper.class);
+
     private static String tokenWithPermission;
     private static String tokenWithOutPermission;
     private static String tokenAdmin;
@@ -33,13 +31,10 @@ public class AuthenticatedBaseTest extends BaseTest {
     private final String usernameWithoutPermission = "userwithoutpermission";
     private final String passwordWithoutPermission = "testpassword";
 
-
-    @Before
-    public void setup() throws UnirestException {
-        super.setup();
+    public AuthenticatedTestHelper(String packageConfigFileName) throws UnirestException {
+        super(packageConfigFileName);
         authenticateUsers();
     }
-
 
     /**
      * This method creates and authenticates two users, userwithpermission and userwithoutpermission.
@@ -146,4 +141,5 @@ public class AuthenticatedBaseTest extends BaseTest {
         String token = new JSONObject(response.getBody()).getString("token");
         return token;
     }
+
 }

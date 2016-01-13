@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -22,13 +23,18 @@ import eu.freme.common.conversion.rdf.RDFConversionService;
 /**
  * @author Jan Nehring - jan.nehring@dfki.de
  */
-@Component
-public class TestHelper implements ApplicationContextAware{
+//@Component
+public class TestHelper{
 
 	private ApplicationContext context;
 	
 	@Autowired
 	RDFConversionService rdfConversionService;
+
+	public TestHelper(String packageConfigFileName){
+		context = IntegrationTestSetup.getContext(packageConfigFileName);
+	}
+
 
 	/**
 	 * Returns the base url of the API given the spring application context, e.g. http://localhost:8080
@@ -60,10 +66,4 @@ public class TestHelper implements ApplicationContextAware{
 		return context.getEnvironment().getProperty("admin.password");
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		this.context = applicationContext;
-		
-	}
 }
