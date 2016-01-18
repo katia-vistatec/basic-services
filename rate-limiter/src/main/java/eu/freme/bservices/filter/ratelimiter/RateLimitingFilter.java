@@ -64,8 +64,7 @@ public class RateLimitingFilter extends GenericFilterBean {
 
 
 	@PostConstruct
-	public void setup () {
-		System.err.println(rateLimiterEnabled);
+	public void setup (){
 		try {
 			rateLimiterInMemory.refresh(rateLimiterYaml);
 		} catch (IOException e) {
