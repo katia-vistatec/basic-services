@@ -10,6 +10,7 @@
 	<import resource="classpath:spring-configurations/freme-common.xml" />
 	<import resource="classpath:spring-configurations/test-helper.xml"/>
 	<import resource="classpath:spring-configurations/logging-filter.xml"/>
+	<import resource="classpath:spring-configurations/e-internationalization-filter.xml"/>
 	
 </beans>
 

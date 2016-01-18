@@ -29,7 +29,7 @@ public class MockupEndpoint {
 		File file;
 		try {
 			ClassLoader classLoader = getClass().getClassLoader();
-			file = new File(classLoader.getResource("mockup-endpoint-data/" + filename).getFile());
+			file = new File(classLoader.getResource("mockup-endpoint-data/" + filename.split("\\?")[0]).getFile());
 			//File file = new File("src/main/resources/mockup-endpoint-data/"+filename);
 			fileContent = FileUtils.readFileToString(file);
 		}catch (Exception ex){
