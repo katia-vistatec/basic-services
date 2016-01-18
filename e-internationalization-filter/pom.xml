@@ -9,29 +9,29 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>test-helper</artifactId>
+    <artifactId>e-internationalizationfilter</artifactId>
+
     <dependencies>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>eu.freme.bservices</groupId>
-            <artifactId>user-controller</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>eu.freme.bservices</groupId>
             <artifactId>logging-filter</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.freme</groupId>
+            <artifactId>e-internationalization</artifactId>
+            <version>0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.freme.bservices</groupId>
+            <artifactId>test-helper</artifactId>
+            <version>0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
-
-
 </project>

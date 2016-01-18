@@ -13,6 +13,7 @@
 		<module>package-maker</module>
 		<module>filter-controller</module>
 		<module>logging-filter</module>
+		<module>e-internationalization-filter</module>
 	</modules>
 
 	<parent>
