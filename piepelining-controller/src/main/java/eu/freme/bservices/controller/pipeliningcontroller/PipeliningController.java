@@ -3,6 +3,13 @@ package eu.freme.bservices.controller.pipeliningcontroller;
 import com.google.common.base.Strings;
 import com.google.gson.JsonSyntaxException;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineResponse;
+import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineService;
+import eu.freme.bservices.controller.pipeliningcontroller.core.ServiceException;
+import eu.freme.bservices.controller.pipeliningcontroller.core.WrappedPipelineResponse;
+import eu.freme.bservices.controller.pipeliningcontroller.requests.SerializedRequest;
+import eu.freme.bservices.controller.pipeliningcontroller.serialization.Pipeline_local;
+import eu.freme.bservices.controller.pipeliningcontroller.serialization.Serializer;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
@@ -11,12 +18,12 @@ import eu.freme.common.exception.TemplateNotFoundException;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.persistence.model.Pipeline;
 import eu.freme.common.rest.RestrictedResourceManagingController;
-import eu.freme.eservices.pipelines.core.PipelineResponse;
+/*import eu.freme.eservices.pipelines.core.PipelineResponse;
 import eu.freme.eservices.pipelines.core.PipelineService;
 import eu.freme.eservices.pipelines.core.ServiceException;
 import eu.freme.eservices.pipelines.core.WrappedPipelineResponse;
 import eu.freme.eservices.pipelines.requests.SerializedRequest;
-import eu.freme.eservices.pipelines.serialization.Serializer;
+import eu.freme.eservices.pipelines.serialization.Serializer;*/
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -137,7 +144,7 @@ public class PipeliningController extends RestrictedResourceManagingController<P
     @Override
     protected Pipeline createEntity(String id, OwnedResource.Visibility visibility, String description, String body, Map<String, String> parameters) throws AccessDeniedException {
         // just to perform a first validation of the pipeline...
-        eu.freme.eservices.pipelines.serialization.Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
+        Pipeline_local pipelineInfoObj = Serializer.templateFromJson(body);
 
         boolean toPersist = Boolean.parseBoolean(parameters.getOrDefault("persist","false"));
         Pipeline pipeline = new Pipeline(
@@ -155,7 +162,7 @@ public class PipeliningController extends RestrictedResourceManagingController<P
 
         // process body
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
-            eu.freme.eservices.pipelines.serialization.Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
+            Pipeline_local pipelineInfoObj = Serializer.templateFromJson(body);
             String newLabel = pipelineInfoObj.getLabel();
             if (newLabel != null && !newLabel.equals(pipeline.getLabel())) {
                 pipeline.setLabel(newLabel);

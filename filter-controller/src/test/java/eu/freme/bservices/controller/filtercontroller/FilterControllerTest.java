@@ -31,8 +31,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FilterControllerTest  {
     private Logger logger = Logger.getLogger(FilterControllerTest.class);
-
-    AuthenticatedTestHelper ath;
+    private AuthenticatedTestHelper ath;
 
     public FilterControllerTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
