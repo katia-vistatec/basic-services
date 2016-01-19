@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package eu.freme.bservices.usercontroller;
+package eu.freme.bservices.controller.usercontroller;
 
 import eu.freme.common.persistence.model.User;
 

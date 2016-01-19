@@ -1,4 +1,4 @@
-package eu.freme.bservices.filtercontroller;
+package eu.freme.bservices.controller.filtercontroller;
 
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Model;
@@ -7,16 +7,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
-import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
-import eu.freme.common.starter.FREMEStarter;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package eu.freme.bservices.filtercontroller;
+package eu.freme.bservices.controller.filtercontroller;
 
 
 import com.google.common.base.Strings;

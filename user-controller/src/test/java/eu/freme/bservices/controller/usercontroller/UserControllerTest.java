@@ -1,4 +1,4 @@
-package eu.freme.bservices.usercontroller;
+package eu.freme.bservices.controller.usercontroller;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -10,7 +10,6 @@ import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.filter.ExpressionFilter;
 import org.json.JSONObject;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
