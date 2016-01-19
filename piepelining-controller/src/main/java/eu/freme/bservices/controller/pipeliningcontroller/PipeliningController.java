@@ -43,7 +43,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/pipelining")
+@RequestMapping("/pipelines")
 public class PipeliningController extends RestrictedResourceManagingController<Pipeline> {
 
     Logger logger = Logger.getLogger(PipeliningController.class);

@@ -3,12 +3,14 @@ package eu.freme.bservices.testhelper;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Logger;
 import org.apache.log4j.filter.ExpressionFilter;
+import org.springframework.stereotype.Component;
 
 import java.util.Enumeration;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 06.01.2016.
  */
+@Component
 public class LoggingHelper {
 
     public static final String accessDeniedExceptions = "eu.freme.broker.exception.AccessDeniedException || EXCEPTION ~=org.springframework.security.access.AccessDeniedException";

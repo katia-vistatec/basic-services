@@ -150,4 +150,15 @@ public class AuthenticatedTestHelper {
         return token;
     }
 
+    public static String getTokenWithPermission() {
+        return tokenWithPermission;
+    }
+
+    public static String getTokenWithOutPermission() {
+        return tokenWithOutPermission;
+    }
+
+    public static String getTokenAdmin() {
+        return tokenAdmin;
+    }
 }
