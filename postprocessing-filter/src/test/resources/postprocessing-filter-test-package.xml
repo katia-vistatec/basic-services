@@ -11,7 +11,7 @@
 	<import resource="classpath:spring-configurations/postprocessing-filter.xml" />
 	<import resource="classpath:spring-configurations/filter-controller.xml" />
 	<import resource="classpath:spring-configurations/user-controller.xml" />
-	<!-- <import resource="classpath:spring-configurations/logging-filter.xml" /> -->
+	<import resource="classpath:spring-configurations/logging-filter.xml" />
 	<import resource="classpath:spring-configurations/test-helper.xml" />
 
 </beans>
