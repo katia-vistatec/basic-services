@@ -24,16 +24,17 @@ import java.util.Enumeration;
 public class UserControllerTest{
 
 	ConfigurableApplicationContext context;
-	
-	String baseUrl = null;
+	private static boolean started = false;
+
+	private static String baseUrl = null;
 	Logger logger = Logger.getLogger(UserControllerTest.class);
 
-	String adminUsername;
-	String adminPassword;
+	private static String adminUsername;
+	private static String adminPassword;
 
 	@Before
 	public void setup() {
-		//if(context==null) {
+		if(!started) {
 
 			context =  FREMEStarter.startPackageFromClasspath("user-controller-test-package.xml");
 
@@ -45,7 +46,9 @@ public class UserControllerTest{
 
 			adminUsername = context.getEnvironment().getProperty("admin.username");
 			adminPassword = context.getEnvironment().getProperty("admin.password");
-		//}
+
+			started = true;
+		}
 	}
 
 	@Test
@@ -224,10 +227,10 @@ public class UserControllerTest{
 
 	}
 	
-	@After
-	public void after(){
-		context.stop();
-	}
+	//@After
+	//public void after(){
+	//	context.stop();
+	//}
 
 	public static final String accessDeniedExceptions = "eu.freme.broker.exception.AccessDeniedException || EXCEPTION ~=org.springframework.security.access.AccessDeniedException";
 
