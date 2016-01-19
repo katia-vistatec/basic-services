@@ -22,6 +22,12 @@ public class PostprocessingFilterTest {
 
     String filterSelect = "PREFIX itsrdf: <http://www.w3.org/2005/11/its/rdf#> SELECT ?entity WHERE {?charsequence itsrdf:taIdentRef ?entity}";
     String filterName = "extract-entities-only";
+    String csvResponse = "entity\n" +
+            "http://dbpedia.org/resource/Champ_de_Mars\n" +
+            "http://dbpedia.org/resource/Eiffel_Tower\n" +
+            "http://dbpedia.org/resource/France\n" +
+            "http://dbpedia.org/resource/Paris\n" +
+            "http://dbpedia.org/resource/Eiffel_(programming_language)";
 
     public PostprocessingFilterTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("postprocessing-filter-test-package.xml");
@@ -45,6 +51,8 @@ public class PostprocessingFilterTest {
         logger.info("request file: "+filename);
         response = Unirest.post(ath.getAPIBaseUrl() + "/mockups/file/"+filename+"?filter="+filterName+"&outformat=csv").asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
+        // clean line endings and check content
+        assertEquals(csvResponse.trim(), response.getBody().trim().replaceAll("\r",""));
 
         logger.info("delete filter extract-entities-only");
         response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/"+filterName)).asString();

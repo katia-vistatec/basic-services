@@ -27,7 +27,6 @@ import java.util.TreeMap;
  * Created by Arne Binder (arne.b.binder@gmail.com) on 02.12.2015.
  */
 @Component
-@Profile("broker")
 public class PostprocessingFilter implements Filter {
 
     private Logger logger = Logger.getLogger(PostprocessingFilter.class);
