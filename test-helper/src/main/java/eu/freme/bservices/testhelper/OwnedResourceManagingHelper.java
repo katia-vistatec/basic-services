@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Arne Binder (arne.b.binder@gmail.com) on 20.01.2016.
@@ -31,6 +32,9 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
     String service;
     Class clazz;
+
+    public static final String creationTimeIdentifier = "creationTime";
+    public static final String idIdentifier = "id";
 
     AuthenticatedTestHelper ath;
 
@@ -45,6 +49,15 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         T entity = createEntity(request1, ath.getTokenWithPermission(),HttpStatus.OK);
         T returnedEntity = getEntity(entity.getIdentifier(), ath.getTokenWithPermission(),HttpStatus.OK);
 
+        logger.info("testing update entity content: should be different than original content");
+        returnedEntity = updateEntity(entity.getIdentifier(), request2, ath.getTokenWithPermission(),HttpStatus.OK);
+        logger.info("check updated content");
+
+        logger.info("create comparative entity via request to ensure that all header and parameter values are considered");
+        T entity2 = createEntity(request2, ath.getTokenWithPermission(), HttpStatus.OK);
+
+        assertTrue(containsEntity(returnedEntity, entity2));
+
         logger.info("set first entity to visibility=private");
         HashMap<String, Object> newParameters = new HashMap<>();
         newParameters.put(RestrictedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PRIVATE.name());
@@ -55,56 +68,34 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
         logger.info("get all entities as userWithPermission: should return one entity");
         List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
-        assertEquals(1,allEntities.size());
+        assertEquals(2,allEntities.size());
 
         logger.info("get all entities as userWithPermission: should return no entity");
         allEntities = getAllEntities(ath.getTokenWithoutPermission());
-        assertEquals(0,allEntities.size());
+        assertEquals(1,allEntities.size());
 
         logger.info("attempting update without permission: should return NOT_ALLOWED");
         LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
-        returnedEntity = updateEntity(entity.getIdentifier(),request1,ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        returnedEntity = updateEntity(entity.getIdentifier(),request1, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
         LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
-
-        logger.info("testing update entity content: should be different than original content");
-        returnedEntity = updateEntity(entity.getIdentifier(),request2,ath.getTokenWithPermission(),HttpStatus.OK);
-        logger.info("check updated content");
-        sameEntities(entity,entity);
-        sameEntities(entity, returnedEntity);
 
         // getall, update,
     }
 
-    public boolean sameEntities(T entity1, T entity2) throws JsonProcessingException {
-        HashMap<String,Object> json1 = jsonHashMapFromString(toJSON(entity1));
-        HashMap<String,Object> json2 = jsonHashMapFromString(toJSON(entity2));
-        for (String key: json1.keySet()) {
-            try {
-                clazz.getField(key);
-            } catch (NoSuchFieldException e) {
-                if(json1.get(key)!=json2.get(key)) {
-                    return false;
-                }
-            }
+
+    public boolean containsEntity(T entity1, T entity2) throws JsonProcessingException {
+        JSONObject jObject1 = new JSONObject(toJSON(entity1));
+        JSONObject jObject2 = new JSONObject(toJSON(entity2));
+        for(Iterator iterator = jObject2.keySet().iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            Object o1 = jObject1.get(key);
+            if(jObject2.isNull(key) || key.equals(creationTimeIdentifier) || key.equals(idIdentifier))
+                continue;
+            Object o2 = jObject2.get(key);
+            if(!o1.toString().equals(o2.toString()))
+                return false;
         }
         return true;
-    }
-
-    public HashMap<String,Object > jsonHashMapFromString(String json) {
-        HashMap<String, Object> map = new HashMap<String, Object >();
-        JSONObject jObject = new JSONObject(json);
-        Iterator<?> keys = jObject.keys();
-        while( keys.hasNext() ){
-
-            String key = (String) keys.next()
-            try {;
-                String value = jObject.getString(key);
-                map.put(key, value);
-            } catch (Exception e) {
-                logger.error("function currently not working, key "+key+" not added to hashmap");
-            }
-        }
-        return map;
     }
 
 
