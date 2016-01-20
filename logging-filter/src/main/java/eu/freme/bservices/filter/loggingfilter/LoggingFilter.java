@@ -23,8 +23,7 @@ package eu.freme.bservices.filter.loggingfilter;
 
 
 import eu.freme.common.conversion.rdf.RDFSerializationFormats;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -43,7 +42,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Component
 public class LoggingFilter extends OncePerRequestFilter {
 
-    protected static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
+    protected static final Logger logger = Logger.getLogger(LoggingFilter.class);
     private static final String REQUEST_PREFIX = "Request: ";
     private static final String RESPONSE_PREFIX = "Response: ";
     private AtomicLong id = new AtomicLong(1);
@@ -81,6 +80,7 @@ public class LoggingFilter extends OncePerRequestFilter {
             long requestId = id.incrementAndGet();
             request = new RequestWrapper(requestId, request);
             response = new ResponseWrapper(requestId, response);
+            logRequest(request);
         }
         try {
             filterChain.doFilter(request, response);
@@ -88,7 +88,6 @@ public class LoggingFilter extends OncePerRequestFilter {
         }
         finally {
             if(logger.isInfoEnabled()){
-                logRequest(request);
                 logResponse((ResponseWrapper)response);
             }
         }
