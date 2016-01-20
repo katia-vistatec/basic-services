@@ -16,6 +16,7 @@ import eu.freme.common.persistence.model.Filter;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -194,12 +195,12 @@ public class FilterControllerTest  {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-
+    @Ignore
     @Test
     public void testWithHelper() throws IOException, UnirestException {
         //Filter filter = new Filter();
         //filter.setQuery(filterSelect);
-        Filter savedFilter = ormh.createEntity(filterSelect,null,null);
+        //Filter savedFilter = ormh.createEntity(filterSelect,null,null);
         logger.info("done");
     }
 

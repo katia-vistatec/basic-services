@@ -1,8 +1,11 @@
 package eu.freme.bservices.testhelper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.deser.std.StringArrayDeserializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -10,10 +13,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.rest.RestrictedResourceManagingController;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -64,10 +69,44 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         logger.info("testing update entity content: should be different than original content");
         returnedEntity = updateEntity(entity.getIdentifier(),request2,ath.getTokenWithPermission(),HttpStatus.OK);
         logger.info("check updated content");
-        //returnedEntity.g
+        sameEntities(entity,entity);
+        sameEntities(entity, returnedEntity);
 
         // getall, update,
     }
+
+    public boolean sameEntities(T entity1, T entity2) throws JsonProcessingException {
+        HashMap<String,Object> json1 = jsonHashMapFromString(toJSON(entity1));
+        HashMap<String,Object> json2 = jsonHashMapFromString(toJSON(entity2));
+        for (String key: json1.keySet()) {
+            try {
+                clazz.getField(key);
+            } catch (NoSuchFieldException e) {
+                if(json1.get(key)!=json2.get(key)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public HashMap<String,Object > jsonHashMapFromString(String json) {
+        HashMap<String, Object> map = new HashMap<String, Object >();
+        JSONObject jObject = new JSONObject(json);
+        Iterator<?> keys = jObject.keys();
+        while( keys.hasNext() ){
+
+            String key = (String) keys.next()
+            try {;
+                String value = jObject.getString(key);
+                map.put(key, value);
+            } catch (Exception e) {
+                logger.error("function currently not working, key "+key+" not added to hashmap");
+            }
+        }
+        return map;
+    }
+
 
     // CREATE
     public T createEntity(SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
