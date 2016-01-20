@@ -59,24 +59,26 @@ public class EInternationalizationTest {
     }
 
     String dataset = "dbpedia";
-    //String[] sample_xliff = {"e-internationalization/testdata1.xlf"};
+    String[] sample_xliff = {"e-internationalization/testdata1.xlf"};
     String[] sample_html = {"e-internationalization/aa324.html", "e-internationalization/test10.html", "e-internationalization/test12.html"};
 
     @Test
     public void TestEInternationalization() throws IOException,
             UnirestException {
-        // TODO: Uncomment this block
-        // logger.info("TestEInternationalizaton with xliff");
-        // See EInternationalizationFilter
-        // for (String sample_file : sample_xliff) {
-        //      logger.info("Testing file "+sample_file),
-        // testContentTypeandInformat("application/x-xliff+xml",readFile(resourcepath+sample_file));
-        // }
+         logger.info("TestEInternationalizaton with xliff");
+         for (String sample_file : sample_xliff) {
+             logger.info("Testing file " + sample_file);
+             testContentTypeandInformat(
+                     "application/x-xliff+xml",
+                     FileUtils.readFileToString(new File(classLoader.getResource(sample_file).getFile())));
+         }
 
-        logger.info("TestEInternationalization with xliff");
+        logger.info("TestEInternationalization with html");
         for (String sample_file : sample_html) {
             logger.info("Testing file "+sample_file);
-            testContentTypeandInformat("text/html", FileUtils.readFileToString(new File(classLoader.getResource(sample_file).getFile())));
+            testContentTypeandInformat(
+                    "text/html",
+                    FileUtils.readFileToString(new File(classLoader.getResource(sample_file).getFile())));
         }
     }
 
