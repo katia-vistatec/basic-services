@@ -96,7 +96,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         Iterator<?> keys = jObject.keys();
         while( keys.hasNext() ){
 
-            String key = (String) keys.next()
+            String key = (String) keys.next();
             try {;
                 String value = jObject.getString(key);
                 map.put(key, value);
