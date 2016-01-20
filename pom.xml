@@ -14,7 +14,7 @@
 		<module>filter-controller</module>
 		<module>logging-filter</module>
 		<module>postprocessing-filter</module>
-		<module>piepelining-controller</module>
+		<module>pipelining-controller</module>
 	</modules>
 
 	<parent>

@@ -1,5 +1,9 @@
 package eu.freme.bservices.controller.pipeliningcontroller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.base.Strings;
 import com.google.gson.JsonSyntaxException;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -7,9 +11,6 @@ import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineResponse;
 import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineService;
 import eu.freme.bservices.controller.pipeliningcontroller.core.ServiceException;
 import eu.freme.bservices.controller.pipeliningcontroller.core.WrappedPipelineResponse;
-import eu.freme.bservices.controller.pipeliningcontroller.requests.SerializedRequest;
-import eu.freme.bservices.controller.pipeliningcontroller.serialization.Pipeline_local;
-import eu.freme.bservices.controller.pipeliningcontroller.serialization.Serializer;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
@@ -17,6 +18,7 @@ import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.exception.TemplateNotFoundException;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.persistence.model.Pipeline;
+import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.common.rest.RestrictedResourceManagingController;
 /*import eu.freme.eservices.pipelines.core.PipelineResponse;
 import eu.freme.eservices.pipelines.core.PipelineService;
@@ -32,9 +34,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -69,16 +74,25 @@ public class PipeliningController extends RestrictedResourceManagingController<P
             produces = {"text/turtle", "application/json", "application/ld+json", "application/n-triples", "application/rdf+xml", "text/n3", "text/html"}
     )
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<String> pipeline(@RequestBody String requests, @RequestParam(value = "stats", defaultValue = "false", required = false) String stats) {
+    public ResponseEntity<String> pipeline(
+            @RequestBody String requests,
+            @RequestParam(value = "stats", defaultValue = "false", required = false) String stats
+    ) {
         try {
             boolean wrapResult = Boolean.parseBoolean(stats);
-            List<SerializedRequest> serializedRequests = Serializer.fromJson(requests);
+            ObjectMapper mapper = new ObjectMapper();
+            List<SerializedRequest> serializedRequests = mapper.readValue(requests,
+                    TypeFactory.defaultInstance().constructCollectionType(List.class, eu.freme.common.persistence.model.SerializedRequest.class));
+            //List<SerializedRequest> serializedRequests = //Serializer.fromJson(requests);
             WrappedPipelineResponse pipelineResult = pipelineAPI.chain(serializedRequests);
             MultiValueMap<String, String> headers = new HttpHeaders();
 
             if (wrapResult) {
                 headers.add(HttpHeaders.CONTENT_TYPE, RDFConstants.RDFSerialization.JSON.contentType());
-                return new ResponseEntity<>(Serializer.toJson(pipelineResult), headers, HttpStatus.OK);
+                ObjectWriter ow = new ObjectMapper().writer()
+                        .withDefaultPrettyPrinter();
+                String serialization = ow.writeValueAsString(pipelineResult);
+                return new ResponseEntity<>(serialization, headers, HttpStatus.OK);
             } else {
                 headers.add(HttpHeaders.CONTENT_TYPE, pipelineResult.getContent().getContentType());
                 PipelineResponse lastResponse = pipelineResult.getContent();
@@ -121,12 +135,17 @@ public class PipeliningController extends RestrictedResourceManagingController<P
             consumes = {"text/turtle", "application/json", "application/ld+json", "application/n-triples", "application/rdf+xml", "text/n3", "text/plain"},
             produces = {"text/turtle", "application/json", "application/ld+json", "application/n-triples", "application/rdf+xml", "text/n3"}
     )
-    public ResponseEntity<String> pipeline(@RequestBody String body, @PathVariable long id, @RequestParam (value = "stats", defaultValue = "false", required = false) String stats) {
+    public ResponseEntity<String> pipeline(
+            @RequestBody String body,
+            @PathVariable String id,
+            @RequestParam (value = "stats", defaultValue = "false", required = false) String stats
+    ) throws IOException {
         try {
-            Pipeline pipeline = getEntityDAO().findOneById(id);
-            List<SerializedRequest> serializedRequests = Serializer.fromJson(pipeline.getSerializedRequests());
+            Pipeline pipeline = getEntityDAO().findOneByIdentifier(id);
+            List<SerializedRequest> serializedRequests = pipeline.getSerializedRequests();// Serializer.fromJson(pipeline.getSerializedRequests());
             serializedRequests.get(0).setBody(body);
-            return pipeline(Serializer.toJson(serializedRequests), stats);
+            pipeline.setSerializedRequests(serializedRequests);
+            return pipeline(pipeline.getRequests(), stats);
         } catch (org.springframework.security.access.AccessDeniedException | InsufficientAuthenticationException ex) {
             logger.error(ex.getMessage(), ex);
             throw new AccessDeniedException(ex.getMessage());
@@ -142,42 +161,49 @@ public class PipeliningController extends RestrictedResourceManagingController<P
 
 
     @Override
-    protected Pipeline createEntity(String id, OwnedResource.Visibility visibility, String description, String body, Map<String, String> parameters) throws AccessDeniedException {
+    protected Pipeline createEntity(String id, OwnedResource.Visibility visibility, String description, String body, Map<String, String> parameters) throws BadRequestException {
         // just to perform a first validation of the pipeline...
-        Pipeline_local pipelineInfoObj = Serializer.templateFromJson(body);
+        //Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
 
         boolean toPersist = Boolean.parseBoolean(parameters.getOrDefault("persist","false"));
-        Pipeline pipeline = new Pipeline(
-                visibility,
-                pipelineInfoObj.getLabel(),
-                pipelineInfoObj.getDescription(),
-                Serializer.toJson(pipelineInfoObj.getSerializedRequests()),
-                toPersist);
+        try {
+            // the body contains the label, the description and the serializedRequests
+            Pipeline pipeline = Pipeline.fromJSON(body); //new Pipeline(visibility, label, description, null, toPersist);
+            //pipeline.setRequests(body);
+            pipeline.setVisibility(visibility);
+            pipeline.setPersist(toPersist);
+            pipeline.setOwnerToCurrentUser();
+            return pipeline;
+        } catch (IOException e) {
+            throw new BadRequestException("could not create pipeline template from \""+body+"\": "+e.getMessage());
+        }
 
-        return pipeline;
+
     }
 
     @Override
-    protected void updateEntity(Pipeline pipeline, String body, Map<String, String> parameters) {
+    protected void updateEntity(Pipeline pipeline, String body, Map<String, String> parameters) throws BadRequestException {
 
         // process body
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
-            Pipeline_local pipelineInfoObj = Serializer.templateFromJson(body);
-            String newLabel = pipelineInfoObj.getLabel();
-            if (newLabel != null && !newLabel.equals(pipeline.getLabel())) {
-                pipeline.setLabel(newLabel);
-            }
-            List<SerializedRequest> oldRequests = Serializer.fromJson(pipeline.getSerializedRequests());
-            List<SerializedRequest> newRequests = pipelineInfoObj.getSerializedRequests();
-            if (newRequests != null && !newRequests.equals(oldRequests)) {
-                pipeline.setSerializedRequests(Serializer.toJson(newRequests));
+            try {
+                Pipeline newPipeline = Pipeline.fromJSON(body);
+                if(!newPipeline.getLabel().equals(pipeline.getLabel()))
+                    pipeline.setLabel(newPipeline.getLabel());
+                if(!newPipeline.getDescription().equals(pipeline.getDescription()))
+                    pipeline.setDescription(newPipeline.getDescription());
+                if(!newPipeline.getSerializedRequests().equals(pipeline.getSerializedRequests()))
+                    pipeline.setSerializedRequests(newPipeline.getSerializedRequests());
+                //pipeline.setRequests(body);
+            } catch (IOException e) {
+                throw new BadRequestException("could not update pipeline template with \""+body+"\": "+e.getMessage());
             }
         }
 
         // process parameters
         if (parameters.containsKey("persist")) {
             boolean toPersist = Boolean.parseBoolean(parameters.get("persist"));
-            if (toPersist != pipeline.isPersistent()) {
+            if (toPersist != pipeline.isPersist()) {
                 pipeline.setPersist(toPersist);
             }
         }

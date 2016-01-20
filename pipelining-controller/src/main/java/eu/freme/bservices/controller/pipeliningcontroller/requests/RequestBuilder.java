@@ -18,6 +18,7 @@
 package eu.freme.bservices.controller.pipeliningcontroller.requests;
 
 import eu.freme.common.conversion.rdf.RDFConstants;
+import eu.freme.common.persistence.model.SerializedRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,7 @@ import static eu.freme.common.conversion.rdf.RDFConstants.RDFSerialization.TURTL
  * @author Gerald Haesendonck
  */
 public class RequestBuilder {
-	private HttpMethod httpMethod;
+	private SerializedRequest.HttpMethod httpMethod;
 	private String service;		// the URI to the specific service, e.g. /e-entity/dbpedia-spotlight/documents
 	private String baseEndpoint;
 	private RDFConstants.RDFSerialization informat;
@@ -52,7 +53,7 @@ public class RequestBuilder {
 		headers = new HashMap<>(2);
 
 		// the default values:
-		httpMethod = HttpMethod.POST;
+		httpMethod = SerializedRequest.HttpMethod.POST;
 		//baseEndpoint = "http://api.freme-project.eu/0.2";
 		baseEndpoint = "http://api.freme-project.eu/current";
 		informat = TURTLE;
@@ -64,7 +65,7 @@ public class RequestBuilder {
 	 * @param method	The method of HTTP request. Currently only GET and POST are supported; the default is POST.
 	 * @return		A builder object with the request method set.
 	 */
-	public RequestBuilder method(HttpMethod method) {
+	public RequestBuilder method(SerializedRequest.HttpMethod method) {
 		httpMethod = method;
 		return this;
 	}

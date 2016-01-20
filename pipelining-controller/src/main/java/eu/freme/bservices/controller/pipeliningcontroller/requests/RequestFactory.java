@@ -18,6 +18,7 @@
 package eu.freme.bservices.controller.pipeliningcontroller.requests;
 
 import eu.freme.common.conversion.rdf.RDFConstants;
+import eu.freme.common.persistence.model.SerializedRequest;
 
 /**
  * <p>Makes creating requests less painful. It returns default requests for services that can be modified afterwards.</p>
