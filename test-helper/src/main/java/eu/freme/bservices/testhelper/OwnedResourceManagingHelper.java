@@ -55,15 +55,15 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
         logger.info("get all entities as userWithPermission: should return one entity");
         List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
-        assertEquals(1,allEntities.size());
+        assertEquals(2,allEntities.size());
 
         logger.info("get all entities as userWithPermission: should return no entity");
         allEntities = getAllEntities(ath.getTokenWithoutPermission());
-        assertEquals(0,allEntities.size());
+        assertEquals(1,allEntities.size());
 
         logger.info("attempting update without permission: should return NOT_ALLOWED");
         LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
-        returnedEntity = updateEntity(entity.getIdentifier(),request1,ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        returnedEntity = updateEntity(entity.getIdentifier(),request1, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
         LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
 
         logger.info("testing update entity content: should be different than original content");
@@ -75,17 +75,18 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         // getall, update,
     }
 
-    public boolean sameEntities(T entity1, T entity2) throws JsonProcessingException {
-        HashMap<String,Object> json1 = jsonHashMapFromString(toJSON(entity1));
-        HashMap<String,Object> json2 = jsonHashMapFromString(toJSON(entity2));
-        for (String key: json1.keySet()) {
-            try {
-                clazz.getField(key);
-            } catch (NoSuchFieldException e) {
-                if(json1.get(key)!=json2.get(key)) {
-                    return false;
-                }
-            }
+
+    public boolean containsEntity(T entity1, T entity2) throws JsonProcessingException {
+        JSONObject jObject1 = new JSONObject(toJSON(entity1));
+        JSONObject jObject2 = new JSONObject(toJSON(entity2));
+        for(Iterator iterator = jObject2.keySet().iterator(); iterator.hasNext();) {
+            String key = (String) iterator.next();
+            Object o1 = jObject1.get(key);
+            if(jObject2.isNull(key) || key.equals(creationTimeIdentifier) || key.equals(idIdentifier))
+                continue;
+            Object o2 = jObject2.get(key);
+            if(!o1.toString().equals(o2.toString()))
+                return false;
         }
         return true;
     }
@@ -96,7 +97,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         Iterator<?> keys = jObject.keys();
         while( keys.hasNext() ){
 
-            String key = (String) keys.next();
+            String key = (String) keys.next()
             try {;
                 String value = jObject.getString(key);
                 map.put(key, value);
