@@ -11,6 +11,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.controller.pipeliningcontroller.requests.RequestFactory;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.LoggingHelper;
+import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.persistence.model.OwnedResource;
@@ -37,14 +38,47 @@ import static org.junit.Assert.assertTrue;
 public class PipeliningControllerTest {
     private Logger logger = Logger.getLogger(PipeliningControllerTest.class);
     AuthenticatedTestHelper ath;
+    OwnedResourceManagingHelper<Pipeline> ormh;
     LoggingHelper lh;
+
+    private static final String pipelineTemplateContent = "{\n" +
+            "  \"label\": \"Spotlight-Link\",\n" +
+            "  \"description\": \"Recognises entities using Spotlight en enriches with geo information.\",\n" +
+            "  \"serializedRequests\": [\n" +
+            "    {\n" +
+            "      \"method\": \"POST\",\n" +
+            "      \"endpoint\": \"http://api.freme-project.eu/current/e-entity/dbpedia-spotlight/documents\",\n" +
+            "      \"parameters\": {\n" +
+            "        \"language\": \"en\"\n" +
+            "      },\n" +
+            "      \"headers\": {\n" +
+            "        \"content-type\": \"text/plain\",\n" +
+            "        \"accept\": \"text/turtle\"\n" +
+            "      }\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"method\": \"POST\",\n" +
+            "      \"endpoint\": \"http://api.freme-project.eu/current/e-link/documents/\",\n" +
+            "      \"parameters\": {\n" +
+            "        \"templateid\": \"3\"\n" +
+            "      },\n" +
+            "      \"headers\": {\n" +
+            "        \"content-type\": \"text/turtle\",\n" +
+            "        \"accept\": \"text/turtle\"\n" +
+            "      }\n" +
+            "    }\n" +
+            "  ]\n" +
+            "}";
 
     public PipeliningControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelining-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
+        ormh = new OwnedResourceManagingHelper<>("/pipelines",Pipeline.class, ath);
         ath.authenticateUsers();
         lh = context.getBean(LoggingHelper.class);
     }
+
+
 
 
     //////////////////////////////////////////////////////////////////////////////////
@@ -362,49 +396,21 @@ public class PipeliningControllerTest {
     }
 
     @Test
-    public void testPipelineManagament() throws UnirestException {
-        HttpResponse<String> response;
-
-        logger.info("get all filters");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/pipelines/manage")).asString();
-        assertEquals(org.springframework.http.HttpStatus.OK.value(), response.getStatus());
-
+    public void testPipelineManagament() throws UnirestException, IOException {
+        // TODO: exchange this with ormh.checkAllOperations
+        logger.info("get all pipelines");
+        List<Pipeline> pipelines = ormh.getAllEntitis();
+        assertEquals(pipelines.size(), 0);
 
         logger.info("create pipeline template");
+        Pipeline pipeline = ormh.createEntity(pipelineTemplateContent,null,null);
 
-        String p = "{\n" +
-                "  \"label\": \"Spotlight-Link\",\n" +
-                "  \"description\": \"Recognises entities using Spotlight en enriches with geo information.\",\n" +
-                "  \"serializedRequests\": [\n" +
-                "    {\n" +
-                "      \"method\": \"POST\",\n" +
-                "      \"endpoint\": \"http://api.freme-project.eu/current/e-entity/dbpedia-spotlight/documents\",\n" +
-                "      \"parameters\": {\n" +
-                "        \"language\": \"en\"\n" +
-                "      },\n" +
-                "      \"headers\": {\n" +
-                "        \"content-type\": \"text/plain\",\n" +
-                "        \"accept\": \"text/turtle\"\n" +
-                "      }\n" +
-                "    },\n" +
-                "    {\n" +
-                "      \"method\": \"POST\",\n" +
-                "      \"endpoint\": \"http://api.freme-project.eu/current/e-link/documents/\",\n" +
-                "      \"parameters\": {\n" +
-                "        \"templateid\": \"3\"\n" +
-                "      },\n" +
-                "      \"headers\": {\n" +
-                "        \"content-type\": \"text/turtle\",\n" +
-                "        \"accept\": \"text/turtle\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "  ]\n" +
-                "}";
+        logger.info("get all pipelines again");
+        pipelines = ormh.getAllEntitis();
+        assertEquals(pipelines.size(), 1);
 
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/pipelines/manage"))
-                .body(p)
-                .asString();
-        assertEquals(org.springframework.http.HttpStatus.OK.value(), response.getStatus());
+        logger.info("update pipeline");
+
     }
 
 

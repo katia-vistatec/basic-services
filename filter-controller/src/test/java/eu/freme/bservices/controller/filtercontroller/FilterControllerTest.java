@@ -7,10 +7,12 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
+import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
+import eu.freme.common.persistence.model.Filter;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -32,10 +35,12 @@ import static org.junit.Assert.assertTrue;
 public class FilterControllerTest  {
     private Logger logger = Logger.getLogger(FilterControllerTest.class);
     private AuthenticatedTestHelper ath;
+    private OwnedResourceManagingHelper<Filter> ormh;
 
     public FilterControllerTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
+        ormh = new OwnedResourceManagingHelper<Filter>("/toolbox/filter",Filter.class, ath);
         ath.authenticateUsers();
     }
 
@@ -189,5 +194,13 @@ public class FilterControllerTest  {
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
+
+    @Test
+    public void testWithHelper() throws IOException, UnirestException {
+        //Filter filter = new Filter();
+        //filter.setQuery(filterSelect);
+        Filter savedFilter = ormh.createEntity(filterSelect,null,null);
+        logger.info("done");
+    }
 
 }

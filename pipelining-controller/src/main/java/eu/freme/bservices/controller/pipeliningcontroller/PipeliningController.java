@@ -168,7 +168,9 @@ public class PipeliningController extends RestrictedResourceManagingController<P
         boolean toPersist = Boolean.parseBoolean(parameters.getOrDefault("persist","false"));
         try {
             // the body contains the label, the description and the serializedRequests
-            Pipeline pipeline = Pipeline.fromJSON(body); //new Pipeline(visibility, label, description, null, toPersist);
+            ObjectMapper mapper = new ObjectMapper();
+            Pipeline pipeline = mapper.readValue(body, Pipeline.class);
+            //Pipeline pipeline = (Pipeline) Pipeline.fromJSON(body); //new Pipeline(visibility, label, description, null, toPersist);
             //pipeline.setRequests(body);
             pipeline.setVisibility(visibility);
             pipeline.setPersist(toPersist);
@@ -187,7 +189,9 @@ public class PipeliningController extends RestrictedResourceManagingController<P
         // process body
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
             try {
-                Pipeline newPipeline = Pipeline.fromJSON(body);
+                //Pipeline newPipeline = (Pipeline)Pipeline.fromJSON(body);
+                ObjectMapper mapper = new ObjectMapper();
+                Pipeline newPipeline = mapper.readValue(body, Pipeline.class);
                 if(!newPipeline.getLabel().equals(pipeline.getLabel()))
                     pipeline.setLabel(newPipeline.getLabel());
                 if(!newPipeline.getDescription().equals(pipeline.getDescription()))
