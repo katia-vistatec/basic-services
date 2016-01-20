@@ -28,6 +28,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -64,6 +65,7 @@ public class EInternationalizationTest {
     @Test
     public void TestEInternationalization() throws IOException,
             UnirestException {
+        // TODO: Uncomment this block
         // logger.info("TestEInternationalizaton with xliff");
         // See EInternationalizationFilter
         // for (String sample_file : sample_xliff) {
@@ -86,16 +88,25 @@ public class EInternationalizationTest {
             throws UnirestException, IOException {
         HttpResponse<String> response;
         // With Content-Type header
-        response = Unirest.post(th.getAPIBaseUrl()+"/mockups/file/NER-This-is-Germany.ttl").header("Content-Type", format)
-                .queryString("language", "en").body(data).asString();
+        response = Unirest.post(th.getAPIBaseUrl()+"/mockups/file/NER-This-is-Germany.ttl")
+                .header("Content-Type", format)
+                .header("Accept","text/turtle")
+                .queryString("language", "en")
+                .queryString("outformat","turtle")
+
+                .body(data).asString();
         logger.info(response.getHeaders());
-        //vh.validateNIFResponse(response, RDFConstants.RDFSerialization.TURTLE);
+        vh.validateNIFResponse(response, RDFConstants.RDFSerialization.TURTLE);
 
         // With informat QueryString
-        response = Unirest.post(th.getAPIBaseUrl() + "/mockups/file/NER-This-is-Germany.ttl").queryString("informat", format)
-                .queryString("language", "en").body(data).asString();
+        response = Unirest.post(th.getAPIBaseUrl() + "/mockups/file/NER-This-is-Germany.ttl")
+                .queryString("informat", format)
+                .queryString("language", "en")
+                .queryString("outformat","turtle")
+                .body(data)
+                .asString();
         logger.info(response.getHeaders());
-        //vh.validateNIFResponse(response, RDFConstants.RDFSerialization.TURTLE);
+        vh.validateNIFResponse(response, RDFConstants.RDFSerialization.TURTLE);
     }
 
     @Test
@@ -155,8 +166,7 @@ public class EInternationalizationTest {
     public void testOdt() throws IOException, UnirestException{
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("e-internationalization/odt-test.odt").getFile());
-        String data = FileUtils.readFileToString(file);
-
+        byte data[] = FileUtils.readFileToByteArray(file);
         HttpResponse<String> response = Unirest
                 .post(th.getAPIBaseUrl() + "/mockups/file/NER-This-is-Germany.ttl")
                 .queryString("language", "en")

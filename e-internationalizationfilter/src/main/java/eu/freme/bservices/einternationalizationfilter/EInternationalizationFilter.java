@@ -53,6 +53,8 @@ import eu.freme.common.exception.ExceptionHandlerService;
 import eu.freme.i18n.api.EInternationalizationAPI;
 import eu.freme.i18n.okapi.nif.converter.ConversionException;
 import org.apache.commons.*;
+import org.springframework.web.filter.GenericFilterBean;
+
 /**
  * Filter that converts HTML and XLIFF input to NIF and changes the informat
  * parameter. It also performs roundtripping, e.g. to convert HTML to NIF and
@@ -62,8 +64,7 @@ import org.apache.commons.*;
  */
 
 @Component
-@Profile("broker")
-public class EInternationalizationFilter implements Filter {
+public class EInternationalizationFilter extends GenericFilterBean {
 
 	/**
 	 * Disable e-Internationalization filter for a set of endpoints with the
@@ -174,7 +175,7 @@ public class EInternationalizationFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse res,
 						 FilterChain chain) throws IOException, ServletException {
-
+		logger.error("EInternationalization Happening!");
 		if (!(req instanceof HttpServletRequest)
 				|| !(res instanceof HttpServletResponse)) {
 			chain.doFilter(req, res);
@@ -308,8 +309,8 @@ public class EInternationalizationFilter implements Filter {
 		}
 	}
 
-	public void init(FilterConfig filterConfig) {
-	}
+	//public void init(FilterConfig filterConfig) {
+	//}
 
 	public void destroy() {
 	}

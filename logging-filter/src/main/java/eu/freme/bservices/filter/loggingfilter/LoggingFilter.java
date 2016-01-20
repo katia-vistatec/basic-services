@@ -80,6 +80,7 @@ public class LoggingFilter extends OncePerRequestFilter {
             long requestId = id.incrementAndGet();
             request = new RequestWrapper(requestId, request);
             response = new ResponseWrapper(requestId, response);
+            logRequest(request);
         }
         try {
             filterChain.doFilter(request, response);
@@ -87,7 +88,6 @@ public class LoggingFilter extends OncePerRequestFilter {
         }
         finally {
             if(logger.isInfoEnabled()){
-                logRequest(request);
                 logResponse((ResponseWrapper)response);
             }
         }
