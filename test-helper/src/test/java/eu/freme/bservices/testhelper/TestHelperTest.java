@@ -25,11 +25,19 @@ public class TestHelperTest {
     //TestHelper testHelper = new TestHelper("test-helper-test-package.xml");
  
    	ApplicationContext context = IntegrationTestSetup.getContext("test-helper-test-package.xml");//FREMEStarter.startPackageFromClasspath("test-helper-test-package.xml");
-    
+
+    @Test
+    public void testAuthenticatedTestHelper() throws UnirestException {
+        AuthenticatedTestHelper authenticatedTestHelper=context.getBean(AuthenticatedTestHelper.class);
+        authenticatedTestHelper.authenticateUsers();
+        authenticatedTestHelper.removeAuthenticatedUsers();
+    }
+
+
     @Test
     public void testMockupEndpoint() throws UnirestException {
     	
-    	TestHelper testHelper = (TestHelper)context.getBean(TestHelper.class);
+    	TestHelper testHelper =context.getBean(TestHelper.class);
         String filename = "ELINK.ttl";
         logger.info("request file: "+filename);
         HttpResponse<String> response = Unirest.post(testHelper.getAPIBaseUrl() + "/mockups/file/"+filename).asString();

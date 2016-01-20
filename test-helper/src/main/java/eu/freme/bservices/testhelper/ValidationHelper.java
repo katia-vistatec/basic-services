@@ -39,7 +39,7 @@ public class ValidationHelper {
 
         //Tests if headers are correct.
         String contentType = response.getHeaders().get("content-type").get(0).split(";")[0];
-        assertEquals(contentType, nifformat.contentType());
+        assertEquals(nifformat.contentType(),contentType);
 
         if(nifformat!= RDFConstants.RDFSerialization.JSON) {
             // validate RDF
