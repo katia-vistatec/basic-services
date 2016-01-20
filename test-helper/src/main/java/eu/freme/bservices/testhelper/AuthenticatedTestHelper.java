@@ -154,7 +154,7 @@ public class AuthenticatedTestHelper {
         return tokenWithPermission;
     }
 
-    public static String getTokenWithOutPermission() {
+    public static String getTokenWithoutPermission() {
         return tokenWithOutPermission;
     }
 

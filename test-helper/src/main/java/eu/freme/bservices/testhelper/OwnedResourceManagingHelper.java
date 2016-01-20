@@ -8,17 +8,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.common.persistence.model.OwnedResource;
-import eu.freme.common.persistence.model.Pipeline;
-import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.common.rest.RestrictedResourceManagingController;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -39,62 +35,112 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         this.ath = ath;
     }
 
-    public void checkAllOperations(String body1, String body2, Map<String, Object> parameters1, Map<String, Object> parameters2, Map<String, String> headers1, Map<String, String> headers2){
-        //TODO: impolement!
+    public void checkAllOperations(SimpleEntityRequest request1, SimpleEntityRequest request2) throws IOException, UnirestException {
+        logger.info("create entity with first body, parameters and headers");
+        T entity = createEntity(request1, ath.getTokenWithPermission(),HttpStatus.OK);
+        T returnedEntity = getEntity(entity.getIdentifier(), ath.getTokenWithPermission(),HttpStatus.OK);
+
+        logger.info("set first entity to visibility=private");
+        HashMap<String, Object> newParameters = new HashMap<>();
+        newParameters.put(RestrictedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PRIVATE.name());
+        T updatedEntity = updateEntity(entity.getIdentifier(),
+                new SimpleEntityRequest(request1.getBody(), newParameters, request1.getHeaders()),
+                ath.getTokenWithPermission(),
+                HttpStatus.OK);
+
+        logger.info("get all entities as userWithPermission: should return one entity");
+        List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
+        assertEquals(1,allEntities.size());
+
+        logger.info("get all entities as userWithPermission: should return no entity");
+        allEntities = getAllEntities(ath.getTokenWithoutPermission());
+        assertEquals(0,allEntities.size());
+
+        logger.info("attempting update without permission: should return NOT_ALLOWED");
+        LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
+        returnedEntity = updateEntity(entity.getIdentifier(),request1,ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
+
+        logger.info("testing update entity content: should be different than original content");
+        returnedEntity = updateEntity(entity.getIdentifier(),request2,ath.getTokenWithPermission(),HttpStatus.OK);
+        logger.info("check updated content");
+        //returnedEntity.g
+
+        // getall, update,
     }
 
-
-    public T createEntity(String body, Map<String, Object> parameters, Map<String, String> headers) throws IOException, UnirestException {
+    // CREATE
+    public T createEntity(SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + RestrictedResourceManagingController.relativeManagePath;
-        response = ath.addAuthentication(Unirest.post(url))
-                .headers(headers)
-                .queryString(parameters)
-                .body(body)
+        response = ath.addAuthentication(Unirest.post(url), token)
+                .headers(request.getHeaders())
+                .queryString(request.getParameters())
+                .body(request.getBody())
                 .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        T responseEntity = fromJSON(response.getBody());
-        return responseEntity;
+        assertEquals(expectedStatus.value(), response.getStatus());
+        try {
+            return fromJSON(response.getBody());
+        }catch (IOException e){
+            logger.info("json response was not valid concerning the entity class");
+            return null;
+        }
     }
 
-    public T updateEntity(String identifier, String body, Map<String, Object> parameters, Map<String, String> headers) throws IOException, UnirestException {
+
+    //UPDATE
+    public T updateEntity(String identifier, SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
 
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + RestrictedResourceManagingController.relativeManagePath;
-        response = ath.addAuthentication(Unirest.put(url+"/"+identifier))
-                .headers(headers)
-                .queryString(parameters)
-                .body(body)
+        response = ath.addAuthentication(Unirest.put(url+"/"+identifier), token)
+                .headers(request.getHeaders())
+                .queryString(request.getParameters())
+                .body(request.getBody())
                 .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        T responseEntity = fromJSON(response.getBody());
 
-        return responseEntity;
+        assertEquals(expectedStatus.value(), response.getStatus());
+        try {
+            return fromJSON(response.getBody());
+        }catch (IOException e){
+            logger.info("json response was not valid concerning the entity class");
+            return null;
+        }
+
     }
 
-    public void deleteEntity(String identifier) throws UnirestException {
+    //DELETE
+    public void deleteEntity(String identifier, String token, HttpStatus expectedStatus ) throws UnirestException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + RestrictedResourceManagingController.relativeManagePath;
-        response = ath.addAuthentication(Unirest.delete(url))
+        response = ath.addAuthentication(Unirest.delete(url), token)
                 .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(expectedStatus.value(), response.getStatus());
     }
 
-    public T getEntity(String identifier) throws UnirestException, IOException {
+
+    // GET
+    public T getEntity(String identifier, String token, HttpStatus expectedStatus) throws UnirestException, IOException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + RestrictedResourceManagingController.relativeManagePath;
-        response = ath.addAuthentication(Unirest.get(url+"/"+identifier))
+        response = ath.addAuthentication(Unirest.get(url+"/"+identifier), token)
                 .queryString(RestrictedResourceManagingController.identifierParameterName, identifier)
                 .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(expectedStatus.value(), response.getStatus());
 
-        return fromJSON(response.getBody());
+        try {
+            return fromJSON(response.getBody());
+        }catch (IOException e){
+            logger.info("json response was not valid concerning the entity class");
+            return null;
+        }
     }
 
-    public List<T> getAllEntitis() throws UnirestException, IOException {
+    //GETALL
+    public List<T> getAllEntities(String token) throws UnirestException, IOException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + RestrictedResourceManagingController.relativeManagePath;
-        response = ath.addAuthentication(Unirest.get(url))
+        response = ath.addAuthentication(Unirest.get(url), token)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         ObjectMapper mapper = new ObjectMapper();

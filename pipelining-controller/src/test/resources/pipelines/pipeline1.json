@@ -1,0 +1,29 @@
+{
+  "label": "entity, translate",
+  "description": "First e-Entity, then e-Translate",
+  "serializedRequests": [
+    {
+      "method": "POST",
+      "endpoint": "http://api.freme-project.eu/current/e-entity/dbpedia-spotlight/documents",
+      "parameters": {
+        "language": "en"
+      },
+      "headers": {
+        "content-type": "text/plain",
+        "accept": "text/turtle"
+      }
+    },
+    {
+      "method": "POST",
+      "endpoint": "http://api.freme-project.eu/current/e-translation/tilde",
+      "parameters": {
+        "source-lang": "en",
+        "target-lang": "fr"
+      },
+      "headers": {
+        "content-type": "text/turtle",
+        "accept": "text/turtle"
+      }
+    }
+  ]
+}

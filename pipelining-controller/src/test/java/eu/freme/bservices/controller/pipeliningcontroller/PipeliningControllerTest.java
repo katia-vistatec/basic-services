@@ -12,17 +12,20 @@ import eu.freme.bservices.controller.pipeliningcontroller.requests.RequestFactor
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.LoggingHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
+import eu.freme.bservices.testhelper.SimpleEntityRequest;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.persistence.model.Pipeline;
 import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.common.persistence.model.User;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -40,35 +43,6 @@ public class PipeliningControllerTest {
     AuthenticatedTestHelper ath;
     OwnedResourceManagingHelper<Pipeline> ormh;
     LoggingHelper lh;
-
-    private static final String pipelineTemplateContent = "{\n" +
-            "  \"label\": \"Spotlight-Link\",\n" +
-            "  \"description\": \"Recognises entities using Spotlight en enriches with geo information.\",\n" +
-            "  \"serializedRequests\": [\n" +
-            "    {\n" +
-            "      \"method\": \"POST\",\n" +
-            "      \"endpoint\": \"http://api.freme-project.eu/current/e-entity/dbpedia-spotlight/documents\",\n" +
-            "      \"parameters\": {\n" +
-            "        \"language\": \"en\"\n" +
-            "      },\n" +
-            "      \"headers\": {\n" +
-            "        \"content-type\": \"text/plain\",\n" +
-            "        \"accept\": \"text/turtle\"\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"method\": \"POST\",\n" +
-            "      \"endpoint\": \"http://api.freme-project.eu/current/e-link/documents/\",\n" +
-            "      \"parameters\": {\n" +
-            "        \"templateid\": \"3\"\n" +
-            "      },\n" +
-            "      \"headers\": {\n" +
-            "        \"content-type\": \"text/turtle\",\n" +
-            "        \"accept\": \"text/turtle\"\n" +
-            "      }\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
 
     public PipeliningControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelining-controller-test-package.xml");
@@ -289,9 +263,9 @@ public class PipeliningControllerTest {
     public void testCreateAndReadMultiple() throws UnirestException, IOException {
         logger.info("Creating one public and one private pipeline per user");
         Pipeline pipeline1 = createDefaultTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PUBLIC);
-        Pipeline pipeline2 = createDefaultTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PRIVATE);
-        Pipeline pipeline3 = createDefaultTemplate(ath.getTokenWithOutPermission(), OwnedResource.Visibility.PUBLIC);
-        Pipeline pipeline4 = createDefaultTemplate(ath.getTokenWithOutPermission(), OwnedResource.Visibility.PRIVATE);
+        Pipeline pipeline2.json = createDefaultTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PRIVATE);
+        Pipeline pipeline3 = createDefaultTemplate(ath.getTokenWithoutPermission(), OwnedResource.Visibility.PUBLIC);
+        Pipeline pipeline4 = createDefaultTemplate(ath.getTokenWithoutPermission(), OwnedResource.Visibility.PRIVATE);
 
         // now try to read pipeline with other user
         logger.info("Each user tries to read pipelines; only 3 should be visible.");
@@ -301,7 +275,7 @@ public class PipeliningControllerTest {
             // TODO: re-add this!
             //assertTrue(pipeline.getOwner().equals(usernameWithPermission) || pipeline.getVisibility().equals(OwnedResource.Visibility.PUBLIC.name()));
         }
-        List<Pipeline> pipelinesFromUser2 = readTemplates(ath.getTokenWithOutPermission());
+        List<Pipeline> pipelinesFromUser2 = readTemplates(ath.getTokenWithoutPermission());
         assertEquals(3, pipelinesFromUser2.size());
         for (Pipeline pipeline : pipelinesFromUser2) {
             // TODO: re-add this!
@@ -312,9 +286,9 @@ public class PipeliningControllerTest {
         // TODO: shouldn't the admin see all templates?
 
         deleteTemplate(ath.getTokenWithPermission(), pipeline1.getId(), HttpStatus.SC_OK);
-        deleteTemplate(ath.getTokenWithPermission(), pipeline2.getId(), HttpStatus.SC_OK);
-        deleteTemplate(ath.getTokenWithOutPermission(), pipeline3.getId(), HttpStatus.SC_OK);
-        deleteTemplate(ath.getTokenWithOutPermission(), pipeline4.getId(), HttpStatus.SC_OK);
+        deleteTemplate(ath.getTokenWithPermission(), pipeline2.json.getId(), HttpStatus.SC_OK);
+        deleteTemplate(ath.getTokenWithoutPermission(), pipeline3.getId(), HttpStatus.SC_OK);
+        deleteTemplate(ath.getTokenWithoutPermission(), pipeline4.getId(), HttpStatus.SC_OK);
     }
 
     @Test
@@ -324,23 +298,23 @@ public class PipeliningControllerTest {
         Pipeline pipeline1 = createDefaultTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PUBLIC);
         SerializedRequest nerRequest = RequestFactory.createEntityFremeNER("en", "dbpedia");
         SerializedRequest translateRequest = RequestFactory.createTranslation("en", "fr");
-        Pipeline pipeline2 = createTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
+        Pipeline pipeline2.json = createTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
 
         // list the pipelines
         List<Pipeline> pipelines = readTemplates(ath.getTokenWithPermission());
         assertEquals(pipeline1, pipelines.get(0));
-        assertEquals(pipeline2, pipelines.get(1));
+        assertEquals(pipeline2.json, pipelines.get(1));
 
         // read individual pipelines
         Pipeline storedPipeline1 = readTemplate(ath.getTokenWithPermission(), pipeline1.getId());
-        Pipeline storedPipeline2 = readTemplate(ath.getTokenWithPermission(), pipeline2.getId());
+        Pipeline storedPipeline2 = readTemplate(ath.getTokenWithPermission(), pipeline2.json.getId());
         assertEquals(pipeline1, storedPipeline1);
-        assertEquals(pipeline2, storedPipeline2);
+        assertEquals(pipeline2.json, storedPipeline2);
 
         // use pipelines
         String contents = "The Atomium in Brussels is the symbol of Belgium.";
         sendRequest(ath.getTokenWithPermission(), HttpStatus.SC_OK, pipeline1.getId(), contents, RDFConstants.RDFSerialization.PLAINTEXT);
-        sendRequest(ath.getTokenWithPermission(), HttpStatus.SC_OK, pipeline2.getId(), contents, RDFConstants.RDFSerialization.PLAINTEXT);
+        sendRequest(ath.getTokenWithPermission(), HttpStatus.SC_OK, pipeline2.json.getId(), contents, RDFConstants.RDFSerialization.PLAINTEXT);
 
         // update pipeline 1
         pipeline1.setVisibility(OwnedResource.Visibility.PRIVATE);
@@ -350,7 +324,7 @@ public class PipeliningControllerTest {
 
         // delete pipelines
         deleteTemplate(ath.getTokenWithPermission(), pipeline1.getId(), HttpStatus.SC_OK);
-        deleteTemplate(ath.getTokenWithPermission(), pipeline2.getId(), HttpStatus.SC_OK);
+        deleteTemplate(ath.getTokenWithPermission(), pipeline2.json.getId(), HttpStatus.SC_OK);
     }
 
     @Test
@@ -365,7 +339,7 @@ public class PipeliningControllerTest {
     public void testDeleteFromAnother() throws UnirestException, IOException {
         Pipeline pipeline = createDefaultTemplate(ath.getTokenWithPermission(), OwnedResource.Visibility.PUBLIC);
         lh.loggerIgnore("eu.freme.broker.exception.ForbiddenException");
-        deleteTemplate(ath.getTokenWithOutPermission(), pipeline.getId(), HttpStatus.SC_FORBIDDEN);
+        deleteTemplate(ath.getTokenWithoutPermission(), pipeline.getId(), HttpStatus.SC_FORBIDDEN);
         lh.loggerUnignore("eu.freme.broker.exception.ForbiddenException");
         deleteTemplate(ath.getTokenWithPermission(), pipeline.getId(), HttpStatus.SC_OK);
     }
@@ -398,18 +372,16 @@ public class PipeliningControllerTest {
     @Test
     public void testPipelineManagament() throws UnirestException, IOException {
         // TODO: exchange this with ormh.checkAllOperations
-        logger.info("get all pipelines");
-        List<Pipeline> pipelines = ormh.getAllEntitis();
-        assertEquals(pipelines.size(), 0);
 
-        logger.info("create pipeline template");
-        Pipeline pipeline = ormh.createEntity(pipelineTemplateContent,null,null);
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file1 = new File(classLoader.getResource("pipelines/pipeline1.json").getFile());
+        String body1 = FileUtils.readFileToString(file1);
 
-        logger.info("get all pipelines again");
-        pipelines = ormh.getAllEntitis();
-        assertEquals(pipelines.size(), 1);
-
-        logger.info("update pipeline");
+        File file2 = new File(classLoader.getResource("pipelines/pipeline2.json").getFile());
+        String body2 = FileUtils.readFileToString(file2);
+        ormh.checkAllOperations(
+                new SimpleEntityRequest(body1, null,null),
+                new SimpleEntityRequest(body2, null, null));
 
     }
 
