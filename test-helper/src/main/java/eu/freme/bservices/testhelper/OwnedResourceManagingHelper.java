@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -49,14 +50,18 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         T entity = createEntity(request1, ath.getTokenWithPermission(),HttpStatus.OK);
         T returnedEntity = getEntity(entity.getIdentifier(), ath.getTokenWithPermission(),HttpStatus.OK);
 
-        logger.info("testing update entity content: should be different than original content");
-        returnedEntity = updateEntity(entity.getIdentifier(), request2, ath.getTokenWithPermission(),HttpStatus.OK);
-        logger.info("check updated content");
-
         logger.info("create comparative entity via request to ensure that all header and parameter values are considered");
         T entity2 = createEntity(request2, ath.getTokenWithPermission(), HttpStatus.OK);
 
+        logger.info("update entity content");
+        returnedEntity = updateEntity(entity.getIdentifier(), request2, ath.getTokenWithPermission(),HttpStatus.OK);
+        logger.info("check updated content");
+
+        logger.info("compare updated entity with comparative entity: should be similar");
         assertTrue(containsEntity(returnedEntity, entity2));
+
+        logger.info("compare first entry with updated entry: should be different");
+        assertFalse(containsEntity(entity, returnedEntity));
 
         logger.info("set first entity to visibility=private");
         HashMap<String, Object> newParameters = new HashMap<>();
@@ -92,8 +97,10 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
             if(jObject2.isNull(key) || key.equals(creationTimeIdentifier) || key.equals(idIdentifier))
                 continue;
             Object o2 = jObject2.get(key);
-            if(!o1.toString().equals(o2.toString()))
+            if(!o1.toString().equals(o2.toString())) {
+                logger.info("entities are not equal at key=\""+key+"\": \""+o1.toString()+"\" != \""+o2.toString()+"\"");
                 return false;
+            }
         }
         return true;
     }
