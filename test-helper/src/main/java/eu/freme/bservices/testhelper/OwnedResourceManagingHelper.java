@@ -85,7 +85,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         logger.info("count entities as asmin");
         allEntities = getAllEntities(ath.getTokenAdmin());
         countAsAdmin = allEntities.size();
-        logger.info("count entities as admin: "+countAsAdmin);
+        logger.info("count entities as admin: "+ countAsAdmin);
 
         logger.info("count entities as anonymous user");
         allEntities = getAllEntities(null);
