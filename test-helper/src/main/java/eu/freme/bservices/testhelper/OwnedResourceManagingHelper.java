@@ -224,6 +224,8 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
         logger.info("ensure that all created entities are deleted");
         assertEquals(countAsAdmin,getAllEntities(ath.getTokenAdmin()).size());
+
+        // TODO: add test delete non existing
     }
 
 
@@ -251,6 +253,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
         response = ath.addAuthentication(Unirest.post(url), token)
                 .headers(request.getHeaders())
+                .header("content-type", RDFConstants.RDFSerialization.JSON.contentType())
                 .queryString(request.getParameters())
                 .body(request.getBody())
                 .asString();
@@ -274,6 +277,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
         response = ath.addAuthentication(Unirest.put(url+"/"+identifier), token)
                 .headers(request.getHeaders())
+                .header("content-type", RDFConstants.RDFSerialization.JSON.contentType())
                 .queryString(request.getParameters())
                 .body(request.getBody())
                 .asString();
