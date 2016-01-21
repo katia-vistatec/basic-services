@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -46,45 +47,144 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     }
 
     public void checkAllOperations(SimpleEntityRequest request1, SimpleEntityRequest request2) throws IOException, UnirestException {
-        logger.info("create entity with first body, parameters and headers");
-        T entity = createEntity(request1, ath.getTokenWithPermission(),HttpStatus.OK);
-        T returnedEntity = getEntity(entity.getIdentifier(), ath.getTokenWithPermission(),HttpStatus.OK);
+        int countAsUserWithPermission;
+        int countAsUserWithoutPermission;
+        int countAsAdmin;
+        int countAsAnonymous;
+        T entity;
+        T entity2;
+        T returnedEntity;
+        String identifier1;
+        String identifier2;
 
-        logger.info("create comparative entity via request to ensure that all header and parameter values are considered");
-        T entity2 = createEntity(request2, ath.getTokenWithPermission(), HttpStatus.OK);
+        Map<String, Object> parameters1 = request1.getParameters();
+        Map<String, Object> parameters2 = request2.getParameters();
+        if(parameters1==null)
+            parameters1 = new HashMap<>();
+        if(parameters2==null)
+            parameters2 = new HashMap<>();
+        // force visibility:
+        // parameter value overwrites manipulations in RestrictedResourceManagingController.createEntity
+        // and RestrictedResourceManagingController.updateEntity create
+        parameters1.put(RestrictedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PUBLIC);
+        parameters1.put(RestrictedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PUBLIC);
+
+        // force description:
+        // parameter value overwrites manipulations in RestrictedResourceManagingController.createEntity
+        // and RestrictedResourceManagingController.updateEntity create
+        parameters2.put(RestrictedResourceManagingController.descriptionParameterName, "description1");
+        parameters2.put(RestrictedResourceManagingController.descriptionParameterName, "description2");
+
+        // count already existing entities
+        logger.info("count entities as userWithPermission...");
+        List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
+        countAsUserWithPermission = allEntities.size();
+        logger.info("count entities as userWithPermission: "+countAsUserWithPermission);
+
+        logger.info("count entities as userWithoutPermission");
+        allEntities = getAllEntities(ath.getTokenWithoutPermission());
+        countAsUserWithoutPermission = allEntities.size();
+        logger.info("count entities as userWithoutPermission: "+countAsUserWithoutPermission);
+
+        logger.info("count entities as asmin");
+        allEntities = getAllEntities(ath.getTokenAdmin());
+        countAsAdmin = allEntities.size();
+        logger.info("count entities as admin: "+countAsAdmin);
+
+        logger.info("count entities as anonymous user");
+        allEntities = getAllEntities(null);
+        countAsAnonymous = allEntities.size();
+        logger.info("count entities as admin: "+countAsAdmin);
+
+        // check CREATE entities
+        logger.info("attempting creating entity as anonymous user: should return UNAUTHORIZED");
+        LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
+        entity = createEntity(request1, null, HttpStatus.UNAUTHORIZED);
+        LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
+
+        logger.info("create entity with first body, parameters and headers");
+        entity = createEntity(request1, ath.getTokenWithPermission(),HttpStatus.OK);
+        identifier1 = entity.getIdentifier();
+        returnedEntity = getEntity(identifier1, ath.getTokenWithPermission(),HttpStatus.OK);
+        assertTrue(containsEntity(returnedEntity, entity));
+        assertTrue(containsEntity(entity, returnedEntity));
+
+
+        // check UPDATE entities
+        logger.info("attempting update without permission: should return UNAUTHORIZED");
+        LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
+        returnedEntity = updateEntity(identifier1,request1, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
+
+        logger.info("attempting update as anonymous user: should return UNAUTHORIZED");
+        LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
+        returnedEntity = updateEntity(identifier1,request1, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
 
         logger.info("update entity content");
-        returnedEntity = updateEntity(entity.getIdentifier(), request2, ath.getTokenWithPermission(),HttpStatus.OK);
+        returnedEntity = updateEntity(identifier1, request2, ath.getTokenWithPermission(),HttpStatus.OK);
         logger.info("check updated content");
+
+        logger.info("create comparative entity via request to ensure that all header and parameter values are considered");
+        entity2 = createEntity(request2, ath.getTokenWithPermission(), HttpStatus.OK);
+        identifier2 = entity2.getIdentifier();
 
         logger.info("compare updated entity with comparative entity: should be similar");
         assertTrue(containsEntity(returnedEntity, entity2));
+        assertTrue(containsEntity(entity2, returnedEntity));
 
-        logger.info("compare first entry with updated entry: should be different");
+        logger.info("compare first entity with updated entity: should be different");
+        assertFalse(containsEntity(returnedEntity, entity));
         assertFalse(containsEntity(entity, returnedEntity));
 
-        logger.info("set first entity to visibility=private");
+        logger.info("set first entity to visibility=private as userWithPermission");
         HashMap<String, Object> newParameters = new HashMap<>();
         newParameters.put(RestrictedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PRIVATE.name());
-        T updatedEntity = updateEntity(entity.getIdentifier(),
+        returnedEntity = updateEntity(identifier1,
                 new SimpleEntityRequest(request1.getBody(), newParameters, request1.getHeaders()),
                 ath.getTokenWithPermission(),
                 HttpStatus.OK);
+        returnedEntity = getEntity(identifier1,ath.getTokenWithPermission(), HttpStatus.OK);
+        assertEquals(returnedEntity.getVisibility(), OwnedResource.Visibility.PRIVATE);
 
-        logger.info("get all entities as userWithPermission: should return one entity");
-        List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
-        assertEquals(2,allEntities.size());
+        String updatedDescription = "updated_description";
+        logger.info("set first entity to description="+updatedDescription + " as admin");
+        newParameters.clear();
+        newParameters.put(RestrictedResourceManagingController.descriptionParameterName, updatedDescription);
+        returnedEntity = updateEntity(identifier1,
+                new SimpleEntityRequest(request1.getBody(), newParameters, request1.getHeaders()),
+                ath.getTokenWithPermission(),
+                HttpStatus.OK);
+        returnedEntity = getEntity(identifier1,ath.getTokenAdmin(), HttpStatus.OK);
+        assertEquals(returnedEntity.getDescription(),updatedDescription);
 
-        logger.info("get all entities as userWithPermission: should return no entity");
+        // check changed visibility state with getAll
+        logger.info("get all entities as userWithPermission: should return +two entities");
+        allEntities = getAllEntities(ath.getTokenWithPermission());
+        assertEquals(2+countAsUserWithPermission,allEntities.size());
+        logger.info("get all entities as userWithPermission: should return +one entity");
         allEntities = getAllEntities(ath.getTokenWithoutPermission());
-        assertEquals(1,allEntities.size());
+        assertEquals(1+countAsUserWithoutPermission,allEntities.size());
+        logger.info("get all entities as admin: should return +two entities");
+        allEntities = getAllEntities(ath.getTokenAdmin());
+        assertEquals(2+countAsAdmin,allEntities.size());
+        logger.info("get all entities as anonymous user: should return +one entities");
+        allEntities = getAllEntities(null);
+        assertEquals(1+countAsAnonymous,allEntities.size());
 
-        logger.info("attempting update without permission: should return NOT_ALLOWED");
+        // DELETE entities
+        logger.info("attempt to delete private entity as userWithoutPermission: should return METHOD_NOT_ALLOWED");
         LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
-        returnedEntity = updateEntity(entity.getIdentifier(),request1, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        deleteEntity(identifier1,ath.getTokenWithoutPermission(),HttpStatus.METHOD_NOT_ALLOWED);
+        logger.info("attempt to delete public entity as userWithoutPermission: should return METHOD_NOT_ALLOWED");
+        deleteEntity(identifier2,ath.getTokenWithoutPermission(),HttpStatus.METHOD_NOT_ALLOWED);
+        logger.info("attempt to delete private entity as anonymous user: should return METHOD_NOT_ALLOWED");
+        deleteEntity(identifier1,null,HttpStatus.METHOD_NOT_ALLOWED);
+        logger.info("attempt to delete public entity as anonymous user: should return METHOD_NOT_ALLOWED");
+        deleteEntity(identifier2,null,HttpStatus.METHOD_NOT_ALLOWED);
         LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
 
-        // getall, update,
+        // TODO: add check delete of private/public as userWithPermission and as admin
     }
 
 

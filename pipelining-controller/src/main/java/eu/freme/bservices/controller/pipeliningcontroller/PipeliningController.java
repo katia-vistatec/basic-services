@@ -1,6 +1,5 @@
 package eu.freme.bservices.controller.pipeliningcontroller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -11,21 +10,16 @@ import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineResponse;
 import eu.freme.bservices.controller.pipeliningcontroller.core.PipelineService;
 import eu.freme.bservices.controller.pipeliningcontroller.core.ServiceException;
 import eu.freme.bservices.controller.pipeliningcontroller.core.WrappedPipelineResponse;
+import eu.freme.bservices.controller.pipeliningcontroller.requests.RequestBuilder;
+import eu.freme.bservices.controller.pipeliningcontroller.requests.RequestFactory;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
 import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.exception.TemplateNotFoundException;
-import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.persistence.model.Pipeline;
 import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.common.rest.RestrictedResourceManagingController;
-/*import eu.freme.eservices.pipelines.core.PipelineResponse;
-import eu.freme.eservices.pipelines.core.PipelineService;
-import eu.freme.eservices.pipelines.core.ServiceException;
-import eu.freme.eservices.pipelines.core.WrappedPipelineResponse;
-import eu.freme.eservices.pipelines.requests.SerializedRequest;
-import eu.freme.eservices.pipelines.serialization.Serializer;*/
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -34,8 +28,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -161,7 +153,7 @@ public class PipeliningController extends RestrictedResourceManagingController<P
 
 
     @Override
-    protected Pipeline createEntity(String id, OwnedResource.Visibility visibility, String description, String body, Map<String, String> parameters) throws BadRequestException {
+    protected Pipeline createEntity(String id, String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
         // just to perform a first validation of the pipeline...
         //Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
 
@@ -170,11 +162,8 @@ public class PipeliningController extends RestrictedResourceManagingController<P
             // the body contains the label, the description and the serializedRequests
             ObjectMapper mapper = new ObjectMapper();
             Pipeline pipeline = mapper.readValue(body, Pipeline.class);
-            //Pipeline pipeline = (Pipeline) Pipeline.fromJSON(body); //new Pipeline(visibility, label, description, null, toPersist);
-            //pipeline.setRequests(body);
-            pipeline.setVisibility(visibility);
             pipeline.setPersist(toPersist);
-            pipeline.setOwnerToCurrentUser();
+            //pipeline.setOwnerToCurrentUser();
             return pipeline;
         } catch (IOException e) {
             throw new BadRequestException("could not create pipeline template from \""+body+"\": "+e.getMessage());
@@ -184,12 +173,12 @@ public class PipeliningController extends RestrictedResourceManagingController<P
     }
 
     @Override
-    protected void updateEntity(Pipeline pipeline, String body, Map<String, String> parameters) throws BadRequestException {
+    protected void updateEntity(Pipeline pipeline, String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
 
         // process body
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
             try {
-                //Pipeline newPipeline = (Pipeline)Pipeline.fromJSON(body);
+                // create temp pipeline to get mapped content
                 ObjectMapper mapper = new ObjectMapper();
                 Pipeline newPipeline = mapper.readValue(body, Pipeline.class);
                 if(!newPipeline.getLabel().equals(pipeline.getLabel()))
@@ -198,7 +187,6 @@ public class PipeliningController extends RestrictedResourceManagingController<P
                     pipeline.setDescription(newPipeline.getDescription());
                 if(!newPipeline.getSerializedRequests().equals(pipeline.getSerializedRequests()))
                     pipeline.setSerializedRequests(newPipeline.getSerializedRequests());
-                //pipeline.setRequests(body);
             } catch (IOException e) {
                 throw new BadRequestException("could not update pipeline template with \""+body+"\": "+e.getMessage());
             }
