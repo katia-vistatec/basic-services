@@ -19,7 +19,7 @@ import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.exception.TemplateNotFoundException;
 import eu.freme.common.persistence.model.Pipeline;
 import eu.freme.common.persistence.model.SerializedRequest;
-import eu.freme.common.rest.RestrictedResourceManagingController;
+import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -41,7 +41,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/pipelines")
-public class PipeliningController extends RestrictedResourceManagingController<Pipeline> {
+public class PipeliningController extends OwnedResourceManagingController<Pipeline> {
 
     Logger logger = Logger.getLogger(PipeliningController.class);
 

@@ -12,7 +12,7 @@ import eu.freme.common.exception.FREMEHttpException;
 import eu.freme.common.persistence.model.Filter;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.rest.NIFParameterSet;
-import eu.freme.common.rest.RestrictedResourceManagingController;
+import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/toolbox/filter")
-public class FilterController extends RestrictedResourceManagingController<Filter> {
+public class FilterController extends OwnedResourceManagingController<Filter> {
 
     Logger logger = Logger.getLogger(FilterController.class);
 

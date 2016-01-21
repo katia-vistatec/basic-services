@@ -1,35 +1,20 @@
 package eu.freme.bservices.controller.pipeliningcontroller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import eu.freme.bservices.controller.pipeliningcontroller.requests.RequestFactory;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.LoggingHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
 import eu.freme.bservices.testhelper.SimpleEntityRequest;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
-import eu.freme.common.conversion.rdf.RDFConstants;
-import eu.freme.common.persistence.model.OwnedResource;
+import eu.freme.common.exception.FileNotFoundException;
 import eu.freme.common.persistence.model.Pipeline;
-import eu.freme.common.persistence.model.SerializedRequest;
-import eu.freme.common.persistence.model.User;
 import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -47,7 +32,7 @@ public class PipeliningControllerTest {
     public PipeliningControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelining-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/pipelines",Pipeline.class, ath);
+        ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath, null);
         ath.authenticateUsers();
         lh = context.getBean(LoggingHelper.class);
     }
@@ -370,17 +355,22 @@ public class PipeliningControllerTest {
     }
 
     @Test
-    public void testPipelineManagament() throws UnirestException, IOException {
-        // TODO: exchange this with ormh.checkAllOperations
-
+    public void testPipelineManagement() throws UnirestException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file1 = new File(classLoader.getResource("pipelines/pipeline1.json").getFile());
+
+        String fn1 = classLoader.getResource("pipelines/pipeline1.json").getFile();
+        if(fn1==null)
+            throw new FileNotFoundException("could not read resource pipelines/pipeline1.json");
+        File file1 = new File(fn1);
         String body1 = FileUtils.readFileToString(file1);
 
-        File file2 = new File(classLoader.getResource("pipelines/pipeline2.json").getFile());
+        String fn2 = classLoader.getResource("pipelines/pipeline2.json").getFile();
+        if(fn2==null)
+            throw new FileNotFoundException("could not read resource pipelines/pipeline2.json");
+        File file2 = new File(fn2);
         String body2 = FileUtils.readFileToString(file2);
-        ormh.checkAllOperations(
-                new SimpleEntityRequest(body1, null,null),
+        ormh.checkCRUDOperations(
+                new SimpleEntityRequest(body1, null, null),
                 new SimpleEntityRequest(body2, null, null));
 
     }

@@ -8,14 +8,14 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
+import eu.freme.bservices.testhelper.SimpleEntityRequest;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
 import eu.freme.common.persistence.model.Filter;
+import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -41,7 +41,7 @@ public class FilterControllerTest  {
     public FilterControllerTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<Filter>("/toolbox/filter",Filter.class, ath);
+        ormh = new OwnedResourceManagingHelper<>("/toolbox/filter",Filter.class, ath, "name");
         ath.authenticateUsers();
     }
 
@@ -55,60 +55,12 @@ public class FilterControllerTest  {
 
 
     @Test
-    public void testFilterManagement() throws UnirestException {
-        HttpResponse<String> response;
-
-        logger.info("get all filters");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-        logger.info("create filter1");
-        String url = ath.getAPIBaseUrl() + "/toolbox/filter/manage";
-        response = ath.addAuthentication(Unirest.post(url))
-                .queryString("entityId", "filter1")
-                .body(filterSelect)
-                .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-        logger.info("get filter1");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        JSONObject json = new JSONObject(response.getBody());
-        assertEquals(filterSelect, json.getString("query"));
-
-        logger.info("update filter1");
-        response = ath.addAuthentication(Unirest.put(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1"))
-                .body(filterConstruct)
-                .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-        logger.info("get updated filter1");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        json = new JSONObject(response.getBody());
-        assertEquals(filterConstruct, json.getString("query"));
-
-        logger.info("create filter2");
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
-                .queryString("entityId", "filter2")
-                .body(filterSelect)
-                .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-
-        logger.info("get all filters");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        JSONArray jsonArray = new JSONArray(response.getBody());
-        assertTrue((filterConstruct.equals(((JSONObject)jsonArray.get(0)).getString("query")) && filterSelect.equals(((JSONObject)jsonArray.get(1)).getString("query")))
-                || (filterConstruct.equals(((JSONObject)jsonArray.get(1)).getString("query")) && filterSelect.equals(((JSONObject)jsonArray.get(0)).getString("query"))));
-
-        logger.info("delete filter1");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        logger.info("delete filter2");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-
+    public void testFilterManagement() throws UnirestException, IOException {
+        SimpleEntityRequest request = new SimpleEntityRequest(filterSelect,null,null);
+        request.putParameter(OwnedResourceManagingController.identifierParameterName,"select-filter");
+        SimpleEntityRequest updateRequest = new SimpleEntityRequest(filterConstruct,null,null);
+        updateRequest.putParameter(OwnedResourceManagingController.identifierParameterName,"construct-filter");
+        ormh.checkCRUDOperations(request, updateRequest);
     }
 
     @Test
@@ -193,15 +145,6 @@ public class FilterControllerTest  {
         logger.info("delete filter2");
         response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-    }
-
-    @Ignore
-    @Test
-    public void testWithHelper() throws IOException, UnirestException {
-        //Filter filter = new Filter();
-        //filter.setQuery(filterSelect);
-        //Filter savedFilter = ormh.createEntity(filterSelect,null,null);
-        logger.info("done");
     }
 
 }
