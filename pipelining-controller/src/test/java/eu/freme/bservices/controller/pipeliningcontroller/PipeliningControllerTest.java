@@ -41,14 +41,14 @@ public class PipeliningControllerTest {
     private Logger logger = Logger.getLogger(PipeliningControllerTest.class);
     AuthenticatedTestHelper ath;
     OwnedResourceManagingHelper<Pipeline> ormh;
-    LoggingHelper lh;
+    RequestFactory rf;
 
     public PipeliningControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelining-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
         ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath, null);
         ath.authenticateUsers();
-        lh = context.getBean(LoggingHelper.class);
+        //rf = new MockupRequestFactory(ath.getAPIBaseUrl());
     }
 
 
@@ -63,8 +63,8 @@ public class PipeliningControllerTest {
 
     @Test
     public void testExecuteDefaultSingle() throws JsonProcessingException, UnirestException {
-        SerializedRequest entityRequest = RequestFactory.createEntitySpotlight("en");
-        SerializedRequest linkRequest = RequestFactory.createLink("3");    // Geo pos
+        SerializedRequest entityRequest = rf.createEntitySpotlight("en");
+        SerializedRequest linkRequest = rf.createLink("3");    // Geo pos
         String contents = "The Atomium in Brussels is the symbol of Belgium.";
         HttpResponse<String> response = sendRequest(HttpStatus.SC_OK, contents, entityRequest, linkRequest);
     }
@@ -81,8 +81,8 @@ public class PipeliningControllerTest {
     public void testPipelining() throws IOException, UnirestException {
         // create 2 templates
         Pipeline pipeline1 = createDefaultTemplate(OwnedResource.Visibility.PRIVATE);
-        SerializedRequest nerRequest = RequestFactory.createEntityFremeNER("en", "dbpedia");
-        SerializedRequest translateRequest = RequestFactory.createTranslation("en", "fr");
+        SerializedRequest nerRequest = rf.createEntityFremeNER("en", "dbpedia");
+        SerializedRequest translateRequest = rf.createTranslation("en", "fr");
         Pipeline pipeline2 = createTemplate(OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
 
         // use pipelines
@@ -195,8 +195,8 @@ public class PipeliningControllerTest {
     }
 
     protected Pipeline createDefaultTemplate(final OwnedResource.Visibility visibility) throws UnirestException, IOException {
-        SerializedRequest entityRequest = RequestFactory.createEntitySpotlight("en");
-        SerializedRequest linkRequest = RequestFactory.createLink("3");    // Geo pos
+        SerializedRequest entityRequest = rf.createEntitySpotlight("en");
+        SerializedRequest linkRequest = rf.createLink("3");    // Geo pos
         return createTemplate(visibility, "a label", "a description", entityRequest, linkRequest);
     }
 
