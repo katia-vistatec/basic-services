@@ -41,14 +41,14 @@ public class PipeliningControllerTest {
     private Logger logger = Logger.getLogger(PipeliningControllerTest.class);
     AuthenticatedTestHelper ath;
     OwnedResourceManagingHelper<Pipeline> ormh;
-    RequestFactory rf;
+    MockupRequestFactory rf;
 
     public PipeliningControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelining-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
         ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath, null);
         ath.authenticateUsers();
-        //rf = new MockupRequestFactory(ath.getAPIBaseUrl());
+        rf = new MockupRequestFactory(ath.getAPIBaseUrl());
     }
 
 
@@ -81,9 +81,9 @@ public class PipeliningControllerTest {
     public void testPipelining() throws IOException, UnirestException {
         // create 2 templates
         Pipeline pipeline1 = createDefaultTemplate(OwnedResource.Visibility.PRIVATE);
-        SerializedRequest nerRequest = rf.createEntityFremeNER("en", "dbpedia");
-        SerializedRequest translateRequest = rf.createTranslation("en", "fr");
-        Pipeline pipeline2 = createTemplate(OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
+        //SerializedRequest nerRequest = rf.createEntityFremeNER("en", "dbpedia");
+        //SerializedRequest translateRequest = rf.createTranslation("en", "fr");
+        //Pipeline pipeline2 = createTemplate(OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
 
         // use pipelines
         String contents = "The Atomium in Brussels is the symbol of Belgium.";
@@ -99,7 +99,7 @@ public class PipeliningControllerTest {
 
         // delete pipelines
         ormh.deleteEntity(pipeline1.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
-        ormh.deleteEntity(pipeline2.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
+        //ormh.deleteEntity(pipeline2.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
     }
 
     @Test

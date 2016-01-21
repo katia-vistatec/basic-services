@@ -13,8 +13,10 @@ import java.io.IOException;
 @RestController
 public class MockupEndpoint {
 
+	public static final String path = "/mockups/file";
+
 	// use regEx to include the file extension
-	@RequestMapping("/mockups/file/{filename:.+}")
+	@RequestMapping(path+"/{filename:.+}")
 	public ResponseEntity<String> sendRDFfileContent(
 			@RequestHeader( value="outformat", required=false) String outformat,
 			@RequestHeader( value="accept", required=false) String accept,

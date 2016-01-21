@@ -1,0 +1,135 @@
+@prefix dsp:   <http://dublincore.org/dc-dsp#> .
+@prefix schema: <http://schema.org/> .
+@prefix olia:  <http://purl.org/olia/olia.owl#> .
+@prefix rutg:  <http://rdfunit.aksw.org/data/generators#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rlog:  <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/rlog#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix rutp:  <http://rdfunit.aksw.org/data/patterns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix oslc:  <http://open-services.net/ns/core#> .
+@prefix p:     <http://127.0.0.1:9995/spotlight#> .
+@prefix rut:   <http://rdfunit.aksw.org/ns/core#> .
+@prefix rutr:  <http://rdfunit.aksw.org/data/results#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rutt:  <http://rdfunit.aksw.org/data/tests#> .
+@prefix spin:  <http://spinrdf.org/spin#> .
+@prefix ruts:  <http://rdfunit.aksw.org/data/testsuite#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+<http://freme-project.eu/#char=41,48>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "Belgium" ;
+        nif:beginIndex        "41" ;
+        nif:endIndex          "48" ;
+        nif:nextWord          <http://freme-project.eu/#char=48,49> ;
+        nif:previousWord      <http://freme-project.eu/#char=38,40> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Belgium> .
+
+<http://freme-project.eu/#char=27,30>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "the" ;
+        nif:beginIndex        "27" ;
+        nif:endIndex          "30" ;
+        nif:nextWord          <http://freme-project.eu/#char=31,37> ;
+        nif:previousWord      <http://freme-project.eu/#char=24,26> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
+
+<http://freme-project.eu/#char=24,26>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "is" ;
+        nif:beginIndex        "24" ;
+        nif:endIndex          "26" ;
+        nif:nextWord          <http://freme-project.eu/#char=27,30> ;
+        nif:previousWord      <http://freme-project.eu/#char=15,23> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
+
+<http://freme-project.eu/#char=0,49>
+        a                     nif:RFC5147String , nif:Sentence , nif:Context ;
+        nif:anchorOf          "The Atomium in Brussels is the symbol of Belgium." ;
+        nif:beginIndex        "0" ;
+        nif:endIndex          "49" ;
+        nif:firstWord         <http://freme-project.eu/#char=0,3> ;
+        nif:isString          "The Atomium in Brussels is the symbol of Belgium." ;
+        nif:lastWord          <http://freme-project.eu/#char=48,49> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:word              <http://freme-project.eu/#char=31,37> , <http://freme-project.eu/#char=15,23> , <http://freme-project.eu/#char=41,48> , <http://freme-project.eu/#char=24,26> , <http://freme-project.eu/#char=38,40> , <http://freme-project.eu/#char=12,14> , <http://freme-project.eu/#char=4,11> , <http://freme-project.eu/#char=27,30> .
+
+<http://freme-project.eu/#char=38,40>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "of" ;
+        nif:beginIndex        "38" ;
+        nif:endIndex          "40" ;
+        nif:nextWord          <http://freme-project.eu/#char=41,48> ;
+        nif:previousWord      <http://freme-project.eu/#char=31,37> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
+
+<http://freme-project.eu/#char=48,49>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "." ;
+        nif:beginIndex        "48" ;
+        nif:endIndex          "49" ;
+        nif:previousWord      <http://freme-project.eu/#char=41,48> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
+
+<http://freme-project.eu/#char=31,37>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "symbol" ;
+        nif:beginIndex        "31" ;
+        nif:endIndex          "37" ;
+        nif:nextWord          <http://freme-project.eu/#char=38,40> ;
+        nif:previousWord      <http://freme-project.eu/#char=27,30> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Symbol> .
+
+<http://freme-project.eu/#char=15,23>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "Brussels" ;
+        nif:beginIndex        "15" ;
+        nif:endIndex          "23" ;
+        nif:nextWord          <http://freme-project.eu/#char=24,26> ;
+        nif:previousWord      <http://freme-project.eu/#char=12,14> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Brussels> .
+
+<http://freme-project.eu/#char=4,11>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "Atomium" ;
+        nif:beginIndex        "4" ;
+        nif:endIndex          "11" ;
+        nif:nextWord          <http://freme-project.eu/#char=12,14> ;
+        nif:previousWord      <http://freme-project.eu/#char=0,3> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Atomium> .
+
+<http://freme-project.eu/#char=0,3>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "The" ;
+        nif:beginIndex        "0" ;
+        nif:endIndex          "3" ;
+        nif:nextWord          <http://freme-project.eu/#char=4,11> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
+
+<http://freme-project.eu/#char=12,14>
+        a                     nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "in" ;
+        nif:beginIndex        "12" ;
+        nif:endIndex          "14" ;
+        nif:nextWord          <http://freme-project.eu/#char=15,23> ;
+        nif:previousWord      <http://freme-project.eu/#char=4,11> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,49> ;
+        nif:sentence          <http://freme-project.eu/#char=0,49> .
