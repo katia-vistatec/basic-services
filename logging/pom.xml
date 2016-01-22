@@ -9,27 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>test-helper</artifactId>
+    <artifactId>logging</artifactId>
+    <groupId>eu.freme.bservices.filter</groupId>
+
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
-        </dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-        <dependency>
-            <groupId>eu.freme.bservices.controller</groupId>
-            <artifactId>users</artifactId>
-            <version>0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.freme.bservices.filter</groupId>
-            <artifactId>logging</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
