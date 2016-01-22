@@ -19,6 +19,7 @@ import eu.freme.common.persistence.model.SerializedRequest;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
@@ -75,20 +76,15 @@ public class PipeliningControllerTest {
         ormh.deleteEntity(pipelineInfo.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
     }
 
+    // test pipeline privacy
     @Test
     public void testPipelining() throws IOException, UnirestException {
-        // create 2 templates
         Pipeline pipeline1 = createDefaultTemplate(OwnedResource.Visibility.PRIVATE);
-        //SerializedRequest nerRequest = rf.createEntityFremeNER("en", "dbpedia");
-        //SerializedRequest translateRequest = rf.createTranslation("en", "fr");
-        //Pipeline pipeline2 = createTemplate(OwnedResource.Visibility.PRIVATE, "NER-Translate", "Apply FRENE NER and then e-Translate", nerRequest, translateRequest);
 
-        // use pipelines
+        // use pipeline as
         String contents = "The Atomium in Brussels is the symbol of Belgium.";
-        logger.info("execute default pipeline with content=\""+contents+"\"");
+        logger.info("execute private default pipeline with content=\""+contents+"\" as userWithPermission");
         sendRequest(ath.getTokenWithPermission(), HttpStatus.SC_OK, pipeline1.getIdentifier(), contents, RDFConstants.RDFSerialization.PLAINTEXT);
-        // this fails because of external service (tilde translate)
-        //sendRequest(ath.getTokenWithPermission(), HttpStatus.SC_OK, pipeline2.getIdentifier(), contents, RDFConstants.RDFSerialization.PLAINTEXT);
 
         logger.info("execute private pipeline as userWithoutPermission");
         LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
@@ -97,7 +93,6 @@ public class PipeliningControllerTest {
 
         // delete pipelines
         ormh.deleteEntity(pipeline1.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
-        //ormh.deleteEntity(pipeline2.getIdentifier(), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
     }
 
     @Test
@@ -111,6 +106,59 @@ public class PipeliningControllerTest {
 
         sendRequest(HttpStatus.SC_OK, input, entityRequest, linkRequest, terminologyRequest);
     }
+
+    //// test pipeline with link
+
+    @Test
+    public void testSpotlight() throws UnirestException, JsonProcessingException {
+        String data = "This summer there is the Zomerbar in Antwerp, one of the most beautiful cities in Belgium.";
+        SerializedRequest entityRequest = rf.createEntitySpotlight("en");
+        SerializedRequest linkRequest = rf.createLink("3");	// Geo pos
+
+        sendRequest(HttpStatus.SC_OK, data, entityRequest, linkRequest);
+    }
+
+    /**
+     * e-Entity using FREME NER with database viaf and e-Link using template 3 (Geo pos). All should go well.
+     * @throws UnirestException
+     */
+    @Test
+    public void testFremeNER() throws UnirestException, JsonProcessingException {
+        String data = "This summer there is the Zomerbar in Antwerp, one of the most beautiful cities in Belgium.";
+        SerializedRequest entityRequest = rf.createEntityFremeNER("en", "viaf");
+        SerializedRequest linkRequest = rf.createLink("3");	// Geo pos
+
+        sendRequest(HttpStatus.SC_OK, data, entityRequest, linkRequest);
+    }
+
+    /**
+     * e-Entity using an unexisting data set to test error reporting.
+     */
+    @Test
+    @Ignore // doesnt work with mockup endpoint
+    public void testWrongDatasetEntity() throws UnirestException, JsonProcessingException {
+        String data = "This summer there is the Zomerbar in Antwerp, one of the most beautiful cities in Belgium.";
+        SerializedRequest entityRequest = rf.createEntityFremeNER("en", "anunexistingdatabase");
+        SerializedRequest linkRequest = rf.createLink("3");	// Geo pos
+
+        sendRequest(HttpStatus.SC_BAD_REQUEST, data, entityRequest, linkRequest);
+    }
+
+    /**
+     * e-Entity using an unexisting language set to test error reporting.
+     */
+    @Test
+    @Ignore // doesnt work with mockup endpoint
+    public void testWrongLanguageEntity() throws UnirestException, JsonProcessingException {
+        String data = "This summer there is the Zomerbar in Antwerp, one of the most beautiful cities in Belgium.";
+        SerializedRequest entityRequest = rf.createEntityFremeNER("zz", "viaf");
+        SerializedRequest linkRequest = rf.createLink("3");	// Geo pos
+
+        sendRequest(HttpStatus.SC_BAD_REQUEST, data, entityRequest, linkRequest);
+    }
+
+
+    //// pipeline management
 
     @Test
     public void testPipelineManagement() throws UnirestException, IOException {
@@ -135,7 +183,7 @@ public class PipeliningControllerTest {
 
 
     //////////////////////////////////////////////////////////////////////////////////
-    // PipelinesCommon
+    //   PipelinesCommon                                                            //
     //////////////////////////////////////////////////////////////////////////////////
 
     /**
