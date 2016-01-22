@@ -10,10 +10,10 @@ import eu.freme.common.persistence.model.SerializedRequest;
 public class MockupRequestFactory {
 
     static final String mockupEntitySpotlight = "/pipelines-mockupEntitySpotlight.ttl";
-    static final String mockupEntityFremeNER = "/";
+    static final String mockupEntityFremeNER = "/pipelines-mockupEntityFremeNER.ttl";
     static final String mockupLink = "/pipelines-mockupLink.ttl";
     static final String mockupTranslation = "/";
-    static final String mockupTerminology = "/";
+    static final String mockupTerminology = "/pipelines-mockupTerminology.ttl";
 
     private final String baseURL;
 
@@ -36,7 +36,7 @@ public class MockupRequestFactory {
         return request;
     }
 
-    /*
+
     @SuppressWarnings("unused")
     public SerializedRequest createEntityFremeNER(final String text, final String language, final String dataSet) {
         SerializedRequest request = RequestFactory.createEntityFremeNER(text, language, dataSet);
@@ -50,7 +50,7 @@ public class MockupRequestFactory {
         request.setEndpoint(baseURL + MockupEndpoint.path +mockupEntityFremeNER);
         return request;
     }
-*/
+
     @SuppressWarnings("unused")
     public SerializedRequest createLink(final String templateID) {
         SerializedRequest request = RequestFactory.createLink(templateID);
@@ -72,7 +72,7 @@ public class MockupRequestFactory {
         request.setEndpoint(baseURL + MockupEndpoint.path +mockupTranslation);
         return request;
     }
-
+*/
     @SuppressWarnings("unused")
     public SerializedRequest createTerminology(final String sourceLang, final String targetLang) {
         SerializedRequest request = RequestFactory.createTerminology(sourceLang, targetLang);
@@ -80,6 +80,6 @@ public class MockupRequestFactory {
         return request;
     }
 
-*/
+
 
 }

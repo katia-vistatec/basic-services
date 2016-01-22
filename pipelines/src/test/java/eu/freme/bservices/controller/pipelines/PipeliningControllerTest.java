@@ -101,6 +101,18 @@ public class PipeliningControllerTest {
     }
 
     @Test
+    public void testSomethingThatWorks() throws UnirestException, JsonProcessingException {
+        String input = "With just 200,000 residents, Reykjavík ranks as one of Europe’s smallest capital cities. But when Iceland’s total population only hovers around 300,000, it makes sense that the capital is known as the “big city” and offers all the cultural perks of a much larger place.\n" +
+                "\n" +
+                "“From live music almost every night to cosy cafes, colourful houses and friendly cats roaming the street, Reykjavík has all the charms of a small town in a fun capital city,” said Kaelene Spence, ";
+        SerializedRequest entityRequest = rf.createEntityFremeNER("en", "dbpedia");
+        SerializedRequest linkRequest = rf.createLink("3");	// Geo pos
+        SerializedRequest terminologyRequest = rf.createTerminology("en", "nl");
+
+        sendRequest(HttpStatus.SC_OK, input, entityRequest, linkRequest, terminologyRequest);
+    }
+
+    @Test
     public void testPipelineManagement() throws UnirestException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
 

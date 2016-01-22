@@ -1,0 +1,69 @@
+@prefix dbpedia-fr: <http://fr.dbpedia.org/resource/> .
+@prefix dbc:   <http://dbpedia.org/resource/Category:> .
+@prefix dbpedia-es: <http://es.dbpedia.org/resource/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix dbpedia-de: <http://de.dbpedia.org/resource/> .
+@prefix dbpedia-ru: <http://ru.dbpedia.org/resource/> .
+@prefix freme-onto: <http://freme-project.eu/ns#> .
+@prefix dbpedia-nl: <http://nl.dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dbpedia-it: <http://it.dbpedia.org/resource/> .
+
+<http://freme-project.eu/#char=377,386>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "Reykjavík"^^xsd:string ;
+        nif:beginIndex        "377"^^xsd:int ;
+        nif:endIndex          "386"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9671408952720415"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Reykjav%25C3%25ADk> .
+
+<http://freme-project.eu/#char=451,465>
+        a                     nif:String , nif:Word , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Kaelene Spence"^^xsd:string ;
+        nif:beginIndex        "451"^^xsd:int ;
+        nif:endIndex          "465"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Person> ;
+        itsrdf:taConfidence   "0.988405885125808"^^xsd:double .
+
+<http://freme-project.eu/#char=98,105>
+        a                     nif:RFC5147String , nif:Phrase , nif:Word , nif:String ;
+        nif:anchorOf          "Iceland"^^xsd:string ;
+        nif:beginIndex        "98"^^xsd:int ;
+        nif:endIndex          "105"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9600133091560059"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Iceland .
+
+<http://freme-project.eu/#char=55,61>
+        a                     nif:String , nif:RFC5147String , nif:Phrase , nif:Word ;
+        nif:anchorOf          "Europe"^^xsd:string ;
+        nif:beginIndex        "55"^^xsd:int ;
+        nif:endIndex          "61"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.7622158992702474"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Europe .
+
+<http://freme-project.eu/#char=29,38>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "Reykjavík"^^xsd:string ;
+        nif:beginIndex        "29"^^xsd:int ;
+        nif:endIndex          "38"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.983779994843479"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Reykjav%25C3%25ADk> .
+
+<http://freme-project.eu/#char=0,467>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:int ;
+        nif:endIndex    "467"^^xsd:int ;
+        nif:isString    "With just 200,000 residents, Reykjavík ranks as one of Europe’s smallest capital cities. But when Iceland’s total population only hovers around 300,000, it makes sense that the capital is known as the “big city” and offers all the cultural perks of a much larger place.\n\n“From live music almost every night to cosy cafes, colourful houses and friendly cats roaming the street, Reykjavík has all the charms of a small town in a fun capital city,” said Kaelene Spence, "^^xsd:string .
