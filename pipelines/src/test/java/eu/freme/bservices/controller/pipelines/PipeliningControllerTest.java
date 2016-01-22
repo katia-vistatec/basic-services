@@ -164,20 +164,13 @@ public class PipeliningControllerTest {
     public void testPipelineManagement() throws UnirestException, IOException {
         ClassLoader classLoader = getClass().getClassLoader();
 
-        String fn1 = classLoader.getResource("pipelines/pipeline1.json").getFile();
-        if(fn1==null)
-            throw new FileNotFoundException("could not read resource pipelines/pipeline1.json");
-        File file1 = new File(fn1);
-        String body1 = FileUtils.readFileToString(file1);
 
-        String fn2 = classLoader.getResource("pipelines/pipeline2.json").getFile();
-        if(fn2==null)
-            throw new FileNotFoundException("could not read resource pipelines/pipeline2.json");
-        File file2 = new File(fn2);
-        String body2 = FileUtils.readFileToString(file2);
+        Pipeline pipeline1 = constructPipeline(OwnedResource.Visibility.PUBLIC, "entity, translate", "First e-Entity, then e-Translate", rf.createEntitySpotlight("en") ,rf.createTerminology("en","en"));
+        Pipeline pipeline2 = constructPipeline(OwnedResource.Visibility.PUBLIC, "Spotlight-Link", "Recognises entities using Spotlight en enriches with geo information.", rf.createEntitySpotlight("en"), rf.createLink("3"));
+
         ormh.checkCRUDOperations(
-                new SimpleEntityRequest(body1, null, null),
-                new SimpleEntityRequest(body2, null, null));
+                new SimpleEntityRequest(ormh.toJSON(pipeline1), null, null),
+                new SimpleEntityRequest(ormh.toJSON(pipeline2), null, null));
 
     }
 
@@ -259,6 +252,13 @@ public class PipeliningControllerTest {
     }
 
     protected Pipeline createTemplate(final OwnedResource.Visibility visibility, final String label, final String description, final SerializedRequest... requests) throws UnirestException, IOException {
+        Pipeline pipeline = constructPipeline(visibility,label,description, requests);
+        // send json
+        pipeline = ormh.createEntity(new SimpleEntityRequest(ormh.toJSON(pipeline),null,null), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
+        return pipeline;
+    }
+
+    protected Pipeline constructPipeline(final OwnedResource.Visibility visibility, final String label, final String description, final SerializedRequest... requests) throws JsonProcessingException {
         List<SerializedRequest> serializedRequests = Arrays.asList(requests);
 
         // create local Entity to build json
@@ -268,8 +268,6 @@ public class PipeliningControllerTest {
         pipeline.setDescription(description);
         pipeline.setSerializedRequests(serializedRequests);
         pipeline.setPersist(false);
-        // send json
-        pipeline = ormh.createEntity(new SimpleEntityRequest(ormh.toJSON(pipeline),null,null), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
         return pipeline;
     }
 }
