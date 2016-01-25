@@ -48,7 +48,7 @@ public class EInternationalizationAPITest {
 
 
 	public EInternationalizationAPITest() throws UnirestException {
-		ApplicationContext context = IntegrationTestSetup.getContext("einternationalization-filter-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
+		ApplicationContext context = IntegrationTestSetup.getContext("einternationalization-lib-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
 		th = context.getBean(TestHelper.class);
 		classLoader = getClass().getClassLoader();
 	}

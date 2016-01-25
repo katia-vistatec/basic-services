@@ -26,10 +26,8 @@ import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.Conversi
 import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.NifConverter;
 import net.sf.okapi.common.MimeTypeMapper;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.HTMLBackConverter;
-import org.springframework.stereotype.Component;
 
-@Component
-public class EInternationalizationAPI {
+public class EInternationalizationAPI{
 
 	public static final String MIME_TYPE_XLIFF_1_2 = MimeTypeMapper.XLIFF_MIME_TYPE;
 
