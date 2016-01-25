@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-	<version>0.3-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
 	<properties>
 		<okapi.version>0.27</okapi.version>

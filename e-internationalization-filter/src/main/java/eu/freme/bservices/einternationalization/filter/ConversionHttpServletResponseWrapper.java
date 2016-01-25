@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.commons.io.input.ReaderInputStream;
 
-import eu.freme.i18n.api.EInternationalizationAPI;
-import eu.freme.i18n.okapi.nif.converter.ConversionException;
+import eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI;
+import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.ConversionException;
 
 /**
  * ConversionHttpServletResponseWrapper collects the response of a normal API

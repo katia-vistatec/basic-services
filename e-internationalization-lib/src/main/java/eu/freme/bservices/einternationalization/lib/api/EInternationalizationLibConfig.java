@@ -16,16 +16,14 @@
  * limitations under the License.
  */
 package eu.freme.bservices.einternationalization.lib.api;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI;
 
 @Configuration
-public class EInternationalizationConfig {
+public class EInternationalizationLibConfig {
 
-	@Bean
-	public eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI nifConverter(){
-		return new eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI();
-	}
+    @Bean
+    public EInternationalizationAPI getEIntAPI() {
+        return new EInternationalizationAPI();
+    }
 }

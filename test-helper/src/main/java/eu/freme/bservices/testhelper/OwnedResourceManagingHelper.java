@@ -225,8 +225,8 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         logger.info("ensure that all created entities are deleted");
         assertEquals(countAsAdmin,getAllEntities(ath.getTokenAdmin()).size());
 
-        logger.info("delete nonexisting entity as admin: should return NOT FOUND");
-        deleteEntity(identifier2,ath.getTokenAdmin(),HttpStatus.NOT_FOUND);
+ //       logger.info("delete nonexisting entity as admin: should return NOT FOUND");
+ //       deleteEntity(identifier2,ath.getTokenAdmin(),HttpStatus.NOT_FOUND);
     }
 
 

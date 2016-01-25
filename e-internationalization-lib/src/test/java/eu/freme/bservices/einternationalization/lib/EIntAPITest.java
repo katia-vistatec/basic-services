@@ -22,41 +22,39 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI;
-import eu.freme.bservices.einternationalization.lib.api.EInternationalizationConfig;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.ConversionException;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.RDFConstants;
 
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class EInternationalizationAPITest {
+public class EIntAPITest {
 
 	TestHelper th;
 	ClassLoader classLoader;
-	Logger logger = Logger.getLogger(EInternationalizationAPITest.class);
+	Logger logger = Logger.getLogger(EIntAPITest.class);
+
+    EInternationalizationAPI eInternationalizationAPI;
 
 
-
-	public EInternationalizationAPITest() throws UnirestException {
+	public EIntAPITest() throws UnirestException {
 		ApplicationContext context = IntegrationTestSetup.getContext("einternationalization-lib-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
 		th = context.getBean(TestHelper.class);
+        eInternationalizationAPI = context.getBean(EInternationalizationAPI.class);
 		classLoader = getClass().getClassLoader();
 	}
+;
 
-	@Autowired
-	EInternationalizationAPI eInternationalizationAPI;
 
-	 @Test
+	
+	@Test
 	public void testEInternationalizationAPIXliff() {
 
 		InputStream is = getClass().getResourceAsStream(
@@ -82,7 +80,7 @@ public class EInternationalizationAPITest {
 			e.printStackTrace();
 		}
 	}
-
+	
 	 @Test
 	public void testEInternationalizationAPIHTML() {
 
@@ -107,7 +105,7 @@ public class EInternationalizationAPITest {
 			e.printStackTrace();
 		}
 	}
-
+	
 	 @Test
 	public void testEInternationalizationAPIXML() {
 
@@ -135,7 +133,7 @@ public class EInternationalizationAPITest {
 		}
 	}
 
-
+	
 	 @Test
 	public void testEInternationalizationAPIODT() {
 
@@ -163,7 +161,7 @@ public class EInternationalizationAPITest {
 			 e.printStackTrace();
 		}
 	}
-
+	
 	 @Test
 	public void testEInternationalizationAPIUnsupportedMimeType() {
 

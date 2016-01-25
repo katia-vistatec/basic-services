@@ -47,8 +47,8 @@ import org.springframework.stereotype.Component;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
 import eu.freme.common.exception.ExceptionHandlerService;
-import eu.freme.i18n.api.EInternationalizationAPI;
-import eu.freme.i18n.okapi.nif.converter.ConversionException;
+import eu.freme.bservices.einternationalization.lib.api.EInternationalizationAPI;
+import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.ConversionException;
 import org.springframework.web.filter.GenericFilterBean;
 
 /**

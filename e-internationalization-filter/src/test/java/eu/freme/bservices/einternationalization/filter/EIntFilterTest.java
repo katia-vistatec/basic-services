@@ -41,16 +41,14 @@ import org.springframework.context.ApplicationContext;
 /**
  * Created by Jonathan Sauder (jonathan.sauder@student.hpi.de) on 06.08.15.
  */
-public class EInternationalizationFilterTest {
+public class EIntFilterTest {
 
     TestHelper th;
     ValidationHelper vh;
     ClassLoader classLoader;
-    Logger logger = Logger.getLogger(EInternationalizationTest.class);
+    Logger logger = Logger.getLogger(EIntFilterTest.class);
 
-
-
-    public EInternationalizationTest() throws  UnirestException {
+    public EIntFilterTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("einternationalization-filter-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
         th = context.getBean(TestHelper.class);
         vh = context.getBean(ValidationHelper.class);
@@ -64,13 +62,13 @@ public class EInternationalizationFilterTest {
     @Test
     public void TestEInternationalization() throws IOException,
             UnirestException {
-         logger.info("TestEInternationalizaton with xliff");
-         for (String sample_file : sample_xliff) {
-             logger.info("Testing file " + sample_file);
-             testContentTypeandInformat(
-                     "application/x-xliff+xml",
-                     FileUtils.readFileToString(new File(classLoader.getResource(sample_file).getFile())));
-         }
+        logger.info("TestEInternationalizaton with xliff");
+        for (String sample_file : sample_xliff) {
+            logger.info("Testing file " + sample_file);
+            testContentTypeandInformat(
+                    "application/x-xliff+xml",
+                    FileUtils.readFileToString(new File(classLoader.getResource(sample_file).getFile())));
+        }
 
         logger.info("TestEInternationalization with html");
         for (String sample_file : sample_html) {
@@ -91,7 +89,7 @@ public class EInternationalizationFilterTest {
         // With Content-Type header
         response = Unirest.post(th.getAPIBaseUrl()+"/mockups/file/internationalization-NER-this-is-Germany.ttl")
                 .header("Content-Type", format)
-           //     .header("Accept","text/turtle")
+                //     .header("Accept","text/turtle")
                 .queryString("language", "en")
                 .queryString("outformat","turtle")
 
@@ -133,7 +131,7 @@ public class EInternationalizationFilterTest {
                 .queryString("dataset", "dbpedia")
                 .queryString("informat", "text/html")
                 .queryString("outformat", "text/html").body(xliff).asString();
-        
+
         assertEquals(200,response.getStatus());
         assertTrue(response.getBody().length() > 0);
 
@@ -144,7 +142,7 @@ public class EInternationalizationFilterTest {
                 .queryString("dataset", "dbpedia")
                 .queryString("informat", "text/html")
                 .queryString("outformat", "text/html").body(longHtml).asString();
-        
+
         assertEquals(200,response.getStatus());
         assertTrue(response.getBody().length() > 0);
     }
@@ -158,7 +156,7 @@ public class EInternationalizationFilterTest {
                 .queryString("informat", "text/xml")
                 .body("<note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don't forget me this weekend!</body></note>")
                 .asString();
-        
+
         assertEquals(200, response.getStatus());
         assertTrue(response.getBody().length() > 0);
     }
@@ -175,7 +173,7 @@ public class EInternationalizationFilterTest {
                 .queryString("informat", "application/x-openoffice")
                 .body(data)
                 .asString();
-        
+
         assertEquals(200,response.getStatus());
         assertTrue(response.getBody().length() > 0);
     }
