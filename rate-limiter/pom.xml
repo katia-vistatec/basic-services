@@ -15,8 +15,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>eu.freme.bservices</groupId>
-      <artifactId>logging-filter</artifactId>
+      <groupId>eu.freme.bservices.filter</groupId>
+      <artifactId>logging</artifactId>
       <version>0.1-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>

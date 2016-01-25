@@ -1,0 +1,122 @@
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=337,368>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Section that is just protected."@en ;
+        nif:beginIndex        "337"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "368"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "13" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,9>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Heading 1"@en ;
+        nif:beginIndex        "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "9"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "1" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=10,19>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Heading 2"@en ;
+        nif:beginIndex        "10"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "19"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "2" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=301,336>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Section that is password-protected."@en ;
+        nif:beginIndex        "301"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "336"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "12" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=30,39>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Text body"@en ;
+        nif:beginIndex        "30"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "39"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "4" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=209,225>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "After page break"@en ;
+        nif:beginIndex        "209"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "225"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "8" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=226,260>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Before line breakAfter line break."@en ;
+        nif:beginIndex        "226"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "260"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "9" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=281,300>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "After column break."@en ;
+        nif:beginIndex        "281"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "300"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "11" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=20,29>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Heading 3"@en ;
+        nif:beginIndex        "20"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "29"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "3" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=127,190>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Non-breaking space= , non-breaking hyphen=‑, optional hyphen=­."@en ;
+        nif:beginIndex        "127"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "190"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "6" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=191,208>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Before page break"@en ;
+        nif:beginIndex        "191"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "208"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "7" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "394"^^xsd:nonNegativeInteger ;
+        nif:isString    "Heading 1 Heading 2 Heading 3 Text body Paragraph with an inserted script: Text of the script in any language. and text after. Non-breaking space= , non-breaking hyphen=‑, optional hyphen=­. Before page break After page break Before line breakAfter line break. Before column break After column break. Section that is password-protected. Section that is just protected. Section with normal text."@en .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=369,394>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Section with normal text."@en ;
+        nif:beginIndex        "369"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "394"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "14" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=40,126>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Paragraph with an inserted script: Text of the script in any language. and text after."@en ;
+        nif:beginIndex        "40"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "126"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "5" .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=261,280>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Before column break"@en ;
+        nif:beginIndex        "261"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "280"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/~okapi-23_OpenOfficeFilter_3568391486672222127.tmp/#char=0,394> ;
+        dc:identifier         "10" .

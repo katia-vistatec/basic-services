@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import eu.freme.bservices.einternationalization.lib.okapi.nif.step.NifParameters;
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.resource.BaseNameable;
@@ -36,8 +37,6 @@ import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
-
-import eu.freme.bservices.einternationalization.lib.okapi.nif.step.NifParameters;
 
 /**
  * Writer filter for NIF Skeleton files. The NIF skeleton file is a NIF file

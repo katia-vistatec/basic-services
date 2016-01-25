@@ -1,0 +1,1033 @@
+@prefix :      <https://term.tilde.com/terms/> .
+@prefix dbpedia-es: <http://es.dbpedia.org/resource/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix tbx:   <http://tbx2rdf.lider-project.eu/tbx#> .
+@prefix freme-onto: <http://freme-project.eu/ns#> .
+@prefix dct:   <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ontolex: <http://www.w3.org/ns/lemon/ontolex#> .
+@prefix dbpedia-it: <http://it.dbpedia.org/resource/> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix cc:    <http://creativecommons.org/ns#> .
+@prefix void:  <http://rdfs.org/ns/void#> .
+@prefix dbpedia-fr: <http://fr.dbpedia.org/resource/> .
+@prefix dbc:   <http://dbpedia.org/resource/Category:> .
+@prefix its:   <http://www.w3.org/2005/11/its> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix dbpedia-de: <http://de.dbpedia.org/resource/> .
+@prefix decomp: <http://www.w3.org/ns/lemon/decomp#> .
+@prefix dbpedia-ru: <http://ru.dbpedia.org/resource/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dbpedia-nl: <http://nl.dbpedia.org/resource/> .
+@prefix ldr:   <http://purl.oclc.org/NET/ldr/ns#> .
+@prefix odrl:  <http://www.w3.org/ns/odrl/2/> .
+
+:3085813  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0303> , <https://term.tilde.com/domains/TaaS-0300> , <https://term.tilde.com/domains/2446> , <https://term.tilde.com/domains/2416> , <https://term.tilde.com/domains/2411> , <https://term.tilde.com/domains/2406> , <https://term.tilde.com/domains/1631003> , <https://term.tilde.com/domains/16> .
+
+<http://freme-project.eu/#char=263,268>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "place"@en ;
+        nif:annotationUnit    [ rdfs:label           "place"@en ;
+                                itsrdf:taConfidence  0
+                              ] ;
+        nif:beginIndex        "263"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "268"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :1227744 .
+
+:music-en  a                   ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/music-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/music-en#Sense> .
+
+:stad-nl  a                    ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/stad-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/stad-nl#Sense> .
+
+:house-en  a                   ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/house-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/house-en#Sense> .
+
+<https://term.tilde.com/terms/Muziek-nl#Sense>
+        ontolex:reference  :1225975 .
+
+<https://term.tilde.com/terms/house-en#Sense>
+        ontolex:reference  :2854352 .
+
+:1222935  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "One of the music genres that appears under Genre classification in Windows Media Player library. Based on ID3 standard tagging format for MP3 audio files. ID3v1 genre ID # 35."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+:roamen-nl  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/roamen-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/roamen-nl#Sense> .
+
+<http://freme-project.eu/#char=451,465>
+        a                     nif:String , nif:Word , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Kaelene Spence"^^xsd:string ;
+        nif:beginIndex        "451"^^xsd:int ;
+        nif:endIndex          "465"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Person> ;
+        itsrdf:taConfidence   "0.988405885125808"^^xsd:double .
+
+:616310  a                skos:Concept ;
+        rdfs:comment      "information and information processing"@en , "construction and town planning"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-2000> , <https://term.tilde.com/domains/3231> , <https://term.tilde.com/domains/2846> .
+
+<https://term.tilde.com/terms/Kleinst-nl#Sense>
+        ontolex:reference  :1231085 .
+
+<http://freme-project.eu/#char=130,136>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "hovers"@en ;
+        nif:annotationUnit    [ rdfs:label           "hover"@en ;
+                                itsrdf:taConfidence  1
+                              ] ;
+        nif:beginIndex        "130"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "136"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :1222938 .
+
+<https://term.tilde.com/terms/ingezetene-nl#Sense>
+        ontolex:reference  :3085813 , :2845886 .
+
+:2746402  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0303> , <https://term.tilde.com/domains/4026> .
+
+:2808708  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/unknown> , <https://term.tilde.com/domains/TaaS-0100> .
+
+:offer-en  a                   ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/offer-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/offer-en#Sense> .
+
+<https://term.tilde.com/terms/small+town-en#CanonicalForm>
+        ontolex:writtenRep  "small town"@en .
+
+<https://term.tilde.com/terms/capital+city-en#Sense>
+        ontolex:reference  :619045 .
+
+<https://term.tilde.com/terms/Larger-en#Sense>
+        ontolex:reference  :1224158 .
+
+<https://term.tilde.com/terms/city-en#Sense>
+        ontolex:reference  :652483 , :2739744 .
+
+:ingezetenen-nl  a             ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/ingezetenen-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/ingezetenen-nl#Sense> .
+
+:2746281  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0303> , <https://term.tilde.com/domains/4026> .
+
+<https://term.tilde.com/terms/rangschikken-nl#Sense>
+        ontolex:reference  :1228813 .
+
+<https://term.tilde.com/terms/offerte-nl#Sense>
+        ontolex:reference  :3058848 , :3042446 .
+
+<https://term.tilde.com/terms/classificatie-nl#CanonicalForm>
+        ontolex:writtenRep  "classificatie"@nl .
+
+<https://term.tilde.com/terms/kat-nl#Sense>
+        ontolex:reference  :2812992 .
+
+:3104145  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0107> , <https://term.tilde.com/domains/1006004> .
+
+<https://term.tilde.com/terms/kleine+stad-nl#CanonicalForm>
+        ontolex:writtenRep  "kleine stad"@nl .
+
+:Smallest-en  a                ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Smallest-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/Smallest-en#Sense> .
+
+<https://term.tilde.com/terms/ranking-en#CanonicalForm>
+        ontolex:writtenRep  "ranking"@en .
+
+<https://term.tilde.com/terms/capital+city-en>
+        a                      ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/capital+city-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/capital+city-en#Sense> .
+
+<https://term.tilde.com/terms/Larger-en#CanonicalForm>
+        ontolex:writtenRep  "Larger"@en .
+
+<https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl#CanonicalForm>
+        ontolex:writtenRep  "rang in het ambtelijk bestel"@nl .
+
+<https://term.tilde.com/terms/residing-en#Sense>
+        ontolex:reference  :3085813 .
+
+:1222938  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "To hold the tablet pen above the screen, keeping the pointer in the same location, or briefly rest the mouse pointer on a button, link, or other UI element."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/resident-en#CanonicalForm>
+        ontolex:writtenRep  "resident"@en .
+
+:2745688  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0303> , <https://term.tilde.com/domains/TaaS-0200> , <https://term.tilde.com/domains/4026> , <https://term.tilde.com/domains/2416004> , <https://term.tilde.com/domains/12> .
+
+<https://term.tilde.com/terms/classificatie-nl#Sense>
+        ontolex:reference  :1228815 .
+
+<http://freme-project.eu/#char=256,262>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "larger"@en ;
+        nif:annotationUnit    [ rdfs:label           "Larger"@en ;
+                                itsrdf:taConfidence  0.2829
+                              ] ;
+        nif:beginIndex        "256"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "262"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :1224158 .
+
+:roaming-en  a                 ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 , 1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/roaming-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/roaming-en#Sense> .
+
+<https://term.tilde.com/terms/gebied-nl#Sense>
+        ontolex:reference  :1227744 .
+
+:1225975  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "A Surface application from Microsoft where users can browse through albums, select songs, and play them from the playlist."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/Smallest-en#CanonicalForm>
+        ontolex:writtenRep  "Smallest"@en .
+
+<http://freme-project.eu/#char=55,61>
+        a                     nif:String , nif:RFC5147String , nif:Phrase , nif:Word ;
+        nif:anchorOf          "Europe"^^xsd:string , "Europe"@en ;
+        nif:annotationUnit    [ rdfs:label           "Europe"@en ;
+                                itsrdf:taConfidence  0.1729
+                              ] ;
+        nif:beginIndex        "55"^^xsd:nonNegativeInteger , "55"^^xsd:int ;
+        nif:endIndex          "61"^^xsd:nonNegativeInteger , "61"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.7622158992702474"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Europe ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :653256 , :614861 .
+
+:Larger-en  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Larger-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/Larger-en#Sense> .
+
+<https://term.tilde.com/terms/straat-nl#CanonicalForm>
+        ontolex:writtenRep  "straat"@nl .
+
+<https://term.tilde.com/terms/inschrijving-nl#CanonicalForm>
+        ontolex:writtenRep  "inschrijving"@nl .
+
+<https://term.tilde.com/terms/resident-en#Sense>
+        ontolex:reference  :3085813 , :2845886 .
+
+:stal-nl  a                    ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/stal-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/stal-nl#Sense> .
+
+<https://term.tilde.com/terms/aanbod-nl#Sense>
+        ontolex:reference  :3058848 .
+
+<https://term.tilde.com/terms/residents-en#CanonicalForm>
+        ontolex:writtenRep  "residents"@en .
+
+:IJsland-nl  a                 ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/IJsland-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/IJsland-nl#Sense> .
+
+<https://term.tilde.com/terms/submission-en#Sense>
+        ontolex:reference  :3042446 .
+
+:614861  a                skos:Concept ;
+        rdfs:comment      "information and information processing"@en , "Europe and the former Soviet Union"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-2105> , <https://term.tilde.com/domains/TaaS-2000> , <https://term.tilde.com/domains/7206> , <https://term.tilde.com/domains/3231> .
+
+<https://term.tilde.com/terms/muziek-nl#Sense>
+        ontolex:reference  :654357 , :615973 , :2741741 .
+
+<https://term.tilde.com/terms/Music-en#CanonicalForm>
+        ontolex:writtenRep  "Music"@en .
+
+:bid-en  a                     ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/bid-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/bid-en#Sense> .
+
+:kapitaal-nl  a                ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/kapitaal-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/kapitaal-nl#Sense> .
+
+<https://term.tilde.com/terms/Europe-en#Sense>
+        ontolex:reference  :653256 , :614861 .
+
+<https://term.tilde.com/terms/Groter-nl#CanonicalForm>
+        ontolex:writtenRep  "Groter"@nl .
+
+:Groter-nl  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Groter-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/Groter-nl#Sense> .
+
+:3058848  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0306> , <https://term.tilde.com/domains/2431001> .
+
+:Europa-nl  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Europa-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/Europa-nl#Sense> .
+
+:muziek-nl  a                  ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/muziek-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/muziek-nl#Sense> .
+
+<https://term.tilde.com/terms/aanwijzen-nl#Sense>
+        ontolex:reference  :1222938 .
+
+<https://term.tilde.com/terms/kleine+stad-nl#Sense>
+        ontolex:reference  :616310 .
+
+<https://term.tilde.com/terms/totale+bevolking-nl#Sense>
+        ontolex:reference  :2746402 .
+
+<https://term.tilde.com/terms/stad-nl#CanonicalForm>
+        ontolex:writtenRep  "stad"@nl .
+
+:1228815  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "The process used by Windows XP to rank drivers to determine which is the best for a device. The lower the rank, the better the match of the driver to the device."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+:street-en  a                  ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/street-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/street-en#Sense> .
+
+<https://term.tilde.com/terms/hover-en#CanonicalForm>
+        ontolex:writtenRep  "hover"@en .
+
+:Music-en  a                   ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Music-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/Music-en#Sense> .
+
+<https://term.tilde.com/terms/House-en#CanonicalForm>
+        ontolex:writtenRep  "House"@en .
+
+<https://term.tilde.com/terms/kleine+stad-nl>
+        a                      ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/kleine+stad-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/kleine+stad-nl#Sense> .
+
+:House-en  a                   ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/House-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/House-en#Sense> .
+
+<https://term.tilde.com/terms/House-en#Sense>
+        ontolex:reference  :1222935 .
+
+<http://freme-project.eu/#char=206,210>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "city"@en ;
+        nif:annotationUnit    [ rdfs:label           "city"@en ;
+                                itsrdf:taConfidence  0.0231
+                              ] ;
+        nif:beginIndex        "206"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "210"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :652483 , :2739744 .
+
+<https://term.tilde.com/terms/Europa-nl#CanonicalForm>
+        ontolex:writtenRep  "Europa"@nl .
+
+<https://term.tilde.com/terms/ingezetene-nl#CanonicalForm>
+        ontolex:writtenRep  "ingezetene"@nl .
+
+<https://term.tilde.com/terms/roam-en#CanonicalForm>
+        ontolex:writtenRep  "roam"@en .
+
+:1231085  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "An item on the Text Size menu, which is opened from the Edit menu. Smallest is one of the text size choices for the user's instant messages"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+:3042446  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0304> , <https://term.tilde.com/domains/2006006> .
+
+:652483  a                skos:Concept ;
+        rdfs:comment      "environmental policy"@en ;
+        tbx:definition    "\"Term used generically today to denote any urban form but applied particularly to large urban settlements. There are, however, no agreed definitions to separate a city from the large metropolis or the smaller town. (Source: GOOD)\""@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/5206> .
+
+:2739744  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/52> .
+
+<https://term.tilde.com/terms/muziek-nl#CanonicalForm>
+        ontolex:writtenRep  "muziek"@nl .
+
+:cat-en  a                     ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/cat-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/cat-en#Sense> .
+
+<https://term.tilde.com/terms/small+town-en>
+        a                      ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/small+town-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/small+town-en#Sense> .
+
+<https://term.tilde.com/terms/IJsland-nl#CanonicalForm>
+        ontolex:writtenRep  "IJsland"@nl .
+
+<https://term.tilde.com/terms/kat-nl#CanonicalForm>
+        ontolex:writtenRep  "kat"@nl .
+
+:rangschikken-nl  a            ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/rangschikken-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/rangschikken-nl#Sense> .
+
+:Kleinst-nl  a                 ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Kleinst-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/Kleinst-nl#Sense> .
+
+<https://term.tilde.com/terms/bid-en#CanonicalForm>
+        ontolex:writtenRep  "bid"@en .
+
+:tender-en  a                  ontolex:LexicalEntry ;
+        tbx:reliabilityCode    4 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/tender-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/tender-en#Sense> .
+
+<https://term.tilde.com/terms/IJsland-nl#Sense>
+        ontolex:reference  :615460 .
+
+<https://term.tilde.com/terms/aanbod-nl#CanonicalForm>
+        ontolex:writtenRep  "aanbod"@nl .
+
+:2743124  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/52> .
+
+<http://freme-project.eu/#char=98,105>
+        a                     nif:RFC5147String , nif:Phrase , nif:Word , nif:String ;
+        nif:anchorOf          "Iceland"@en , "Iceland"^^xsd:string ;
+        nif:annotationUnit    [ rdfs:label           "Iceland"@en ;
+                                itsrdf:taConfidence  0.7859
+                              ] ;
+        nif:beginIndex        "98"^^xsd:nonNegativeInteger , "98"^^xsd:int ;
+        nif:endIndex          "105"^^xsd:nonNegativeInteger , "105"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9600133091560059"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Iceland ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :615460 .
+
+<https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl>
+        a                      ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl#Sense> .
+
+:nl     a                 ontolex:Lexicon ;
+        ontolex:entry     :ingezetenen-nl , :ingezetene-nl , :inschrijving-nl , :rangschikken-nl , :Europa-nl , :muziek-nl , <https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl> , :classificatie-nl , :stal-nl , :Muziek-nl , <https://term.tilde.com/terms/totale+bevolking-nl> , :roamen-nl , :offerte-nl , :aanbod-nl , :roaming-nl , :kat-nl , :Kleinst-nl , :stad-nl , :Groter-nl , :House-nl , :hoofdstad-nl , :IJsland-nl , :gebied-nl , :straat-nl , <https://term.tilde.com/terms/kleine+stad-nl> , :aanwijzen-nl , :kapitaal-nl ;
+        ontolex:language  <http://www.lexvo.org/page/iso639-3/dut> .
+
+:submission-en  a              ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/submission-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/submission-en#Sense> .
+
+<http://freme-project.eu/#char=73,80>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "capital"@en ;
+        nif:annotationUnit    [ rdfs:label           "capital"@en ;
+                                itsrdf:taConfidence  0.7941
+                              ] ;
+        nif:beginIndex        "73"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "80"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :3064731 , :2745688 , :1217415 .
+
+:resident-en  a                ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/resident-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/resident-en#Sense> .
+
+:615460  a                skos:Concept ;
+        rdfs:comment      "information and information processing"@en , "Europe and the former Soviet Union"@en , "political geography"@en , "economic geography"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/7231> , <https://term.tilde.com/domains/TaaS-2105> , <https://term.tilde.com/domains/7236> , <https://term.tilde.com/domains/7206> , <https://term.tilde.com/domains/TaaS-2000> , <https://term.tilde.com/domains/3231> .
+
+:Iceland-en  a                 ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Iceland-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/Iceland-en#Sense> .
+
+<https://term.tilde.com/terms/house-en#CanonicalForm>
+        ontolex:writtenRep  "house"@en .
+
+<https://term.tilde.com/terms/aanwijzen-nl#CanonicalForm>
+        ontolex:writtenRep  "aanwijzen"@nl .
+
+<https://term.tilde.com/terms/tender-en#CanonicalForm>
+        ontolex:writtenRep  "tender"@en .
+
+<https://term.tilde.com/terms/rangschikken-nl#CanonicalForm>
+        ontolex:writtenRep  "rangschikken"@nl .
+
+:place-en  a                   ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/place-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/place-en#Sense> .
+
+<https://term.tilde.com/terms/music-en#Sense>
+        ontolex:reference  :654357 , :615973 , :2741741 .
+
+<http://freme-project.eu/#char=177,184>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "capital"@en ;
+        nif:annotationUnit    [ rdfs:label           "capital"@en ;
+                                itsrdf:taConfidence  0.7941
+                              ] ;
+        nif:beginIndex        "177"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "184"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :3064731 , :2745688 , :1217415 .
+
+:capital-en  a                 ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/capital-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/capital-en#Sense> .
+
+:615973  a                  skos:Concept ;
+        rdfs:comment        "information and information processing"@en , "culture and religion"@en ;
+        tbx:relatedConcept  "audiovisual industry; musical instrument"@en ;
+        tbx:subjectField    <https://term.tilde.com/domains/TaaS-2005> , <https://term.tilde.com/domains/TaaS-2000> , <https://term.tilde.com/domains/3231> , <https://term.tilde.com/domains/2831> .
+
+<https://term.tilde.com/terms/roamen-nl#CanonicalForm>
+        ontolex:writtenRep  "roamen"@nl .
+
+<https://term.tilde.com/terms/kapitaal-nl#Sense>
+        ontolex:reference  :3064731 , :2745688 , :1217415 .
+
+<https://term.tilde.com/terms/hover-en#Sense>
+        ontolex:reference  :1222938 .
+
+:aanwijzen-nl  a               ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/aanwijzen-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/aanwijzen-nl#Sense> .
+
+<http://freme-project.eu/#char=0,467>
+        a               nif:String , nif:RFC5147String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:int ;
+        nif:endIndex    "467"^^xsd:int ;
+        nif:isString    "With just 200,000 residents, Reykjavík ranks as one of Europe’s smallest capital cities. But when Iceland’s total population only hovers around 300,000, it makes sense that the capital is known as the “big city” and offers all the cultural perks of a much larger place.\n\n“From live music almost every night to cosy cafes, colourful houses and friendly cats roaming the street, Reykjavík has all the charms of a small town in a fun capital city,” said Kaelene Spence, "^^xsd:string .
+
+<http://freme-project.eu/#char=39,44>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "ranks"@en ;
+        nif:annotationUnit    [ rdfs:label           "ranking"@en , "rank"@en ;
+                                itsrdf:taConfidence  0.2613
+                              ] ;
+        nif:beginIndex        "39"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "44"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :2808708 , :3104145 , :1228813 , :1228815 .
+
+:Muziek-nl  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Muziek-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/Muziek-nl#Sense> .
+
+:residing-en  a                ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/residing-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/residing-en#Sense> .
+
+<http://freme-project.eu/#char=29,38>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "Reykjavík"^^xsd:string ;
+        nif:beginIndex        "29"^^xsd:int ;
+        nif:endIndex          "38"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.983779994843479"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Reykjav%25C3%25ADk> .
+
+<https://term.tilde.com/terms/straat-nl#Sense>
+        ontolex:reference  :2743124 .
+
+<https://term.tilde.com/terms/Iceland-en#Sense>
+        ontolex:reference  :615460 .
+
+:1229798  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "To use a phone outside the usual service area."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<http://freme-project.eu/#char=18,27>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "residents"@en ;
+        nif:annotationUnit    [ rdfs:label           "residents"@en , "resident"@en ;
+                                itsrdf:taConfidence  0.3831
+                              ] ;
+        nif:beginIndex        "18"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "27"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :2845886 , :3085813 , :2746281 .
+
+:1228813  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "To give a unique cardinal position to each entry, as in stack rank."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/roamen-nl#Sense>
+        ontolex:reference  :1229798 .
+
+:hoofdstad-nl  a               ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/hoofdstad-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/hoofdstad-nl#Sense> .
+
+<https://term.tilde.com/terms/cat-en#Sense>
+        ontolex:reference  :2812992 .
+
+<https://term.tilde.com/terms/Europa-nl#Sense>
+        ontolex:reference  :653256 , :614861 .
+
+:inschrijving-nl  a            ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/inschrijving-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/inschrijving-nl#Sense> .
+
+<https://term.tilde.com/terms/submission-en#CanonicalForm>
+        ontolex:writtenRep  "submission"@en .
+
+:roam-en  a                    ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/roam-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/roam-en#Sense> .
+
+<https://term.tilde.com/terms/House-nl#Sense>
+        ontolex:reference  :1222935 .
+
+<https://term.tilde.com/terms/street-en#Sense>
+        ontolex:reference  :2743124 .
+
+:ranking-en  a                 ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/ranking-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/ranking-en#Sense> .
+
+:aanbod-nl  a                  ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/aanbod-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/aanbod-nl#Sense> .
+
+<https://term.tilde.com/terms/totale+bevolking-nl>
+        a                      ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/totale+bevolking-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/totale+bevolking-nl#Sense> .
+
+<https://term.tilde.com/terms/residents-en#Sense>
+        ontolex:reference  :2746281 .
+
+:residents-en  a               ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/residents-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/residents-en#Sense> .
+
+<https://term.tilde.com/terms/Smallest-en#Sense>
+        ontolex:reference  :1231085 .
+
+dbpedia:Europe  <http://www.w3.org/2003/01/geo/wgs84_pos#lat>
+                "48.6909603909255" , "48.6909603909255"^^xsd:double , "48.69096" ;
+        <http://www.w3.org/2003/01/geo/wgs84_pos#long>
+                "9.140625" , "9.140625"^^xsd:double , "9.14062" .
+
+<https://term.tilde.com/terms/hoofdstad-nl#Sense>
+        ontolex:reference  :619045 .
+
+<https://term.tilde.com/terms/hoofdstad-nl#CanonicalForm>
+        ontolex:writtenRep  "hoofdstad"@nl .
+
+:straat-nl  a                  ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/straat-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/straat-nl#Sense> .
+
+<https://term.tilde.com/terms/Groter-nl#Sense>
+        ontolex:reference  :1224158 .
+
+:ingezetene-nl  a              ontolex:LexicalEntry ;
+        tbx:reliabilityCode    2 , 1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/ingezetene-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/ingezetene-nl#Sense> .
+
+<https://term.tilde.com/terms/total+population-en#Sense>
+        ontolex:reference  :2746402 .
+
+<https://term.tilde.com/terms/offerte-nl#CanonicalForm>
+        ontolex:writtenRep  "offerte"@nl .
+
+:1227744  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "A window that is part of the navigation layer in the Dynamics NAV application."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/roaming-nl#Sense>
+        ontolex:reference  :3053307 , :2776780 , :1229807 .
+
+:roaming-nl  a                 ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 , 1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/roaming-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/roaming-nl#Sense> .
+
+<https://term.tilde.com/terms/capital+city-en#CanonicalForm>
+        ontolex:writtenRep  "capital city"@en .
+
+<https://term.tilde.com/terms/roaming-en#CanonicalForm>
+        ontolex:writtenRep  "roaming"@en .
+
+<https://term.tilde.com/terms/Iceland-en#CanonicalForm>
+        ontolex:writtenRep  "Iceland"@en .
+
+:653256  a                skos:Concept ;
+        rdfs:comment      "environmental policy"@en ;
+        tbx:definition    "\"The second smallest continent, forming the W extension of Eurasia: the border with Asia runs from the Urals to the Caspian and the Black Sea. The coastline is generally extremely indented and there are several peninsulas (notably Scandinavia, Italy and Iberia) and offshore islands (including the British Isles and Iceland). It contains a series of great mountain systems in the south (Pyrenees, Alps, Apennines, Carpathians, Caucasus), a large central plain, and a N region of lakes and mountains in Scandinavia. (Source: CED)\""@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/5206> .
+
+:619045  a                skos:Concept ;
+        rdfs:comment      "information and information processing"@en , "construction and town planning"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-2000> , <https://term.tilde.com/domains/3231> , <https://term.tilde.com/domains/2846> .
+
+:2741741  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/52> .
+
+<https://term.tilde.com/terms/city-en#CanonicalForm>
+        ontolex:writtenRep  "city"@en .
+
+<https://term.tilde.com/terms/offer-en#CanonicalForm>
+        ontolex:writtenRep  "offer"@en .
+
+<https://term.tilde.com/terms/capital-en#Sense>
+        ontolex:reference  :3064731 , :2745688 , :1217415 .
+
+:hover-en  a                   ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/hover-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/hover-en#Sense> .
+
+<https://term.tilde.com/terms/totale+bevolking-nl#CanonicalForm>
+        ontolex:writtenRep  "totale bevolking"@nl .
+
+<https://term.tilde.com/terms/rang+in+het+ambtelijk+bestel-nl#Sense>
+        ontolex:reference  :3104145 , :2808708 .
+
+<https://term.tilde.com/terms/total+population-en#CanonicalForm>
+        ontolex:writtenRep  "total population"@en .
+
+<https://term.tilde.com/terms/stal-nl#CanonicalForm>
+        ontolex:writtenRep  "stal"@nl .
+
+<https://term.tilde.com/terms/place-en#Sense>
+        ontolex:reference  :1227744 .
+
+<https://term.tilde.com/terms/small+town-en#Sense>
+        ontolex:reference  :616310 .
+
+<https://term.tilde.com/terms/ranking-en#Sense>
+        ontolex:reference  :1228815 .
+
+:654357  a                skos:Concept ;
+        rdfs:comment      "environmental policy"@en ;
+        tbx:definition    "\"The artistic organization of sounds or tones that expresses ideas and emotions through the elements of rhythm, melody, harmony and tonal color. (Source: RHW)\""@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/5206> .
+
+<http://freme-project.eu/#char=108,124>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "total population"@en ;
+        nif:annotationUnit    [ rdfs:label           "total population"@en ;
+                                itsrdf:taConfidence  0.5303
+                              ] ;
+        nif:beginIndex        "108"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "124"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :2746402 .
+
+<http://freme-project.eu/#char=377,386>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "Reykjavík"^^xsd:string ;
+        nif:beginIndex        "377"^^xsd:int ;
+        nif:endIndex          "386"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9671408952720415"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Reykjav%25C3%25ADk> .
+
+<https://term.tilde.com/terms/residing-en#CanonicalForm>
+        ontolex:writtenRep  "residing"@en .
+
+<https://term.tilde.com/terms/kapitaal-nl#CanonicalForm>
+        ontolex:writtenRep  "kapitaal"@nl .
+
+<https://term.tilde.com/terms/Europe-en#CanonicalForm>
+        ontolex:writtenRep  "Europe"@en .
+
+:rank-en  a                    ontolex:LexicalEntry ;
+        tbx:reliabilityCode    1 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/rank-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/rank-en#Sense> .
+
+<https://term.tilde.com/terms/ingezetenen-nl#CanonicalForm>
+        ontolex:writtenRep  "ingezetenen"@nl .
+
+<https://term.tilde.com/terms/bid-en#Sense>
+        ontolex:reference  :3042446 .
+
+dbpedia:Iceland  <http://www.w3.org/2003/01/geo/wgs84_pos#lat>
+                "65.0"^^xsd:float , "65.0" , "64.13333333333334"^^xsd:float , "65.0"^^xsd:double , "65" ;
+        <http://www.w3.org/2003/01/geo/wgs84_pos#long>
+                "-18" , "-21.933333333333334"^^xsd:float , "-18.0"^^xsd:double , "-18.0"^^xsd:float , "-18.0" .
+
+<https://term.tilde.com/terms/roaming-nl#CanonicalForm>
+        ontolex:writtenRep  "roaming"@nl .
+
+<https://term.tilde.com/terms/inschrijving-nl#Sense>
+        ontolex:reference  :3042446 .
+
+<https://term.tilde.com/terms/Music-en#Sense>
+        ontolex:reference  :1225975 .
+
+:2776780  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-2003> , <https://term.tilde.com/domains/3226003> .
+
+<https://term.tilde.com/terms/stal-nl#Sense>
+        ontolex:reference  :2854352 .
+
+:House-nl  a                   ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/House-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/House-nl#Sense> .
+
+:gebied-nl  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/gebied-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/gebied-nl#Sense> .
+
+<https://term.tilde.com/terms/gebied-nl#CanonicalForm>
+        ontolex:writtenRep  "gebied"@nl .
+
+:Europe-en  a                  ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/Europe-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/Europe-en#Sense> .
+
+<https://term.tilde.com/terms/rank-en#CanonicalForm>
+        ontolex:writtenRep  "rank"@en .
+
+<https://term.tilde.com/terms/capital-en#CanonicalForm>
+        ontolex:writtenRep  "capital"@en .
+
+:3053307  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-2003> , <https://term.tilde.com/domains/3226004> .
+
+<https://term.tilde.com/terms/Muziek-nl#CanonicalForm>
+        ontolex:writtenRep  "Muziek"@nl .
+
+<https://term.tilde.com/terms/total+population-en>
+        a                      ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/total+population-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/total+population-en#Sense> .
+
+<https://term.tilde.com/terms/tender-en#Sense>
+        ontolex:reference  :3042446 .
+
+<https://term.tilde.com/terms/ingezetenen-nl#Sense>
+        ontolex:reference  :2746281 .
+
+:2812992  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1100> , <https://term.tilde.com/domains/5211005> .
+
+<https://term.tilde.com/terms/House-nl#CanonicalForm>
+        ontolex:writtenRep  "House"@nl .
+
+:city-en  a                    ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/city-en#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/eng> ;
+        ontolex:sense          <https://term.tilde.com/terms/city-en#Sense> .
+
+:       a                 dcat:Dataset , tbx:MartifHeader ;
+        <http://purl.org/dc/elements/1.1/source>
+                "" ;
+        dcterms:type      "TBX" ;
+        tbx:encodingDesc  "<p type=\"XCSURI\">http://www.ttt.org/oscarstandards/tbx/TBXXCS.xcs</p>"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns##XMLLiteral> ;
+        tbx:sourceDesc    "<sourceDesc><p/></sourceDesc>"^^<http://www.w3.org/1999/02/22-rdf-syntax-ns##XMLLiteral> .
+
+:classificatie-nl  a           ontolex:LexicalEntry ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/classificatie-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/classificatie-nl#Sense> .
+
+:3064731  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0303> , <https://term.tilde.com/domains/TaaS-0301> , <https://term.tilde.com/domains/4026> , <https://term.tilde.com/domains/4006> .
+
+:1217415  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "The amount of owners' investment in a business plus retained earnings."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/roam-en#Sense>
+        ontolex:reference  :1229798 .
+
+:offerte-nl  a                 ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/offerte-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/offerte-nl#Sense> .
+
+<https://term.tilde.com/terms/roaming-en#Sense>
+        ontolex:reference  :3053307 , :2776780 , :1229807 .
+
+<http://freme-project.eu/#char=64,72>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "smallest"@en ;
+        nif:annotationUnit    [ rdfs:label           "Smallest"@en ;
+                                itsrdf:taConfidence  0.6725
+                              ] ;
+        nif:beginIndex        "64"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "72"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :1231085 .
+
+<https://term.tilde.com/terms/cat-en#CanonicalForm>
+        ontolex:writtenRep  "cat"@en .
+
+<https://term.tilde.com/terms/rank-en#Sense>
+        ontolex:reference  :3104145 , :2808708 , :1228813 .
+
+:1229807  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "The process of maintaining connectivity outside of one's usual service or coverage area."@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/stad-nl#Sense>
+        ontolex:reference  :652483 , :2739744 .
+
+:1224158  a               skos:Concept ;
+        rdfs:comment      "information technology and data processing"@en ;
+        tbx:definition    "An item on the Text Size menu, which is opened from the Edit menu. Larger is one of the text size choices for the user's instant messages"@en ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-1501> , <https://term.tilde.com/domains/3236> .
+
+<https://term.tilde.com/terms/offer-en#Sense>
+        ontolex:reference  :3058848 , :3042446 .
+
+<https://term.tilde.com/terms/place-en#CanonicalForm>
+        ontolex:writtenRep  "place"@en .
+
+:en     a                 ontolex:Lexicon ;
+        ontolex:entry     :resident-en , :capital-en , :residents-en , <https://term.tilde.com/terms/capital+city-en> , :offer-en , :music-en , :roaming-en , :house-en , :House-en , :place-en , <https://term.tilde.com/terms/small+town-en> , :city-en , <https://term.tilde.com/terms/total+population-en> , :cat-en , :tender-en , :roam-en , :hover-en , :Smallest-en , :Iceland-en , :rank-en , :submission-en , :Music-en , :Europe-en , :Larger-en , :bid-en , :residing-en , :ranking-en , :street-en ;
+        ontolex:language  <http://www.lexvo.org/page/iso639-3/eng> .
+
+:kat-nl  a                     ontolex:LexicalEntry ;
+        tbx:reliabilityCode    3 ;
+        ontolex:canonicalForm  <https://term.tilde.com/terms/kat-nl#CanonicalForm> ;
+        ontolex:language       <http://www.lexvo.org/page/iso639-3/dut> ;
+        ontolex:sense          <https://term.tilde.com/terms/kat-nl#Sense> .
+
+<http://freme-project.eu/#char=216,222>
+        a                     nif:RFC5147String ;
+        nif:anchorOf          "offers"@en ;
+        nif:annotationUnit    [ rdfs:label           "offer"@en ;
+                                itsrdf:taConfidence  0.179
+                              ] ;
+        nif:beginIndex        "216"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "222"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,467> ;
+        itsrdf:term           "yes" ;
+        itsrdf:termInfoRef    :3058848 , :3042446 .
+
+:2854352  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/unknown> , <https://term.tilde.com/domains/TaaS-1000> .
+
+:2845886  a               skos:Concept ;
+        tbx:subjectField  <https://term.tilde.com/domains/TaaS-0200> , <https://term.tilde.com/domains/12> .
+
+<https://term.tilde.com/terms/music-en#CanonicalForm>
+        ontolex:writtenRep  "music"@en .
+
+<https://term.tilde.com/terms/Kleinst-nl#CanonicalForm>
+        ontolex:writtenRep  "Kleinst"@nl .
+
+<https://term.tilde.com/terms/street-en#CanonicalForm>
+        ontolex:writtenRep  "street"@en .

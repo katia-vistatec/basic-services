@@ -22,11 +22,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
-import net.sf.okapi.common.MimeTypeMapper;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.ConversionException;
-import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.HTMLBackConverter;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.NifConverter;
+import net.sf.okapi.common.MimeTypeMapper;
+import eu.freme.bservices.einternationalization.lib.okapi.nif.converter.HTMLBackConverter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EInternationalizationAPI {
 
 	public static final String MIME_TYPE_XLIFF_1_2 = MimeTypeMapper.XLIFF_MIME_TYPE;

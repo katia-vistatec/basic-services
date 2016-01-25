@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-stylesheet type="text/xsl" href="file:///S:/PhilR/Rome/XliffToRWHtml5_target.xslt"?><xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:dl="http://www.digitallinguistics.com" xmlns:its="http://www.w3.org/2005/11/its" version="1.2">
+	<file datatype="plaintext" original="PCWorldArticle.txt" source-language="en" target-language="it">
+		<body>
+			<trans-unit id="0" its:annotatorsRef="text-analysis|http://spotlight.dbpedia.org/" its:version="2.0">
+				<source>Welcome to <mrk id="freme-1" its:taIdentRef="http://dbpedia.org/resource/Dublin" mtype="its:any">Dublin</mrk>!</source>
+				<target state-qualifier="id-match">Benvenuti a Dublino!</target>
+			</trans-unit>
+			<trans-unit id="1" its:version="2.0">
+				<source>This is my <mrk id="freme-2" mtype="term" >computer</mrk></source>
+				<target state-qualifier="id-match">Questo è il mio computer</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

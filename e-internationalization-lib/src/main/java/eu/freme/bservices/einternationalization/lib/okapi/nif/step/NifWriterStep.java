@@ -17,13 +17,13 @@
  */
 package eu.freme.bservices.einternationalization.lib.okapi.nif.step;
 
+import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.NifWriterFilter;
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.EventType;
 import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.pipeline.BasePipelineStep;
 import net.sf.okapi.common.resource.ITextUnit;
 import net.sf.okapi.common.resource.StartDocument;
-import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.NifWriterFilter;
 
 /**
  * This step can be used in the Okapi pipeline. It sends all events received

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///S:/PhilR/Rome/XliffToRWHtml5_target.xslt"?>
+<xliff xmlns:dl="http://www.digitallinguistics.com" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:its="http://www.w3.org/2005/11/its" version="1.2">
+	<file original="PCWorldArticle.txt" source-language="en" target-language="fr" datatype="plaintext">
+		<body>
+			<trans-unit xmlns:its="http://www.w3.org/2005/11/its" id="0" its:version="2.0" its:provenanceRecordsRef="#RW1">
+				<source xml:lang="en" its:provenanceRecordsRef="#RW1">Microsoft Office 2010, as revealed by the just-released Technical <mrk mtype='x-its' comment='This is a localization note'>Preview</mrk>, brings a set of important if incremental improvements to the market-leading office suite.</source>
+				<target xml:lang="fr" its:provenanceRecordsRef="#RW1">Microsoft Office 2010, tel que révélé par la Technical Preview vient de paraître, apporte un ensemble d'améliorations importantes si supplémentaires à la suite office de leader sur le marché.</target>
+			</trans-unit>
+			<trans-unit xmlns:its="http://www.w3.org/2005/11/its" id="1" its:version="2.0" its:provenanceRecordsRef="#prov1" >
+				<source>Among them: making the Ribbon the default interface for all applications, adding a host of new features to individual applications such as video editing in PowerPoint and improved mail handling in Outlook and introducing a number of Office-wide productivity enhancers, including photo editing tools and a much-improved paste operation.</source>
+				<target state-qualifier="exact-match">Parmi eux : le ruban par défaut d'interface pour toutes les applications Office, ajoutant une foule de nouvelles fonctionnalités pour les applications individuelles comme le montage vidéo dans PowerPoint et amélioré du courrier dans Outlook et introduisant un certain nombre d'exhausteurs de la productivité-l'échelle du bureau, y compris des outils et une amélioration de la retouche photo coller opération.</target>
+			</trans-unit>
+			<trans-unit xmlns:its="http://www.w3.org/2005/11/its" id="2" its:version="2.0" its:locQualityIssuesRef="#lqi2" its:provenanceRecordsRef="#prov2">
+				<source xml:lang="en" its:locQualityIssuesRef="#lqi2" its:provenanceRecordsRef="#prov2">Missing from the Technical Preview is what will be a welcome change to Office in years -- a Web-based version for both enterprises and consumers.</source>
+				<target xml:lang="fr" its:locQualityIssuesRef="#lqi2" its:provenanceRecordsRef="#prov2">Absent de la Technical Preview, c'est ce qui sera bienvenue changement au bureau au cours des années--une version basée sur le Web poor les entreprises et les consommateurs.</target>
+			</trans-unit>
+			<trans-unit xmlns:its="http://www.w3.org/2005/11/its" id="3" its:version="2.0" its:locQualityIssuesRef="#lqi3" its:provenanceRecordsRef="#prov3">
+				<source>Also missing from the preview is access to Office for mobile phones and other mobile clients.</source>
+				<target state-qualifier="mt-suggestion">Également absent de l'aperçu est accès au bureau pour les téléphones mobiles et autres clients mobiles.</target>
+			</trans-unit>
+			<trans-unit xmlns:its="http://www.w3.org/2005/11/its" id="4" its:version="2.0" its:locQualityIssuesRef="#RW5" its:provenanceRecordsRef="#RW5">
+				<source>Those features will be introduced in later versions of the software; the final version is expected to ship in the first half of 2010.</source>
+				<target state-qualifier="mt-suggestion" its:mtConfidence="0.8" its:annotatorsRef="mt-confidence|null">Ces fonctionnalités gbgvbghh hhhh hjhhh seront introduites dans les versions ultérieures du logiciel ; la version finale est prévue pour le premier semestre de 2010. change again</target>
+		    </trans-unit>
+		</body>
+	</file>
+	<its:locQualityIssues xmlns:its="http://www.w3.org/2005/11/its" xmlns:okp="okapi-framework:xliff-extensions" version="2.0" xml:id="lqi2">
+<its:locQualityIssue locQualityIssueComment="Better marketing emphasis." locQualityIssueSeverity="2" locQualityIssueType="uncategorized" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+<its:locQualityIssue locQualityIssueComment="" locQualityIssueSeverity="65" locQualityIssueType="uncategorized" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+</its:locQualityIssues>
+<its:locQualityIssues xmlns:its="http://www.w3.org/2005/11/its" xmlns:okp="okapi-framework:xliff-extensions" version="2.0" xml:id="RW5">
+<its:locQualityIssue locQualityIssueComment="Deemed by Quality Estimation as Possible." locQualityIssueSeverity="65" locQualityIssueType="non-conformance" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+<its:locQualityIssue locQualityIssueComment="" locQualityIssueSeverity="85" locQualityIssueType="register" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+</its:locQualityIssues>
+<its:provenanceRecords xmlns:its="http://www.w3.org/2005/11/its" version="2.0" xml:id="prov1"><its:provenanceRecord revPerson="phil.ritchie@vistatec.com" revOrg="Vistatec" provRef="http://www.vistatec.com/review"/></its:provenanceRecords>
+<its:provenanceRecords xmlns:its="http://www.w3.org/2005/11/its" version="2.0" xml:id="prov2"><its:provenanceRecord person="olga.olaoghaire@vistatec.com" org="Vistatec" provRef="http://www.vistatec.com/translation"/></its:provenanceRecords>
+<its:locQualityIssues xmlns:its="http://www.w3.org/2005/11/its" xmlns:okp="okapi-framework:xliff-extensions" version="2.0" xml:id="lqi3">
+<its:locQualityIssue locQualityIssueComment="This reads incorrectly." locQualityIssueSeverity="1" locQualityIssueType="uncategorized" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+<its:locQualityIssue locQualityIssueComment="" locQualityIssueSeverity="75" locQualityIssueType="uncategorized" okp:lqiType="OTHER" okp:lqiPos="0 -1 0 -1"/>
+</its:locQualityIssues>
+<its:provenanceRecords xmlns:its="http://www.w3.org/2005/11/its" version="2.0" xml:id="prov3"><its:provenanceRecord person="olga.olaoghaire@vistatec.com" org="Vistatec" provRef="http://www.vistatec.com/translation"/></its:provenanceRecords>
+<its:provenanceRecords xmlns:its="http://www.w3.org/2005/11/its" version="2.0" xml:id="RW5"><its:provenanceRecord person="olga.olaoghaire@vistatec.com" org="Vistatec" provRef="http://www.vistatec.com/translation"/><its:provenanceRecord revPerson="marta" revOrg="vistatec" provRef=""/></its:provenanceRecords>
+<its:provenanceRecords xmlns:its="http://www.w3.org/2005/11/its" version="2.0" xml:id="RW1"><its:provenanceRecord revPerson="phil.ritchie@vistatec.com" revOrg="Vistatec" provRef="http://www.vistatec.com/review"/></its:provenanceRecords>
+	</xliff>

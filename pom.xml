@@ -8,15 +8,15 @@
 	
 	<modules>
 		<module>rate-limiter</module>
-		<module>user-controller</module>
+		<module>users</module>
 		<module>test-helper</module>
 		<module>package-maker</module>
-		<module>filter-controller</module>
-		<module>logging-filter</module>
+		<module>filters</module>
+		<module>logging</module>
 		<module>e-internationalization-filter</module>
 		<module>e-internationalization-lib</module>
-		<module>postprocessing-filter</module>
-		<module>pipelining-controller</module>
+		<module>postprocessing</module>
+		<module>pipelines</module>
 	</modules>
 
 	<parent>

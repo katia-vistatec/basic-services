@@ -13,10 +13,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.freme.bservices</groupId>
-            <artifactId>logging-filter</artifactId>
+            <artifactId>logging</artifactId>
+            <groupId>eu.freme.bservices.filter</groupId>
             <version>0.1-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>

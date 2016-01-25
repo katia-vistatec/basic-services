@@ -1,0 +1,634 @@
+@prefix dbpedia-fr: <http://fr.dbpedia.org/resource/> .
+@prefix dbc:   <http://dbpedia.org/resource/Category:> .
+@prefix dbpedia-es: <http://es.dbpedia.org/resource/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix dbpedia-de: <http://de.dbpedia.org/resource/> .
+@prefix dbpedia-ru: <http://ru.dbpedia.org/resource/> .
+@prefix freme-onto: <http://freme-project.eu/ns#> .
+@prefix dbpedia-nl: <http://nl.dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dbpedia-it: <http://it.dbpedia.org/resource/> .
+
+<http://freme-project.eu/#char=926,1151>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "VistaTEC's success is built on business and technology solutions that speed up time to market, accelerate global commercial success, reduce customer overhead and facilitate demonstrable efficiency across product life-cycles. "@en ;
+        nif:beginIndex        "926"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1151"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "21" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=399,407>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Industry"@en ;
+        nif:beginIndex        "399"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "407"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "11" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1924,1932>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Facebook"@en ;
+        nif:beginIndex        "1924"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1932"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "38" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=135,147>
+        a                     nif:RFC5147String , nif:Word , nif:String , nif:Phrase ;
+        nif:anchorOf          "Multilingual"^^xsd:string ;
+        nif:beginIndex        "135"^^xsd:int ;
+        nif:endIndex          "147"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.8314970850104128"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Multilingualism .
+
+<http://freme-project.eu/#char=473,669>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "At VistaTEC we understand what it takes to captivate, engage and inspire a global audience. Everyday we help to optimize the global commercial potential of some of the world's most iconic brands. "@en ;
+        nif:beginIndex        "473"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "669"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "17" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1950,1956>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Google"@en ;
+        nif:beginIndex        "1950"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1956"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "41" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1933,1941>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "LinkedIn"@en ;
+        nif:beginIndex        "1933"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1941"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "39" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=259,310>
+        a                     nif:String , nif:Word , nif:Phrase , nif:RFC5147String ;
+        nif:anchorOf          "Agile Localization and Translation Services Company"^^xsd:string ;
+        nif:beginIndex        "259"^^xsd:int ;
+        nif:endIndex          "310"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Organization> ;
+        itsrdf:taConfidence   "0.8889342611448591"^^xsd:double .
+
+<http://freme-project.eu/#char=1520,1531>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Read More →"@en ;
+        nif:beginIndex        "1520"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1531"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "28" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=673,718>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Expert Leadership in Global Content Solutions"@en ;
+        nif:beginIndex        "673"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "718"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "19" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=359,366>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Twitter"@en ;
+        nif:beginIndex        "359"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "366"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "7" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=250,257>
+        a                     nif:Word , nif:RFC5147String , nif:Phrase , nif:String ;
+        nif:anchorOf          "Content"^^xsd:string ;
+        nif:beginIndex        "250"^^xsd:int ;
+        nif:endIndex          "257"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Organization> ;
+        itsrdf:taConfidence   "0.42410505596381626"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Content_(media)> .
+
+<http://freme-project.eu/#char=2022,2083>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "VistaTEC House 700 South Circular Road, Kilmainham, Dublin 8"@en ;
+        nif:beginIndex        "2022"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "2083"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "44" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=719,925>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Providing expert leadership in global content solutions means that we understand how organizations leverage products, communications and commercial content to create compelling outcomes for their customers."@en ;
+        nif:beginIndex        "719"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "925"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "20" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1677,1782>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "We can help you localize all your assets, whether marketing, software, documentation or any other source."@en ;
+        nif:beginIndex        "1677"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1782"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "33" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=367,373>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Google"@en ;
+        nif:beginIndex        "367"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "373"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "8" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=207,220>
+        a                     nif:String , nif:RFC5147String , nif:Phrase , nif:Word ;
+        nif:anchorOf          "Transcreation"^^xsd:string ;
+        nif:beginIndex        "207"^^xsd:int ;
+        nif:endIndex          "220"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.7460866319054463"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Transcreation .
+
+<http://freme-project.eu/#char=0,8>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "VistaTEC"^^xsd:string ;
+        nif:beginIndex        "0"^^xsd:int ;
+        nif:endIndex          "8"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.8155745090185526"^^xsd:double .
+
+<http://freme-project.eu/#char=452,455>
+        a                     nif:Word , nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:anchorOf          "How"^^xsd:string ;
+        nif:beginIndex        "452"^^xsd:int ;
+        nif:endIndex          "455"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.5725297538224539"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/How_(TV_series)> .
+
+<http://freme-project.eu/#char=1807,1911>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Translation is the art of transforming your written content into multiple target languages. Sounds easy?"@en ;
+        nif:beginIndex        "1807"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1911"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "36" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=350,358>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "LinkedIn"@en ;
+        nif:beginIndex        "350"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "358"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "6" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=222,227>
+        a                     nif:RFC5147String , nif:Phrase , nif:String , nif:Word ;
+        nif:anchorOf          "Brand"^^xsd:string ;
+        nif:beginIndex        "222"^^xsd:int ;
+        nif:endIndex          "227"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.5814170340523181"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Brand .
+
+<http://freme-project.eu/#char=1664,1676>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Localization"@en ;
+        nif:beginIndex        "1664"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1676"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "32" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1184,1267>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Experts in: Translation, Localization, Automated Translation, Multilingual Testing"@en ;
+        nif:beginIndex        "1184"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1267"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "23" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=104,116>
+        a                     nif:Word , nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:anchorOf          "Localization"^^xsd:string ;
+        nif:beginIndex        "104"^^xsd:int ;
+        nif:endIndex          "116"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.7381363251846135"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Localization_of_a_ring .
+
+<http://freme-project.eu/#char=131,133>
+        a                     nif:Phrase , nif:RFC5147String , nif:Word , nif:String ;
+        nif:anchorOf          "MT"^^xsd:string ;
+        nif:beginIndex        "131"^^xsd:int ;
+        nif:endIndex          "133"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.5034268300571964"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Mountain_Time_Zone .
+
+<http://freme-project.eu/#char=242,248>
+        a                     nif:String , nif:RFC5147String , nif:Word , nif:Phrase ;
+        nif:anchorOf          "Global"^^xsd:string ;
+        nif:beginIndex        "242"^^xsd:int ;
+        nif:endIndex          "248"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Organization> ;
+        itsrdf:taConfidence   "0.7884744914869921"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Global_Television_Network .
+
+<http://freme-project.eu/#char=341,349>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Facebook"@en ;
+        nif:beginIndex        "341"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "349"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "5" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1549,1651>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Want to ensure that your localized content exceeds the expectations of your local market? We can help."@en ;
+        nif:beginIndex        "1549"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1651"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "30" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=0,2083>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger , "0"^^xsd:int ;
+        nif:endIndex    "2083"^^xsd:nonNegativeInteger , "2083"^^xsd:int ;
+        nif:isString    "VistaTEC provides expert leadership in translation, localization and global content solutions VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO,website globalization, Transcreation, Brand optimisation, Global, Content, Agile Localization and Translation Services Company - VistaTEC       VistaTEC  Facebook LinkedIn Twitter Google Our Company Our Services Industry Contact First slide    everybody's talking How can we help you? At VistaTEC we understand what it takes to captivate, engage and inspire a global audience. Everyday we help to optimize the global commercial potential of some of the world's most iconic brands.    Expert Leadership in Global Content Solutions Providing expert leadership in global content solutions means that we understand how organizations leverage products, communications and commercial content to create compelling outcomes for their customers. VistaTEC's success is built on business and technology solutions that speed up time to market, accelerate global commercial success, reduce customer overhead and facilitate demonstrable efficiency across product life-cycles.  Learn more about our services → Experts in: Translation, Localization, Automated Translation, Multilingual Testing Engaging Customers, Influencing Behaviours, Multilingual SEO, Transcreation, Brand Optimization &amp; Language Review  Tweets by @VistaTECglobal  Digital Marketing Great content inspires. We can help your global marketing initiatives be inspirational. Read More → Language Quality Want to ensure that your localized content exceeds the expectations of your local market? We can help. Read More → Localization We can help you localize all your assets, whether marketing, software, documentation or any other source. Read More → Translation Translation is the art of transforming your written content into multiple target languages. Sounds easy? Read More → Facebook LinkedIn Twitter Google © 2015 VistaTEC Ltd. All rights reserved. Privacy Policy | Legal VistaTEC House 700 South Circular Road, Kilmainham, Dublin 8"@en , "VistaTEC provides expert leadership in translation, localization and global content solutions VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO,website globalization, Transcreation, Brand optimisation, Global, Content, Agile Localization and Translation Services Company - VistaTEC       VistaTEC  Facebook LinkedIn Twitter Google Our Company Our Services Industry Contact First slide    everybody's talking How can we help you? At VistaTEC we understand what it takes to captivate, engage and inspire a global audience. Everyday we help to optimize the global commercial potential of some of the world's most iconic brands.    Expert Leadership in Global Content Solutions Providing expert leadership in global content solutions means that we understand how organizations leverage products, communications and commercial content to create compelling outcomes for their customers. VistaTEC's success is built on business and technology solutions that speed up time to market, accelerate global commercial success, reduce customer overhead and facilitate demonstrable efficiency across product life-cycles.  Learn more about our services → Experts in: Translation, Localization, Automated Translation, Multilingual Testing Engaging Customers, Influencing Behaviours, Multilingual SEO, Transcreation, Brand Optimization &amp; Language Review  Tweets by @VistaTECglobal  Digital Marketing Great content inspires. We can help your global marketing initiatives be inspirational. Read More → Language Quality Want to ensure that your localized content exceeds the expectations of your local market? We can help. Read More → Localization We can help you localize all your assets, whether marketing, software, documentation or any other source. Read More → Translation Translation is the art of transforming your written content into multiple target languages. Sounds easy? Read More → Facebook LinkedIn Twitter Google © 2015 VistaTEC Ltd. All rights reserved. Privacy Policy | Legal VistaTEC House 700 South Circular Road, Kilmainham, Dublin 8"^^xsd:string .
+
+<http://freme-project.eu/#char=428,431>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "  "@en ;
+        nif:beginIndex        "428"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "431"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "14" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=670,672>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          " "@en ;
+        nif:beginIndex        "670"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "672"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "18" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=408,415>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Contact"@en ;
+        nif:beginIndex        "408"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "415"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "12" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=94,264>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO,website globalization, Transcreation, Brand optimisation, Global, Content, Agile"@en ;
+        nif:beginIndex        "94"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "264"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "2" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=167,179>
+        a                     nif:Word , nif:String , nif:Phrase , nif:RFC5147String ;
+        nif:anchorOf          "Multilingual"^^xsd:string ;
+        nif:beginIndex        "167"^^xsd:int ;
+        nif:endIndex          "179"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.7548056798990628"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Multilingualism .
+
+<http://freme-project.eu/#char=1268,1385>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Engaging Customers, Influencing Behaviours, Multilingual SEO, Transcreation, Brand Optimization &amp; Language Review"@en ;
+        nif:beginIndex        "1268"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1385"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "24" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=265,321>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Localization and Translation Services Company - VistaTEC"@en ;
+        nif:beginIndex        "265"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "321"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "3" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1957,1998>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "© 2015 VistaTEC Ltd. All rights reserved."@en ;
+        nif:beginIndex        "1957"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1998"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "42" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=94,102>
+        a                     nif:Word , nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "VistaTEC"^^xsd:string ;
+        nif:beginIndex        "94"^^xsd:int ;
+        nif:endIndex          "102"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.7294845633212866"^^xsd:double .
+
+<http://freme-project.eu/#char=1414,1431>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Digital Marketing"@en ;
+        nif:beginIndex        "1414"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1431"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "26" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=118,129>
+        a                     nif:Word , nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:anchorOf          "Translation"^^xsd:string ;
+        nif:beginIndex        "118"^^xsd:int ;
+        nif:endIndex          "129"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.5495812836084834"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Translation .
+
+<http://freme-project.eu/#char=374,385>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Our Company"@en ;
+        nif:beginIndex        "374"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "385"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "9" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=0,0>
+        a                     nif:Phrase , nif:Word , nif:RFC5147String , nif:String ;
+        nif:anchorOf          ""^^xsd:string ;
+        nif:beginIndex        "0"^^xsd:int ;
+        nif:endIndex          "0"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     []  ;
+        itsrdf:taConfidence   "NaN"^^xsd:double .
+
+<http://freme-project.eu/#char=313,339>
+        a                     nif:String , nif:RFC5147String , nif:Word , nif:Phrase ;
+        nif:anchorOf          "VistaTEC VistaTEC"^^xsd:string ;
+        nif:beginIndex        "313"^^xsd:int ;
+        nif:endIndex          "339"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Organization> ;
+        itsrdf:taConfidence   "0.7713525500196179"^^xsd:double .
+
+<http://freme-project.eu/#char=1783,1794>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Read More →"@en ;
+        nif:beginIndex        "1783"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1794"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "34" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=159,165>
+        a                     nif:String , nif:Word , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Review"^^xsd:string ;
+        nif:beginIndex        "159"^^xsd:int ;
+        nif:endIndex          "165"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://www.w3.org/2002/07/owl#Thing> ;
+        itsrdf:taConfidence   "0.768662008837653"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Review .
+
+<http://freme-project.eu/#char=1152,1183>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Learn more about our services →"@en ;
+        nif:beginIndex        "1152"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1183"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "22" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=0,93>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "VistaTEC provides expert leadership in translation, localization and global content solutions"@en ;
+        nif:beginIndex        "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "93"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "1" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1912,1923>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Read More →"@en ;
+        nif:beginIndex        "1912"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1923"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "37" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=416,427>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "First slide"@en ;
+        nif:beginIndex        "416"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "427"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "13" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1999,2021>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Privacy Policy | Legal"@en ;
+        nif:beginIndex        "1999"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "2021"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "43" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1652,1663>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Read More →"@en ;
+        nif:beginIndex        "1652"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1663"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "31" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=359,421>
+        a                     nif:String , nif:Phrase , nif:Word , nif:RFC5147String ;
+        nif:anchorOf          "Twitter Google Our Company Our Services Industry Contact First"^^xsd:string ;
+        nif:beginIndex        "359"^^xsd:int ;
+        nif:endIndex          "421"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Organization> ;
+        itsrdf:taConfidence   "0.8187216266821173"^^xsd:double .
+
+<http://freme-project.eu/#char=386,398>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Our Services"@en ;
+        nif:beginIndex        "386"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "398"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "10" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=432,451>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "everybody's talking"@en ;
+        nif:beginIndex        "432"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "451"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "15" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1386,1413>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          " Tweets by @VistaTECglobal "@en ;
+        nif:beginIndex        "1386"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1413"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "25" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1942,1949>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Twitter"@en ;
+        nif:beginIndex        "1942"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1949"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "40" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=149,157>
+        a                     nif:Phrase , nif:RFC5147String , nif:Word , nif:String ;
+        nif:anchorOf          "Langauge"^^xsd:string ;
+        nif:beginIndex        "149"^^xsd:int ;
+        nif:endIndex          "157"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,2083> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.5362087999641462"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:First_language .
+
+<http://freme-project.eu/#char=1795,1806>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Translation"@en ;
+        nif:beginIndex        "1795"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1806"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "35" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=452,472>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "How can we help you?"@en ;
+        nif:beginIndex        "452"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "472"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "16" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1432,1519>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Great content inspires. We can help your global marketing initiatives be inspirational."@en ;
+        nif:beginIndex        "1432"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1519"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "27" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=322,340>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "      VistaTEC "@en ;
+        nif:beginIndex        "322"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "340"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "4" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .
+
+<http://freme-project.eu/#char=1532,1548>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:ReferenceContext  "http://freme-project.eu/#char=0,2083" ;
+        nif:anchorOf          "Language Quality"@en ;
+        nif:beginIndex        "1532"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "1548"^^xsd:nonNegativeInteger ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "29" ;
+        itsrdf:domains        "VistaTEC, Localization, Translation, MT, Multilingual, Langauge, Review, Multilingual SEO, website globalization, Transcreation, Brand optimisation, Global, Content, Agile" .

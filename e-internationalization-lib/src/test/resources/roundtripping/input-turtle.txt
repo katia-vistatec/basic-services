@@ -1,0 +1,27 @@
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+<http://freme-project.eu/#char=0,33>
+        a               nif:Context , nif:RFC5147String , nif:String ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "33"^^xsd:nonNegativeInteger ;
+        nif:isString    "Berlin is the capital of Germany." ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "tu1" .
+
+<http://freme-project.eu/##char=0,33>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:int ;
+        nif:endIndex    "33"^^xsd:int ;
+        nif:isString    "Berlin is the capital of Germany."^^xsd:string .
+
+<http://freme-project.eu/##char=25,32>
+        a                     nif:Phrase , nif:String , nif:Word , nif:RFC5147String ;
+        nif:anchorOf          "Germany"^^xsd:string ;
+        nif:beginIndex        "25"^^xsd:int ;
+        nif:endIndex          "32"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/##char=0,33> ;
+        itsrdf:taClassRef     <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9447304924971837"^^xsd:double ;
+        itsrdf:taIdentRef     <http://dbpedia.org/resource/Germany> .

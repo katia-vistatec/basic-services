@@ -17,15 +17,11 @@
  */
 package eu.freme.bservices.einternationalization.lib.okapi.nif.converter;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
+import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.RDFConstants;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.MimeTypeMapper;
 import net.sf.okapi.common.pipeline.PipelineReturnValue;
@@ -40,7 +36,6 @@ import net.sf.okapi.lib.extra.pipelinebuilder.XParameter;
 import net.sf.okapi.lib.extra.pipelinebuilder.XPipeline;
 import net.sf.okapi.lib.extra.pipelinebuilder.XPipelineStep;
 import net.sf.okapi.steps.common.RawDocumentToFilterEventsStep;
-import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.RDFConstants.RDFSerialization;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.step.NifParameters;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.step.NifSkeletonWriterStep;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.step.NifWriterStep;
@@ -80,7 +75,7 @@ public class NifConverter {
 					 NifParameters.OUTPUT_URI, outputFile
 					 .toURI().toString()),
 					 new XParameter(NifParameters.NIF_LANGUAGE,
-					 RDFSerialization.TURTLE.toRDFLang()),
+					 RDFConstants.RDFSerialization.TURTLE.toRDFLang()),
 					 new XParameter(NifParameters.NIF_URI_PREFIX,
 					 nifUriPrefix)));
 
@@ -167,7 +162,7 @@ public class NifConverter {
 					new XPipelineStep(new NifWriterStep(), new XParameter(
 							NifParameters.OUTPUT_URI, outputFile.toURI()
 									.toString()), new XParameter(
-							NifParameters.NIF_LANGUAGE, RDFSerialization.TURTLE
+							NifParameters.NIF_LANGUAGE, RDFConstants.RDFSerialization.TURTLE
 									.toRDFLang()), new XParameter(
 							NifParameters.NIF_URI_PREFIX, nifUriPrefix)));
 

@@ -17,9 +17,9 @@
 
 
 	<repositories>
-		<!-- repository> <id>lib</id> <name>lib</name> <releases> <enabled>true</enabled>
+		<!-- repository> <id>filter</id> <name>filter</name> <releases> <enabled>true</enabled>
 			<checksumPolicy>ignore</checksumPolicy> </releases> <snapshots> <enabled>false</enabled>
-			</snapshots> <url>file://${project.basedir}/lib</url> </repository -->
+			</snapshots> <url>file://${project.basedir}/filter</url> </repository -->
 		<repository>
 			<id>okapi-repo</id>
 			<url>http://repository-okapi.forge.cloudbees.com/release/</url>
@@ -31,7 +31,8 @@
             <groupId>eu.freme.bservices</groupId>
             <artifactId>test-helper</artifactId>
             <version>0.1-SNAPSHOT</version>
-        </dependency>		<dependency>
+        </dependency>
+        <dependency>
 			<groupId>net.sf.okapi</groupId>
 			<artifactId>okapi-core</artifactId>
 			<version>${okapi.version}</version>
@@ -221,6 +222,16 @@
 			<artifactId>apache-jena-libs</artifactId>
 			<type>pom</type>
 			<version>2.13.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 

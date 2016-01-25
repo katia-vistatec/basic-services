@@ -22,7 +22,6 @@ import java.text.Normalizer;
 import java.util.List;
 
 import net.sf.okapi.common.LocaleId;
-import net.sf.okapi.common.annotation.GenericAnnotation;
 import net.sf.okapi.common.resource.Code;
 import net.sf.okapi.common.resource.TextFragment;
 

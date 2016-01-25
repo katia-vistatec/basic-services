@@ -85,7 +85,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         logger.info("count entities as asmin");
         allEntities = getAllEntities(ath.getTokenAdmin());
         countAsAdmin = allEntities.size();
-        logger.info("count entities as admin: "+countAsAdmin);
+        logger.info("count entities as admin: "+ countAsAdmin);
 
         logger.info("count entities as anonymous user");
         allEntities = getAllEntities(null);
@@ -114,7 +114,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
         logger.info("attempting update as anonymous user: should return UNAUTHORIZED");
         LoggingHelper.loggerIgnore(LoggingHelper.accessDeniedExceptions);
-        returnedEntity = updateEntity(identifier1, request, ath.getTokenWithoutPermission(),HttpStatus.UNAUTHORIZED);
+        returnedEntity = updateEntity(identifier1, request, null, HttpStatus.UNAUTHORIZED);
         LoggingHelper.loggerUnignore(LoggingHelper.accessDeniedExceptions);
 
         logger.info("update entity content");

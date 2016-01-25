@@ -36,7 +36,6 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.RDFConstants;
-import eu.freme.bservices.einternationalization.lib.okapi.nif.filter.RDFConstants.RDFSerialization;
 import eu.freme.bservices.einternationalization.lib.okapi.nif.its.ItsRdfConstants;
 
 /**
@@ -66,8 +65,8 @@ public class HTMLBackConverter {
 			final InputStream enrichedFile) {
 
 		return convertBack(skeletonFile, enrichedFile,
-				RDFSerialization.TURTLE.toRDFLang(),
-				RDFSerialization.TURTLE.toRDFLang());
+				RDFConstants.RDFSerialization.TURTLE.toRDFLang(),
+				RDFConstants.RDFSerialization.TURTLE.toRDFLang());
 	}
 
 	/**
