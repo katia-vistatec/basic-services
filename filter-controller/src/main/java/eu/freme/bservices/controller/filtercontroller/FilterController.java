@@ -12,7 +12,7 @@ import eu.freme.common.exception.FREMEHttpException;
 import eu.freme.common.persistence.model.Filter;
 import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.rest.NIFParameterSet;
-import eu.freme.common.rest.RestrictedResourceManagingController;
+import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/toolbox/filter")
-public class FilterController extends RestrictedResourceManagingController<Filter> {
+public class FilterController extends OwnedResourceManagingController<Filter> {
 
     Logger logger = Logger.getLogger(FilterController.class);
 
@@ -108,13 +108,13 @@ public class FilterController extends RestrictedResourceManagingController<Filte
     }
 
     @Override
-    protected Filter createEntity(String id, OwnedResource.Visibility visibility, String description, String body, Map<String, String> parameters) throws AccessDeniedException {
+    protected Filter createEntity(String id, String body, Map<String, String> parameters, Map<String, String> headers) throws AccessDeniedException {
         // AccessDeniedException can be thrown, if current authentication is the anonymousUser
-        return new Filter(visibility, id, body, description);
+        return new Filter(id, body);
     }
 
     @Override
-    protected void updateEntity(Filter filter, String body, Map<String, String> parameters) {
+    protected void updateEntity(Filter filter, String body, Map<String, String> parameters, Map<String, String> headers) {
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
             filter.setQuery(body);
             filter.constructQuery();

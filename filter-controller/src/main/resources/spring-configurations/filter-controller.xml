@@ -8,6 +8,7 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="eu.freme.bservices.controller.filtercontroller" />
+	<context:component-scan base-package="eu.freme.common"/>
 </beans>
 
 

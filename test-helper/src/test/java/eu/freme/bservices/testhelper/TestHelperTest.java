@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -41,6 +42,6 @@ public class TestHelperTest {
         String filename = "ELINK.ttl";
         logger.info("request file: "+filename);
         HttpResponse<String> response = Unirest.post(testHelper.getAPIBaseUrl() + "/mockups/file/"+filename).asString();
-        assertTrue(response.getStatus() == HttpStatus.OK.value());
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
  }
