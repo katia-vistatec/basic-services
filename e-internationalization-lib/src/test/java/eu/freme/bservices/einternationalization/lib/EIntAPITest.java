@@ -262,7 +262,7 @@ public class EIntAPITest {
 				turtle);
 		br = new BufferedReader(reader);
 		while ((line = br.readLine()) != null) {
-			System.out.println(line);
+			logger.info(line);
 		}
 		br.close();
 		skeletonFile.delete();

@@ -26,8 +26,7 @@ import eu.freme.common.conversion.rdf.RDFSerializationFormats;
 import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.i18n.api.EInternationalizationAPI;
 import eu.freme.i18n.okapi.nif.converter.ConversionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -42,7 +41,7 @@ import java.util.Map;
  */
 @Component
 public class PipelineService {
-	private final static Logger logger = LoggerFactory.getLogger(PipelineService.class);
+	private final static Logger logger = Logger.getLogger(PipelineService.class);
 
 	@Autowired
 	private RDFSerializationFormats serializationFormats;

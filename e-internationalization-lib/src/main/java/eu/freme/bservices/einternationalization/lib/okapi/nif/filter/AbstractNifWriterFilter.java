@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import org.apache.log4j.Logger;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
@@ -66,7 +67,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 		this.params = params;
 		this.sourceLocale = sourceLocale;
 	}
-
+	Logger logger = Logger.getLogger(AbstractNifWriterFilter.class);
 	/*
 	 * (non-Javadoc)
 	 * @see net.sf.okapi.common.filterwriter.IFilterWriter#getName()
@@ -134,7 +135,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				if (file.exists()) {
 					file.delete();
 				}
-				System.out.println(outputPath);
+				logger.debug(outputPath);
 				file.createNewFile();
 				outputStream = new FileOutputStream(file);
 
@@ -147,7 +148,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				OutputStreamWriter writer = new OutputStreamWriter(
 						outputStream, Charset.forName("UTF-8").newEncoder());
 				if (nifLang != null && !nifLang.isEmpty()) {
-					System.out.println(nifLang);
+					logger.debug(nifLang);
 					model.write(writer, nifLang);
 				} else {
 					model.write(writer);
