@@ -53,7 +53,6 @@ public class FilterControllerTest  {
     final String filterConstruct = "CONSTRUCT {?s <"+propertyIdentifier+"> ?"+ entityHeader +"} WHERE {?s <"+propertyIdentifier+"> ?"+ entityHeader +"}";
 
 
-    @Ignore
     @Test
     public void testFilterManagement() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(filterSelect,null,null);
@@ -62,7 +61,7 @@ public class FilterControllerTest  {
         updateRequest.putParameter(OwnedResourceManagingController.identifierParameterName,"construct-filter");
         ormh.checkCRUDOperations(request, updateRequest);
     }
-    @Ignore
+
     @Test
     public void testFiltering() throws Exception {
         HttpResponse<String> response;
