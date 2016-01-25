@@ -89,7 +89,7 @@ public class FilterController extends OwnedResourceManagingController<Filter> {
                     serialization = new String(outputStream.toByteArray());
                     break;
                 default:
-                    throw new BadRequestException("Unsupported filter query. Only sparql SELECT and CONSTRUCT are allowed types.");
+                    throw new BadRequestException("Unsupported lib query. Only sparql SELECT and CONSTRUCT are allowed types.");
             }
 
             HttpHeaders responseHeaders = new HttpHeaders();

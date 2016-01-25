@@ -39,8 +39,8 @@ public class PostprocessingFilterTest {
     public void testPostprocessing() throws UnirestException {
         HttpResponse<String> response;
 
-        logger.info("create filter "+filterName);
-        String url = ath.getAPIBaseUrl() + "/toolbox/filter/manage";
+        logger.info("create lib "+filterName);
+        String url = ath.getAPIBaseUrl() + "/toolbox/lib/manage";
         response = ath.addAuthentication(Unirest.post(url))
                 .queryString("entityId", filterName)
                 .body(filterSelect)
@@ -49,13 +49,13 @@ public class PostprocessingFilterTest {
 
         String filename = "data.ttl";
         logger.info("request file: "+filename);
-        response = Unirest.post(ath.getAPIBaseUrl() + "/mockups/file/"+filename+"?filter="+filterName+"&outformat=csv").asString();
+        response = Unirest.post(ath.getAPIBaseUrl() + "/mockups/file/"+filename+"?lib="+filterName+"&outformat=csv").asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
         // clean line endings and check content
         assertEquals(csvResponse.trim(), response.getBody().trim().replaceAll("\r",""));
 
-        logger.info("delete filter extract-entities-only");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/"+filterName)).asString();
+        logger.info("delete lib extract-entities-only");
+        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/lib/manage/"+filterName)).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 

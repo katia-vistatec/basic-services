@@ -48,7 +48,7 @@ public class PostprocessingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 
-        if (!(req instanceof HttpServletRequest) || !(res instanceof HttpServletResponse) || req.getParameter("filter")==null) {
+        if (!(req instanceof HttpServletRequest) || !(res instanceof HttpServletResponse) || req.getParameter("lib")==null) {
             chain.doFilter(req, res);
         }else{
             HttpServletRequest httpRequest = (HttpServletRequest) req;
@@ -62,7 +62,7 @@ public class PostprocessingFilter implements Filter {
                 outType = RDFConstants.RDFSerialization.fromValue(httpRequest.getHeader("Accept"));
 
             if(outType == null){
-                throw new BadRequestException("Can not use filter: "+req.getParameter("filter")+" with outformat/Accept-header: " + httpRequest.getParameter("outformat")+"/"+httpRequest.getHeader("Accept"));
+                throw new BadRequestException("Can not use lib: "+req.getParameter("lib")+" with outformat/Accept-header: " + httpRequest.getParameter("outformat")+"/"+httpRequest.getHeader("Accept"));
             }
 
             // set Accept header for original request to turtle
@@ -87,7 +87,7 @@ public class PostprocessingFilter implements Filter {
                 String baseUrl = String.format("%s://%s:%d", httpRequest.getScheme(), httpRequest.getServerName(), httpRequest.getServerPort());
 
                 HttpResponse<String> response = Unirest
-                        .post(baseUrl + "/toolbox/filter/documents/"+req.getParameter("filter"))
+                        .post(baseUrl + "/toolbox/lib/documents/"+req.getParameter("lib"))
                         .header("Content-Type", RDFConstants.RDFSerialization.TURTLE.contentType())
                         .header("Accept", outType.contentType())
                         .body(responseContent)
@@ -95,7 +95,7 @@ public class PostprocessingFilter implements Filter {
 
                 if (response.getStatus() != HttpStatus.OK.value()) {
                     throw new FREMEHttpException(
-                            "Postprocessing filter failed with status code: "
+                            "Postprocessing lib failed with status code: "
                                     + response.getStatus() + " (" + response.getStatusText() + ")",
                             HttpStatus.valueOf(response.getStatus()));
                 }

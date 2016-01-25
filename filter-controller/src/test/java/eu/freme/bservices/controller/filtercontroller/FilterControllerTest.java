@@ -39,9 +39,9 @@ public class FilterControllerTest  {
     private OwnedResourceManagingHelper<Filter> ormh;
 
     public FilterControllerTest() throws  UnirestException {
-        ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
+        ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("lib-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/toolbox/filter",Filter.class, ath, "name");
+        ormh = new OwnedResourceManagingHelper<>("/toolbox/lib",Filter.class, ath, "name");
         ath.authenticateUsers();
     }
 
@@ -57,9 +57,9 @@ public class FilterControllerTest  {
     @Test
     public void testFilterManagement() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(filterSelect,null,null);
-        request.putParameter(OwnedResourceManagingController.identifierParameterName,"select-filter");
+        request.putParameter(OwnedResourceManagingController.identifierParameterName,"select-lib");
         SimpleEntityRequest updateRequest = new SimpleEntityRequest(filterConstruct,null,null);
-        updateRequest.putParameter(OwnedResourceManagingController.identifierParameterName,"construct-filter");
+        updateRequest.putParameter(OwnedResourceManagingController.identifierParameterName,"construct-lib");
         ormh.checkCRUDOperations(request, updateRequest);
     }
 
@@ -68,18 +68,18 @@ public class FilterControllerTest  {
         HttpResponse<String> response;
 
         logger.info("get all filters");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
+        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/lib/manage")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter1");
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/lib/manage"))
                 .queryString("entityId", "filter1")
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter2");
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
+        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/lib/manage"))
                 .queryString("entityId", "filter2")
                 .body(filterConstruct)
                 .asString();
@@ -105,8 +105,8 @@ public class FilterControllerTest  {
                         " <"+propertyIdentifier+">     <"+resourceIdentifier+"> .";
 
 
-        logger.info("filter nif with filter1(select)");
-        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/documents/filter1")
+        logger.info("lib nif with filter1(select)");
+        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/lib/documents/filter1")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.JSON.contentType())
                 .body(nifContent)
@@ -118,8 +118,8 @@ public class FilterControllerTest  {
         assertTrue(resultSet.nextSolution().get(entityHeader).asResource().equals(ResourceFactory.createResource(resourceIdentifier)));
         assertFalse(resultSet.hasNext());
 
-        logger.info("filter nif with filter2(construct)");
-        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/documents/filter2")
+        logger.info("lib nif with filter2(construct)");
+        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/lib/documents/filter2")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .body(nifContent)
@@ -140,10 +140,10 @@ public class FilterControllerTest  {
         assertEquals(1,resultSet.nextSolution().getLiteral("count").getInt());
 
         logger.info("delete filter1");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
+        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/lib/manage/filter1")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
         logger.info("delete filter2");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
+        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/lib/manage/filter2")).asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 

@@ -13,7 +13,8 @@
 		<module>package-maker</module>
 		<module>filter-controller</module>
 		<module>logging-filter</module>
-		<module>e-internationalizationfilter</module>
+		<module>e-internationalization-filter</module>
+		<module>e-internationalization-lib</module>
 		<module>postprocessing-filter</module>
 		<module>pipelining-controller</module>
 	</modules>
