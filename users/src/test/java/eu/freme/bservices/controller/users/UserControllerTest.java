@@ -35,7 +35,7 @@ public class UserControllerTest{
 	public void setup() {
 		if(!started) {
 
-			context =  FREMEStarter.startPackageFromClasspath("user-controller-test-package.xml");
+			context =  FREMEStarter.startPackageFromClasspath("users-test-package.xml");
 
 			String port = context.getEnvironment().getProperty("server.port");
 			if (port == null) {

@@ -6,10 +6,13 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
-	<import resource="classpath:spring-configurations/users.xml"/>
+
 	<import resource="classpath:spring-configurations/freme-common.xml" />
+	<import resource="classpath:spring-configurations/pipelines.xml" />
+	<import resource="classpath:spring-configurations/users.xml" />
+	<import resource="classpath:spring-configurations/logging.xml" />
 	<import resource="classpath:spring-configurations/test-helper.xml" />
-	
+
 </beans>
 
 

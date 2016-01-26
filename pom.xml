@@ -11,10 +11,10 @@
 		<module>users</module>
 		<module>test-helper</module>
 		<module>package-maker</module>
-		<module>filters</module>
+		<module>sparql-converters</module>
 		<module>logging</module>
-		<module>e-internationalization-filter</module>
-		<module>e-internationalization-lib</module>
+		<module>internationalization</module>
+		<module>internationalization.filter</module>
 		<module>postprocessing</module>
 		<module>pipelines</module>
 	</modules>

@@ -9,13 +9,18 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>postprocessing</artifactId>
     <groupId>eu.freme.bservices.filter</groupId>
+    <artifactId>internationalization.filter</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>eu.freme.bservices.controller</groupId>
-            <artifactId>sparql-converters</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.freme.bservices</groupId>
+            <artifactId>internationalization</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -30,7 +35,7 @@
             <version>0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
 
+    </dependencies>
 
 </project>

@@ -9,13 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>postprocessing</artifactId>
-    <groupId>eu.freme.bservices.filter</groupId>
+    <artifactId>sparql-converters</artifactId>
+    <groupId>eu.freme.bservices.controller</groupId>
 
     <dependencies>
         <dependency>
             <groupId>eu.freme.bservices.controller</groupId>
-            <artifactId>sparql-converters</artifactId>
+            <artifactId>users</artifactId>
             <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -28,6 +28,11 @@
             <groupId>eu.freme.bservices.filter</groupId>
             <artifactId>logging</artifactId>
             <version>0.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
