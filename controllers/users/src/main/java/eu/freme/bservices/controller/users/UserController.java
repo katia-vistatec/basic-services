@@ -116,7 +116,7 @@ public class UserController {
 	@RequestMapping(value="/user", method= RequestMethod.GET)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Iterable<User> getUsers(){
-		return userDAO.getRepository().findAll();
+		return userDAO.findAll();
 	}
 
 }

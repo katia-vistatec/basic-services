@@ -34,6 +34,7 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
     Logger logger = Logger.getLogger(SparqlConverterController.class);
 
     public static final String identifierParameterName = "name";
+    public static final String identifierName = "name"; // depends on SparqlConverter Model class
 
     @Autowired
     JenaRDFConversionService jenaRDFConversionService;

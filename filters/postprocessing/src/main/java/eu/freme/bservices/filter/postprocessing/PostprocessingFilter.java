@@ -91,7 +91,7 @@ public class PostprocessingFilter implements Filter {
                 String baseUrl = String.format("%s://%s:%d", httpRequest.getScheme(), httpRequest.getServerName(), httpRequest.getServerPort());
 
                 HttpResponse<String> response = Unirest
-                        .post(baseUrl + "/toolbox/filter/documents/"+req.getParameter("filter"))
+                        .post(baseUrl + "/toolbox/convert/documents/"+req.getParameter("filter"))
                         .header("Content-Type", RDFConstants.RDFSerialization.TURTLE.contentType())
                         .header("Accept", outType.contentType())
                         .body(responseContent)
