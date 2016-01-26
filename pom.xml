@@ -10,8 +10,8 @@
 		<module>test-helper</module>
 		<module>package-maker</module>
 		<module>internationalization</module>
-		<module>controller</module>
-		<module>filter</module>
+		<module>controllers</module>
+		<module>filters</module>
 	</modules>
 
 	<parent>
