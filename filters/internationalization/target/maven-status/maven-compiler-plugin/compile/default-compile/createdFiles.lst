@@ -1,0 +1,6 @@
+eu\freme\bservices\filter\internationalization\BodySwappingServletRequest.class
+eu\freme\bservices\filter\internationalization\BodySwappingServletRequest$ServletInputStreamWrapper.class
+eu\freme\bservices\filter\internationalization\ConversionHttpServletResponseWrapper$DummyOutputStream.class
+eu\freme\bservices\filter\internationalization\InternationalizationFilterConfig.class
+eu\freme\bservices\filter\internationalization\ConversionHttpServletResponseWrapper.class
+eu\freme\bservices\filter\internationalization\InternationalizationFilter.class
