@@ -7,13 +7,11 @@
 	<groupId>eu.freme.bservices</groupId>
 	
 	<modules>
-		<module>users</module>
 		<module>test-helper</module>
 		<module>package-maker</module>
-		<module>sparql-converters</module>
 		<module>internationalization</module>
-		<module>pipelines</module>
-		<module>filters</module>
+		<module>controller</module>
+		<module>filter</module>
 	</modules>
 
 	<parent>

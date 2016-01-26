@@ -3,14 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>basic-services-parent</artifactId>
-        <groupId>eu.freme.bservices</groupId>
+        <artifactId>controllers-parent</artifactId>
+        <groupId>eu.freme.bservices.controller</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>pipelines</artifactId>
-    <groupId>eu.freme.bservices.controller</groupId>
 
     <dependencies>
         <!--<dependency>
