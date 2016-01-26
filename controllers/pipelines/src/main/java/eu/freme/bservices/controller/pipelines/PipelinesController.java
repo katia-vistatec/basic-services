@@ -153,7 +153,7 @@ public class PipelinesController extends OwnedResourceManagingController<Pipelin
 
 
     @Override
-    protected Pipeline createEntity(String id, String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
+    protected Pipeline createEntity(String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
         // just to perform a first validation of the pipeline...
         //Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
 

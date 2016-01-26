@@ -1,6 +1,7 @@
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.freme.bservices.controller.sparqlconverters.SparqlConverterController;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
@@ -42,7 +43,7 @@ public class PostprocessingFilterTest {
         logger.info("create filter "+filterName);
         String url = ath.getAPIBaseUrl() + "/toolbox/filter/manage";
         response = ath.addAuthentication(Unirest.post(url))
-                .queryString("entityId", filterName)
+                .queryString(SparqlConverterController.identifierParameterName, filterName)
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());

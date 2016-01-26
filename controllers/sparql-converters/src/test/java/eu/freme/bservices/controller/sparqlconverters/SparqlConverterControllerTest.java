@@ -55,9 +55,9 @@ public class SparqlConverterControllerTest {
     @Test
     public void testFilterManagement() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(filterSelect,null,null);
-        request.putParameter(OwnedResourceManagingController.identifierParameterName,"select-filter");
+        request.putParameter(SparqlConverterController.identifierParameterName,"select-filter");
         SimpleEntityRequest updateRequest = new SimpleEntityRequest(filterConstruct,null,null);
-        updateRequest.putParameter(OwnedResourceManagingController.identifierParameterName,"construct-filter");
+        updateRequest.putParameter(SparqlConverterController.identifierParameterName,"construct-filter");
         ormh.checkCRUDOperations(request, updateRequest);
     }
 
@@ -71,14 +71,14 @@ public class SparqlConverterControllerTest {
 
         logger.info("create filter1");
         response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
-                .queryString("entityId", "filter1")
+                .queryString(SparqlConverterController.identifierParameterName, "filter1")
                 .body(filterSelect)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
 
         logger.info("create filter2");
         response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
-                .queryString("entityId", "filter2")
+                .queryString(SparqlConverterController.identifierParameterName, "filter2")
                 .body(filterConstruct)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());

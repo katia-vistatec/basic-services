@@ -72,7 +72,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         updateRequest.putParameter(OwnedResourceManagingController.descriptionParameterName, "description2");
 
         // count already existing entities
-        logger.info("count entities as userWithPermission...");
+        logger.info("count entities as userWithPermission");
         List<T> allEntities = getAllEntities(ath.getTokenWithPermission());
         countAsUserWithPermission = allEntities.size();
         logger.info("count entities as userWithPermission: "+countAsUserWithPermission);
@@ -82,7 +82,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         countAsUserWithoutPermission = allEntities.size();
         logger.info("count entities as userWithoutPermission: "+countAsUserWithoutPermission);
 
-        logger.info("count entities as asmin");
+        logger.info("count entities as admin");
         allEntities = getAllEntities(ath.getTokenAdmin());
         countAsAdmin = allEntities.size();
         logger.info("count entities as admin: "+ countAsAdmin);
@@ -311,7 +311,6 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
         response = ath.addAuthentication(Unirest.get(url+"/"+identifier), token)
-                .queryString(OwnedResourceManagingController.identifierParameterName, identifier)
                 .asString();
         assertEquals(expectedStatus.value(), response.getStatus());
         if(expectedStatus.equals(HttpStatus.OK)){
