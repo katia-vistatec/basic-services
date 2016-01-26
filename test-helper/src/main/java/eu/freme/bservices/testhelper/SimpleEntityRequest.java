@@ -17,6 +17,10 @@ public class SimpleEntityRequest {
         this.headers = headers;
     }
 
+    public SimpleEntityRequest(String body){
+        this.body = body;
+    }
+
     public String getBody() {
         return body;
     }
@@ -29,15 +33,17 @@ public class SimpleEntityRequest {
         return headers;
     }
 
-    public void putParameter(String key, Object value){
+    public SimpleEntityRequest putParameter(String key, Object value){
         if(parameters==null)
             parameters = new HashMap<>();
         parameters.put(key,value);
+        return this;
     }
 
-    public void putHeader(String key, String value){
+    public SimpleEntityRequest putHeader(String key, String value){
         if(headers==null)
             headers = new HashMap<>();
         headers.put(key, value);
+        return this;
     }
 }

@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by Arne Binder (arne.b.binder@gmail.com) on 12.01.2016.
  */
 @RestController
-@RequestMapping("/toolbox/filter")
+@RequestMapping("/toolbox/convert")
 public class SparqlConverterController extends OwnedResourceManagingController<SparqlConverter> {
 
     Logger logger = Logger.getLogger(SparqlConverterController.class);
@@ -51,20 +51,20 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
             NIFParameterSet nifParameters = this.normalizeNif(postBody,
                     acceptHeader, contentTypeHeader, allParams, false);
 
-            SparqlConverter filter = getEntityDAO().findOneByIdentifier(identifier);
+            SparqlConverter sparqlConverter = getEntityDAO().findOneByIdentifier(identifier);
 
             Model model = jenaRDFConversionService.unserializeRDF(
                     nifParameters.getInput(), nifParameters.getInformat());
 
             String serialization = null;
-            switch (filter.getQueryType()){
+            switch (sparqlConverter.getQueryType()){
                 case Query.QueryTypeConstruct:
-                    Model resultModel = filter.getFilteredModel(model);
+                    Model resultModel = sparqlConverter.getFilteredModel(model);
                     serialization = jenaRDFConversionService.serializeRDF(resultModel,
                             nifParameters.getOutformat());
                     break;
                 case Query.QueryTypeSelect:
-                    ResultSet resultSet = filter.getFilteredResultSet(model);
+                    ResultSet resultSet = sparqlConverter.getFilteredResultSet(model);
                     // write to a ByteArrayOutputStream
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     switch (nifParameters.getOutformat()){
@@ -90,7 +90,7 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
                     serialization = new String(outputStream.toByteArray());
                     break;
                 default:
-                    throw new BadRequestException("Unsupported filter query. Only sparql SELECT and CONSTRUCT are allowed types.");
+                    throw new BadRequestException("Unsupported sparqlConverter query. Only sparql SELECT and CONSTRUCT are allowed types.");
             }
 
             HttpHeaders responseHeaders = new HttpHeaders();
@@ -116,7 +116,7 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
             throw new BadRequestException("No identifier provided! Please set the parameter \""+identifierParameterName+"\" to a valid value.");
         SparqlConverter entity = getEntityDAO().findOneByIdentifierUnsecured(identifier);
         if (entity != null)
-            throw new FREMEHttpException("Can not add entity: Entity with identifier: " + identifier + " already exists.");
+            throw new BadRequestException("Can not add entity: Entity with identifier: " + identifier + " already exists.");
         // AccessDeniedException can be thrown, if current authentication is the anonymousUser
         return new SparqlConverter(identifier, body);
     }

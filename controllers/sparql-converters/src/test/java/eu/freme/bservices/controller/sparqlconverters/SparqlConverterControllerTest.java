@@ -7,6 +7,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
+import eu.freme.bservices.testhelper.LoggingHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
 import eu.freme.bservices.testhelper.SimpleEntityRequest;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
@@ -14,7 +15,6 @@ import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
 import eu.freme.common.persistence.model.SparqlConverter;
-import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -36,11 +36,12 @@ public class SparqlConverterControllerTest {
     private Logger logger = Logger.getLogger(SparqlConverterControllerTest.class);
     private AuthenticatedTestHelper ath;
     private OwnedResourceManagingHelper<SparqlConverter> ormh;
+    final static String serviceUrl = "/toolbox/convert";
 
     public SparqlConverterControllerTest() throws  UnirestException {
-        ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
+        ApplicationContext context = IntegrationTestSetup.getContext("sparql-converter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/toolbox/filter",SparqlConverter.class, ath, "name");
+        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath, "name");
         ath.authenticateUsers();
     }
 
@@ -48,40 +49,50 @@ public class SparqlConverterControllerTest {
     final String propertyIdentifier = "http://www.w3.org/2005/11/its/rdf#taIdentRef";
     final String resourceIdentifier = "http://dbpedia.org/resource/Berlin";
 
-    final String filterSelect = "SELECT ?"+ entityHeader +" WHERE {[] <"+propertyIdentifier+"> ?"+ entityHeader +"}";
-    final String filterConstruct = "CONSTRUCT {?s <"+propertyIdentifier+"> ?"+ entityHeader +"} WHERE {?s <"+propertyIdentifier+"> ?"+ entityHeader +"}";
+    final String sparqlConverterSelect = "SELECT ?"+ entityHeader +" WHERE {[] <"+propertyIdentifier+"> ?"+ entityHeader +"}";
+    final String sparqlConverterConstruct = "CONSTRUCT {?s <"+propertyIdentifier+"> ?"+ entityHeader +"} WHERE {?s <"+propertyIdentifier+"> ?"+ entityHeader +"}";
 
 
     @Test
-    public void testFilterManagement() throws UnirestException, IOException {
-        SimpleEntityRequest request = new SimpleEntityRequest(filterSelect,null,null);
-        request.putParameter(SparqlConverterController.identifierParameterName,"select-filter");
-        SimpleEntityRequest updateRequest = new SimpleEntityRequest(filterConstruct,null,null);
-        updateRequest.putParameter(SparqlConverterController.identifierParameterName,"construct-filter");
+    public void testSparqlConverterManagement() throws UnirestException, IOException {
+        SimpleEntityRequest request = new SimpleEntityRequest(sparqlConverterSelect)
+                .putParameter(SparqlConverterController.identifierParameterName,"select-sparqlConverter");
+        SimpleEntityRequest updateRequest = new SimpleEntityRequest(sparqlConverterConstruct)
+                .putParameter(SparqlConverterController.identifierParameterName,"construct-sparqlConverter");
         ormh.checkCRUDOperations(request, updateRequest);
     }
 
     @Test
-    public void testFiltering() throws Exception {
+    public void testCreateWithAlreadyExistingName() throws UnirestException, IOException {
+        SimpleEntityRequest request = new SimpleEntityRequest(sparqlConverterSelect)
+                .putParameter(SparqlConverterController.identifierParameterName,"select-sparqlConverter");
+        SparqlConverter sparqlConverter = ormh.createEntity(request, ath.getTokenWithPermission(),HttpStatus.OK);
+
+        LoggingHelper.loggerIgnore("eu.freme.common.exception.BadRequestException");
+        ormh.createEntity(request,ath.getTokenWithPermission(),HttpStatus.BAD_REQUEST);
+        LoggingHelper.loggerUnignore("eu.freme.common.exception.BadRequestException");
+
+        ormh.deleteEntity(sparqlConverter.getIdentifier(),ath.getTokenWithPermission(), HttpStatus.OK);
+    }
+
+    @Test
+    public void testConverting() throws Exception {
         HttpResponse<String> response;
 
-        logger.info("get all filters");
-        response = ath.addAuthentication(Unirest.get(ath.getAPIBaseUrl() + "/toolbox/filter/manage")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        logger.info("get all sparqlConverters");
+        ormh.getAllEntities(ath.getTokenWithPermission());
 
-        logger.info("create filter1");
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
-                .queryString(SparqlConverterController.identifierParameterName, "filter1")
-                .body(filterSelect)
-                .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        logger.info("create sparqlConverter1");
+        ormh.createEntity(
+                new SimpleEntityRequest(sparqlConverterSelect)
+                        .putParameter(SparqlConverterController.identifierParameterName, "sparqlConverter1"),
+                ath.getTokenWithPermission(), HttpStatus.OK);
 
-        logger.info("create filter2");
-        response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/manage"))
-                .queryString(SparqlConverterController.identifierParameterName, "filter2")
-                .body(filterConstruct)
-                .asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        logger.info("create sparqlConverter2");
+        ormh.createEntity(
+                new SimpleEntityRequest(sparqlConverterConstruct)
+                        .putParameter(SparqlConverterController.identifierParameterName, "sparqlConverter2"),
+                ath.getTokenWithPermission(), HttpStatus.OK);
 
         String nifContent =
                 " @prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .\n" +
@@ -103,8 +114,8 @@ public class SparqlConverterControllerTest {
                         " <"+propertyIdentifier+">     <"+resourceIdentifier+"> .";
 
 
-        logger.info("filter nif with filter1(select)");
-        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/documents/filter1")
+        logger.info("convert nif with sparqlConverter1(select)");
+        response = Unirest.post(ath.getAPIBaseUrl() + serviceUrl + "/documents/sparqlConverter1")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.JSON.contentType())
                 .body(nifContent)
@@ -116,8 +127,8 @@ public class SparqlConverterControllerTest {
         assertTrue(resultSet.nextSolution().get(entityHeader).asResource().equals(ResourceFactory.createResource(resourceIdentifier)));
         assertFalse(resultSet.hasNext());
 
-        logger.info("filter nif with filter2(construct)");
-        response = Unirest.post(ath.getAPIBaseUrl() + "/toolbox/filter/documents/filter2")
+        logger.info("convert nif with sparqlConverter2(construct)");
+        response = Unirest.post(ath.getAPIBaseUrl() + serviceUrl +"/documents/sparqlConverter2")
                 .queryString("informat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .queryString("outformat", RDFConstants.RDFSerialization.TURTLE.contentType())
                 .body(nifContent)
@@ -137,12 +148,11 @@ public class SparqlConverterControllerTest {
         resultSet = qexec.execSelect();
         assertEquals(1,resultSet.nextSolution().getLiteral("count").getInt());
 
-        logger.info("delete filter1");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter1")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-        logger.info("delete filter2");
-        response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/filter2")).asString();
-        assertEquals(HttpStatus.OK.value(), response.getStatus());
-    }
+        logger.info("delete sparqlConverter1");
+        ormh.deleteEntity("sparqlConverter1", ath.getTokenWithPermission(), HttpStatus.OK);
+
+        logger.info("delete sparqlConverter2");
+        ormh.deleteEntity("sparqlConverter2", ath.getTokenWithPermission(), HttpStatus.OK);
+     }
 
 }
