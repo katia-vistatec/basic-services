@@ -9,7 +9,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.FREMEHttpException;
-import eu.freme.common.persistence.model.Filter;
+import eu.freme.common.persistence.model.SparqlConverter;
 import eu.freme.common.rest.NIFParameterSet;
 import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
@@ -29,7 +29,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/toolbox/filter")
-public class SparqlConverterController extends OwnedResourceManagingController<Filter> {
+public class SparqlConverterController extends OwnedResourceManagingController<SparqlConverter> {
 
     Logger logger = Logger.getLogger(SparqlConverterController.class);
 
@@ -49,7 +49,7 @@ public class SparqlConverterController extends OwnedResourceManagingController<F
             NIFParameterSet nifParameters = this.normalizeNif(postBody,
                     acceptHeader, contentTypeHeader, allParams, false);
 
-            Filter filter = getEntityDAO().findOneByIdentifier(filterName);
+            SparqlConverter filter = getEntityDAO().findOneByIdentifier(filterName);
 
             Model model = jenaRDFConversionService.unserializeRDF(
                     nifParameters.getInput(), nifParameters.getInformat());
@@ -107,13 +107,13 @@ public class SparqlConverterController extends OwnedResourceManagingController<F
     }
 
     @Override
-    protected Filter createEntity(String id, String body, Map<String, String> parameters, Map<String, String> headers) throws AccessDeniedException {
+    protected SparqlConverter createEntity(String id, String body, Map<String, String> parameters, Map<String, String> headers) throws AccessDeniedException {
         // AccessDeniedException can be thrown, if current authentication is the anonymousUser
-        return new Filter(id, body);
+        return new SparqlConverter(id, body);
     }
 
     @Override
-    protected void updateEntity(Filter filter, String body, Map<String, String> parameters, Map<String, String> headers) {
+    protected void updateEntity(SparqlConverter filter, String body, Map<String, String> parameters, Map<String, String> headers) {
         if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
             filter.setQuery(body);
             filter.constructQuery();

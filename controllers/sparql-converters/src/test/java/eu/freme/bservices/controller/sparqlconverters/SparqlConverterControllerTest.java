@@ -13,7 +13,7 @@ import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFConversionService;
-import eu.freme.common.persistence.model.Filter;
+import eu.freme.common.persistence.model.SparqlConverter;
 import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -35,12 +35,12 @@ import static org.junit.Assert.assertTrue;
 public class SparqlConverterControllerTest {
     private Logger logger = Logger.getLogger(SparqlConverterControllerTest.class);
     private AuthenticatedTestHelper ath;
-    private OwnedResourceManagingHelper<Filter> ormh;
+    private OwnedResourceManagingHelper<SparqlConverter> ormh;
 
     public SparqlConverterControllerTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("filter-controller-test-package.xml");//FREMEStarter.startPackageFromClasspath("filter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/toolbox/filter",Filter.class, ath, "name");
+        ormh = new OwnedResourceManagingHelper<>("/toolbox/filter",SparqlConverter.class, ath, "name");
         ath.authenticateUsers();
     }
 
