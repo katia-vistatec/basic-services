@@ -1,5 +1,0 @@
-eu\freme\bservices\filter\ratelimiter\RateCounterInterface.class
-eu\freme\bservices\filter\ratelimiter\RateCounterObject.class
-eu\freme\bservices\filter\ratelimiter\RateLimiterInMemory.class
-eu\freme\bservices\filter\ratelimiter\exception\TooManyRequestsException.class
-eu\freme\bservices\filter\ratelimiter\RateLimitingFilter.class
