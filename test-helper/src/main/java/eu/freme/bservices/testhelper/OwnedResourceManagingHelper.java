@@ -147,6 +147,8 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         logger.info("set first entity to description="+updatedDescription + " as admin");
         newParameters.clear();
         newParameters.put(OwnedResourceManagingController.descriptionParameterName, updatedDescription);
+        // ensure to not change back the visibility. This can happen, if the body contains a visibility value
+        newParameters.put(OwnedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PRIVATE.name());
         returnedEntity = updateEntity(identifier1,
                 new SimpleEntityRequest(request.getBody(), newParameters, request.getHeaders()),
                 ath.getTokenWithPermission(),
