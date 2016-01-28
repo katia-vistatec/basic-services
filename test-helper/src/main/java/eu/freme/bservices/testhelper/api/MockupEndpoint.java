@@ -1,7 +1,10 @@
 package eu.freme.bservices.testhelper.api;
 
+import eu.freme.common.conversion.rdf.RDFConstants;
+import eu.freme.common.conversion.rdf.RDFSerializationFormats;
 import eu.freme.common.exception.FileNotFoundException;
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +15,9 @@ import java.io.IOException;
 
 @RestController
 public class MockupEndpoint {
+
+	@Autowired
+	RDFSerializationFormats rdfSerializationFormats;
 
 	public static final String path = "/mockups/file";
 
@@ -35,11 +41,12 @@ public class MockupEndpoint {
 		}
 		HttpHeaders headers = new HttpHeaders();
 
-		accept = (outformat==null)? ((accept == null) ? "text/turtle" : accept) : outformat;
-		headers.add("Content-Type", accept);
+		// accept can contain a list
+		String contentType = (outformat==null) ? ((accept == null) ? RDFConstants.RDFSerialization.TURTLE.contentType() : accept.split(",")[0]) : rdfSerializationFormats.get(outformat).contentType();
+		headers.add("Content-Type", contentType);
 		headers.add("content-length", file.length()+"");
 
-		ResponseEntity<String> response = new ResponseEntity<String>(fileContent, headers, HttpStatus.OK);
+		ResponseEntity<String> response = new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
 		return response;
 	}
 }
