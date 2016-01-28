@@ -12,7 +12,7 @@
     <packaging>pom</packaging>
 
     <artifactId>controllers-parent</artifactId>
-    <groupId>eu.freme.bservices.controller</groupId>
+    <groupId>eu.freme.bservices.controllers</groupId>
 
     <modules>
         <module>pipelines</module>

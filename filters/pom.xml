@@ -12,12 +12,12 @@
     <packaging>pom</packaging>
 
     <artifactId>filters-parent</artifactId>
-    <groupId>eu.freme.bservices.filter</groupId>
+    <groupId>eu.freme.bservices.filters</groupId>
 
     <modules>
         <module>rate-limiter</module>
         <module>logging</module>
-        <module>internationalization</module>
+        <module>internationalization-filter</module>
         <module>postprocessing</module>
     </modules>
 

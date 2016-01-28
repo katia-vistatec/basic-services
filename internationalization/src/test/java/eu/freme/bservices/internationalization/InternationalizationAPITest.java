@@ -49,8 +49,6 @@ public class InternationalizationAPITest {
         internationalizationAPI = context.getBean(InternationalizationAPI.class);
 		classLoader = getClass().getClassLoader();
 	}
-;
-
 
 	
 	@Test
@@ -73,9 +71,7 @@ public class InternationalizationAPITest {
 			expectedModel.read(expectedReader, null,
 					RDFConstants.RDFSerialization.TURTLE.toRDFLang());
 			assertTrue(model.isIsomorphicWith(expectedModel));
-		} catch (ConversionException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (ConversionException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
@@ -98,12 +94,10 @@ public class InternationalizationAPITest {
 			expectedModel.read(expectedReader, null,
 					RDFConstants.RDFSerialization.TURTLE.toRDFLang());
 			assertTrue(model.isIsomorphicWith(expectedModel));
-		} catch (ConversionException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (ConversionException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-	}
+	 }
 	
 	 @Test
 	public void testEInternationalizationAPIXML() {
@@ -125,12 +119,10 @@ public class InternationalizationAPITest {
 			expectedModel.read(expectedReader, null,
 					RDFConstants.RDFSerialization.TURTLE.toRDFLang());
 			assertTrue(model.isIsomorphicWith(expectedModel));
-		} catch (ConversionException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (ConversionException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-	}
+	 }
 
 	
 	 @Test
@@ -154,12 +146,10 @@ public class InternationalizationAPITest {
 			 RDFConstants.RDFSerialization.TURTLE.toRDFLang());
 //			 expectedModel.write(new OutputStreamWriter(System.out), "TTL");
 //			 assertTrue(model.isIsomorphicWith(expectedModel));
-		} catch (ConversionException e) {
+		} catch (ConversionException | UnsupportedEncodingException e) {
 			e.printStackTrace();
-			 } catch (UnsupportedEncodingException e) {
-			 e.printStackTrace();
-		}
-	}
+			 }
+	 }
 	
 	 @Test
 	public void testEInternationalizationAPIUnsupportedMimeType() {

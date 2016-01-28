@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>controllers-parent</artifactId>
-        <groupId>eu.freme.bservices.controller</groupId>
+        <groupId>eu.freme.bservices.controllers</groupId>
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,11 +12,6 @@
     <artifactId>pipelines</artifactId>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>eu.freme</groupId>
-            <artifactId>pipelines</artifactId>
-            <version>0.3-SNAPSHOT</version>
-        </dependency>-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -28,29 +23,13 @@
             <version>2.4</version>
         </dependency>
         <dependency>
-            <groupId>eu.freme</groupId>
-            <artifactId>e-internationalization</artifactId>
-            <version>0.3-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-simple</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>eu.freme.bservices</groupId>
+            <artifactId>internationalization</artifactId>
+            <version>0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>eu.freme.bservices</groupId>
             <artifactId>test-helper</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.freme.bservices.filter</groupId>
-            <artifactId>logging</artifactId>
             <version>0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>

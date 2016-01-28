@@ -8,7 +8,7 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="eu.freme.bservices.testhelper" />
-	<context:component-scan base-package="eu.freme.bservices.filter.logging" />
+	<context:component-scan base-package="eu.freme.bservices.filters.logging" />
 </beans>
 
 
