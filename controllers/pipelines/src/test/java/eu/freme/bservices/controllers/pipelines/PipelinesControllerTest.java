@@ -166,8 +166,8 @@ public class PipelinesControllerTest {
         Pipeline pipeline2 = constructPipeline(OwnedResource.Visibility.PUBLIC, "Spotlight-Link", "Recognises entities using Spotlight en enriches with geo information.", rf.createEntitySpotlight("en"), rf.createLink("3"));
 
         ormh.checkCRUDOperations(
-                new SimpleEntityRequest(ormh.toJSON(pipeline1)),
-                new SimpleEntityRequest(ormh.toJSON(pipeline2)));
+                new SimpleEntityRequest(pipeline1.toJson()),
+                new SimpleEntityRequest(pipeline2.toJson()));
 
     }
 
@@ -251,7 +251,7 @@ public class PipelinesControllerTest {
     protected Pipeline createTemplate(final OwnedResource.Visibility visibility, final String label, final String description, final SerializedRequest... requests) throws UnirestException, IOException {
         Pipeline pipeline = constructPipeline(visibility,label,description, requests);
         // send json
-        pipeline = ormh.createEntity(new SimpleEntityRequest(ormh.toJSON(pipeline)), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
+        pipeline = ormh.createEntity(new SimpleEntityRequest(pipeline.toJson()), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
         return pipeline;
     }
 

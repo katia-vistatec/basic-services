@@ -233,8 +233,8 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
 
     public boolean containsEntity(T entity1, T entity2) throws JsonProcessingException {
-        JSONObject jObject1 = new JSONObject(toJSON(entity1));
-        JSONObject jObject2 = new JSONObject(toJSON(entity2));
+        JSONObject jObject1 = new JSONObject(entity1.toJson());
+        JSONObject jObject2 = new JSONObject(entity2.toJson());
         for(Iterator iterator = jObject2.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
             Object o1 = jObject1.get(key);
@@ -342,12 +342,6 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(response.getBody(),
                 TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
-    }
-
-
-    public String toJSON(T entity) throws JsonProcessingException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        return ow.writeValueAsString(entity);
     }
 
     @SuppressWarnings("unchecked")
