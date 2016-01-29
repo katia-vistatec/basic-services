@@ -251,6 +251,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
 
     // CREATE
+    @SuppressWarnings("unchecked")
     public T createEntity(SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
@@ -266,7 +267,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
             assertEquals(RDFConstants.RDFSerialization.JSON.contentType(), contentType);
         }
         try {
-            return fromJSON(response.getBody());
+            return (T) T.fromJson(response.getBody(), clazz);//fromJSON(response.getBody());
         }catch (IOException e){
             logger.info("json response was not valid concerning the entity class");
             return null;
@@ -275,6 +276,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
 
     //UPDATE
+    @SuppressWarnings("unchecked")
     public T updateEntity(String identifier, SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
@@ -291,7 +293,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
             assertEquals(RDFConstants.RDFSerialization.JSON.contentType(), contentType);
         }
         try {
-            return fromJSON(response.getBody());
+            return (T) T.fromJson(response.getBody(), clazz);//fromJSON(response.getBody());
         }catch (IOException e){
             logger.info("json response was not valid concerning the entity class");
             return null;
@@ -309,6 +311,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
 
     // GET
+    @SuppressWarnings("unchecked")
     public T getEntity(String identifier, String token, HttpStatus expectedStatus) throws UnirestException, IOException {
         HttpResponse<String> response;
         String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
@@ -321,7 +324,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         }
 
         try {
-            return fromJSON(response.getBody());
+            return (T) T.fromJson(response.getBody(), clazz);//fromJSON(response.getBody());
         }catch (IOException e){
             logger.info("json response was not valid concerning the entity class");
             return null;
@@ -343,12 +346,5 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         return mapper.readValue(response.getBody(),
                 TypeFactory.defaultInstance().constructCollectionType(List.class, clazz));
     }
-
-    @SuppressWarnings("unchecked")
-    public T fromJSON(String json) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return (T) mapper.readValue(json, clazz);
-    }
-
 
 }
