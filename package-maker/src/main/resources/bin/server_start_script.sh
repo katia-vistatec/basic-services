@@ -33,10 +33,7 @@ PID_FILE=$FREME_DIR"/config/pid.txt"
 
 start(){
 	echo "Starting FREME...\n".
-	cd $FREME_DIR
-        nohup java -cp "./*:config"  -Dlogging.config=config/log4j.properties -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher > /dev/null 2>&1 &
-	[ -f $pid ] && rm $PID_FILE
-	echo $! > $PID_FILE
+	$FREME_DIR/bin/start_server.sh
 }
 
 stop(){
