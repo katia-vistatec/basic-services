@@ -19,11 +19,10 @@ package eu.freme.bservices.controllers.users;
 
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
+import eu.freme.common.persistence.dao.UserDAO;
+import eu.freme.common.persistence.model.User;
+import eu.freme.common.persistence.tools.AccessLevelHelper;
 import eu.freme.common.security.PasswordHasher;
-import eu.freme.persistence.dao.UserDAO;
-import eu.freme.persistence.model.User;
-import eu.freme.persistence.tools.AccessLevelHelper;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

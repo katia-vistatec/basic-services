@@ -19,8 +19,7 @@ package eu.freme.bservices.filters.ratelimiter;
 
 import eu.freme.bservices.filters.ratelimiter.exception.TooManyRequestsException;
 import eu.freme.common.exception.ExceptionHandlerService;
-import eu.freme.persistence.model.User;
-
+import eu.freme.common.persistence.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,7 +37,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.Date;
 

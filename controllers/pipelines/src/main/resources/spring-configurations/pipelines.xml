@@ -8,7 +8,6 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="eu.freme.bservices.controllers.pipelines" />
-	<context:component-scan base-package="eu.freme.persistence"/>
 	<context:component-scan base-package="eu.freme.bservices.internationalization" />
 </beans>
 

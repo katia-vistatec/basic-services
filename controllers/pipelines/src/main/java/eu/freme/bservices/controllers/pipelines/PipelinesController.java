@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.common.base.Strings;
 import com.google.gson.JsonSyntaxException;
 import com.mashape.unirest.http.exceptions.UnirestException;
-
 import eu.freme.bservices.controllers.pipelines.core.PipelineResponse;
 import eu.freme.bservices.controllers.pipelines.core.PipelineService;
 import eu.freme.bservices.controllers.pipelines.core.ServiceException;
@@ -18,10 +17,9 @@ import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
 import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.exception.TemplateNotFoundException;
+import eu.freme.common.persistence.model.Pipeline;
+import eu.freme.common.persistence.model.SerializedRequest;
 import eu.freme.common.rest.OwnedResourceManagingController;
-import eu.freme.persistence.model.Pipeline;
-import eu.freme.persistence.model.SerializedRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -76,7 +74,7 @@ public class PipelinesController extends OwnedResourceManagingController<Pipelin
             boolean wrapResult = Boolean.parseBoolean(stats);
             ObjectMapper mapper = new ObjectMapper();
             List<SerializedRequest> serializedRequests = mapper.readValue(requests,
-                    TypeFactory.defaultInstance().constructCollectionType(List.class, eu.freme.persistence.model.SerializedRequest.class));
+                    TypeFactory.defaultInstance().constructCollectionType(List.class, eu.freme.common.persistence.model.SerializedRequest.class));
             //List<SerializedRequest> serializedRequests = //Serializer.fromJson(requests);
             WrappedPipelineResponse pipelineResult = pipelineAPI.chain(serializedRequests);
             MultiValueMap<String, String> headers = new HttpHeaders();

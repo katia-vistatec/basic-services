@@ -2,7 +2,7 @@ package eu.freme.bservices.controllers.pipelines;
 
 import eu.freme.bservices.controllers.pipelines.requests.RequestFactory;
 import eu.freme.bservices.testhelper.api.MockupEndpoint;
-import eu.freme.persistence.model.SerializedRequest;
+import eu.freme.common.persistence.model.SerializedRequest;
 
 /**
  * Created by Arne on 21.01.2016.

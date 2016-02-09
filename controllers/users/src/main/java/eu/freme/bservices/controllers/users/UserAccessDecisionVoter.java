@@ -17,7 +17,7 @@
  */
 package eu.freme.bservices.controllers.users;
 
-import eu.freme.persistence.model.User;
+import eu.freme.common.persistence.model.User;
 
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
