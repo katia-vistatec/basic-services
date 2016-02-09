@@ -7,9 +7,11 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 import eu.freme.common.conversion.rdf.RDFConstants;
-import eu.freme.common.persistence.model.OwnedResource;
 import eu.freme.common.rest.OwnedResourceManagingController;
+import eu.freme.persistence.model.OwnedResource;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;

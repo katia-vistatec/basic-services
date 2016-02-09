@@ -21,11 +21,13 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequestWithBody;
+
 import eu.freme.bservices.internationalization.api.InternationalizationAPI;
 import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionException;
 import eu.freme.common.conversion.rdf.RDFConstants;
 import eu.freme.common.conversion.rdf.RDFSerializationFormats;
-import eu.freme.common.persistence.model.SerializedRequest;
+import eu.freme.persistence.model.SerializedRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -18,7 +18,7 @@
 package eu.freme.bservices.controllers.pipelines.requests;
 
 import eu.freme.common.conversion.rdf.RDFConstants;
-import eu.freme.common.persistence.model.SerializedRequest;
+import eu.freme.persistence.model.SerializedRequest;
 
 import java.util.HashMap;
 import java.util.Map;

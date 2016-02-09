@@ -6,15 +6,17 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.LoggingHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
 import eu.freme.bservices.testhelper.SimpleEntityRequest;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.RDFConstants;
-import eu.freme.common.persistence.model.OwnedResource;
-import eu.freme.common.persistence.model.Pipeline;
-import eu.freme.common.persistence.model.SerializedRequest;
+import eu.freme.persistence.model.OwnedResource;
+import eu.freme.persistence.model.Pipeline;
+import eu.freme.persistence.model.SerializedRequest;
+
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
