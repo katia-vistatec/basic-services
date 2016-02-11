@@ -7,6 +7,8 @@
 		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>cloud</artifactId>
+	<packaging>pom</packaging>
+	
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
 		<spring-cloud-aws.version>1.0.1.RELEASE</spring-cloud-aws.version>
@@ -330,4 +332,8 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<modules>
+		<module>eureka-server</module>
+		<module>microservices</module>
+	</modules>
 </project>
