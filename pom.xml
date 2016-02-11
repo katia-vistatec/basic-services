@@ -12,6 +12,7 @@
 		<module>internationalization</module>
 		<module>controllers</module>
 		<module>filters</module>
+		<module>cloud</module>
 	</modules>
 
 	<parent>
