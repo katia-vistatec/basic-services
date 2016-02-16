@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class SparqlConverterDAO extends OwnedResourceDAO<SparqlConverter> {
 
     @Override
-    public String className() {
+    public String tableName() {
         return SparqlConverter.class.getSimpleName();
     }
 
