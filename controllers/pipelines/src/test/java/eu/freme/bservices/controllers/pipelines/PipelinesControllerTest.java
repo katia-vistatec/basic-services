@@ -60,7 +60,7 @@ public class PipelinesControllerTest {
     }
 
 
-    @Ignore
+    @Ignore // wait for https://github.com/freme-project/FREMECommon/issues/17
     @Test
     public void testPipelineRepository() throws JsonProcessingException {
         long pipelineCountBefore = pipelineDAO.count();
