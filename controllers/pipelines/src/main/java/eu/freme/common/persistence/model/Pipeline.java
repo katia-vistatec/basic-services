@@ -50,35 +50,7 @@ public class Pipeline extends OwnedResource {
 	private boolean persist;	// true = persist forever; false = persist for (at least) one week.
 
 	@SuppressWarnings("unused")
-	public Pipeline() {}
-
-	public Pipeline(final User owner, final Visibility visibility, final String label, final String description, final List<SerializedRequest> serializedRequests, boolean persist) throws JsonProcessingException {
-		super(owner, visibility, description);
-		this.label = label;
-		this.serializedRequests = serializedRequests;
-		if(serializedRequests!=null)
-			serializeRequests();
-		this.persist = persist;
-	}
-
-	@SuppressWarnings("unused")
-	public Pipeline(final Visibility visibility, final String label, final String description, final List<SerializedRequest> serializedRequests, boolean persist) throws JsonProcessingException {
-		super(visibility, description);
-		this.label = label;
-		this.serializedRequests = serializedRequests;
-		if(serializedRequests!=null)
-			serializeRequests();
-		this.persist = persist;
-	}
-
-	@SuppressWarnings("unused")
-	public Pipeline(final String label, final String description, final List<SerializedRequest> serializedRequests) throws JsonProcessingException {
-		super(Visibility.PUBLIC, description);
-		this.label = label;
-		this.serializedRequests = serializedRequests;
-		if(serializedRequests!=null)
-			serializeRequests();
-	}
+	public Pipeline() {super(null);}
 
 	@SuppressWarnings("unused")
 	public List<SerializedRequest> getSerializedRequests() throws IOException {

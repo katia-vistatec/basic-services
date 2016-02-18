@@ -81,14 +81,16 @@ public class PipelinesControllerTest {
 
         logger.info("Create pipeline");
         SerializedRequest request1 = new SerializedRequest(SerializedRequest.HttpMethod.GET, "endpoint1", new HashMap<>(), new HashMap<>(), "body1");
-        Pipeline pipeline = new Pipeline(user, OwnedResource.Visibility.PRIVATE, "label1", "description1", Collections.singletonList(request1) , false);
+        Pipeline pipeline = constructPipeline(OwnedResource.Visibility.PRIVATE, "label1", "description1", false, request1);
+        pipeline.setOwner(user);
         pipeline = pipelineDAO.save(pipeline);
         assertTrue(pipelineDAO.findAll().iterator().hasNext());
         logger.info("Pipeline count: " + pipelineDAO.count());
 
         logger.info("create 2nd pipeline");
         SerializedRequest request2 = new SerializedRequest(SerializedRequest.HttpMethod.POST, "endpoint2", new HashMap<>(), new HashMap<>(), "body2");
-        Pipeline pipeline2 = new Pipeline(user, OwnedResource.Visibility.PUBLIC, "label2", "description2", Collections.singletonList(request2), true);
+        Pipeline pipeline2 = constructPipeline(OwnedResource.Visibility.PUBLIC, "label2", "description2", true, request2);
+        pipeline2.setOwner(user);
         pipeline = pipelineDAO.save(pipeline2);
         assertEquals(pipelineCountBefore + 2, pipelineDAO.count());
 
@@ -230,8 +232,8 @@ public class PipelinesControllerTest {
         ClassLoader classLoader = getClass().getClassLoader();
 
 
-        Pipeline pipeline1 = constructPipeline(OwnedResource.Visibility.PUBLIC, "entity, translate", "First e-Entity, then e-Translate", rf.createEntitySpotlight("en") ,rf.createTerminology("en","en"));
-        Pipeline pipeline2 = constructPipeline(OwnedResource.Visibility.PUBLIC, "Spotlight-Link", "Recognises entities using Spotlight en enriches with geo information.", rf.createEntitySpotlight("en"), rf.createLink("3"));
+        Pipeline pipeline1 = constructPipeline(OwnedResource.Visibility.PUBLIC, "entity, translate", "First e-Entity, then e-Translate", false, rf.createEntitySpotlight("en"), rf.createTerminology("en","en"));
+        Pipeline pipeline2 = constructPipeline(OwnedResource.Visibility.PUBLIC, "Spotlight-Link", "Recognises entities using Spotlight en enriches with geo information.", false, rf.createEntitySpotlight("en"), rf.createLink("3"));
 
         ormh.checkCRUDOperations(
                 new SimpleEntityRequest(pipeline1.toJson()),
@@ -317,13 +319,13 @@ public class PipelinesControllerTest {
     }
 
     protected Pipeline createTemplate(final OwnedResource.Visibility visibility, final String label, final String description, final SerializedRequest... requests) throws UnirestException, IOException {
-        Pipeline pipeline = constructPipeline(visibility,label,description, requests);
+        Pipeline pipeline = constructPipeline(visibility,label,description,false, requests);
         // send json
         pipeline = ormh.createEntity(new SimpleEntityRequest(pipeline.toJson()), ath.getTokenWithPermission(), org.springframework.http.HttpStatus.OK);
         return pipeline;
     }
 
-    protected Pipeline constructPipeline(final OwnedResource.Visibility visibility, final String label, final String description, final SerializedRequest... requests) throws JsonProcessingException {
+    protected Pipeline constructPipeline(final OwnedResource.Visibility visibility, final String label, final String description, final boolean persist, final SerializedRequest... requests) throws JsonProcessingException {
         List<SerializedRequest> serializedRequests = Arrays.asList(requests);
 
         // create local Entity to build json
@@ -332,7 +334,7 @@ public class PipelinesControllerTest {
         pipeline.setLabel(label);
         pipeline.setDescription(description);
         pipeline.setSerializedRequests(serializedRequests);
-        pipeline.setPersist(false);
+        pipeline.setPersist(persist);
         return pipeline;
     }
 }

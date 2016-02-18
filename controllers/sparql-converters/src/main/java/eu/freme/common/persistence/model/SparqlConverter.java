@@ -29,16 +29,10 @@ public class SparqlConverter extends OwnedResource {
     String query;
     String name;
 
-    public SparqlConverter(){super();}
-
-    public SparqlConverter(Visibility visibility, String name, String queryString, String description){
-        super(visibility, description);
-        this.name = name;
-        this.query = queryString;
-    }
+    public SparqlConverter(){super(null);}
 
     public SparqlConverter(String name, String queryString){
-        super(Visibility.PUBLIC, "");
+        super();
         this.name = name;
         this.query = queryString;
     }
