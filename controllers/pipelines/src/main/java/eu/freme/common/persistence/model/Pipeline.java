@@ -22,8 +22,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import eu.freme.common.exception.BadRequestException;
+import eu.freme.common.exception.FREMEHttpException;
+import eu.freme.common.exception.InternalServerErrorException;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -54,14 +55,14 @@ public class Pipeline extends OwnedResource {
 
 	@SuppressWarnings("unused")
 	public List<SerializedRequest> getSerializedRequests() throws IOException {
-		unSerializeRequests();
+		//deserializeRequests();
 		return serializedRequests;
 	}
 
 	@SuppressWarnings("unused")
 	public void setSerializedRequests(List<SerializedRequest> serializedRequests) throws JsonProcessingException {
 		this.serializedRequests = serializedRequests;
-		serializeRequests();
+		//serializeRequests();
 	}
 
 	@SuppressWarnings("unused")
@@ -86,14 +87,14 @@ public class Pipeline extends OwnedResource {
 
 	@SuppressWarnings("unused")
 	public String getRequests() throws JsonProcessingException {
-		serializeRequests();
+		//serializeRequests();
 		return requests;
 	}
 
 	@SuppressWarnings("unused")
 	public void setRequests(String requests) throws IOException {
 		this.requests = requests;
-		unSerializeRequests();
+		//deserializeRequests();
 	}
 
 	@SuppressWarnings("unused")
@@ -115,11 +116,30 @@ public class Pipeline extends OwnedResource {
 		requests = ow.writeValueAsString(serializedRequests);
 	}
 
-	public void unSerializeRequests() throws IOException {
+	public void deserializeRequests() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		serializedRequests = mapper.readValue(requests,
 				TypeFactory.defaultInstance().constructCollectionType(List.class, SerializedRequest.class));
 	}
+
+	@Override
+	public void preSave() {
+		try {
+			serializeRequests();
+		} catch (JsonProcessingException e) {
+			throw new BadRequestException("Could not serialize requests to json: "+e.getMessage());
+		}
+	}
+
+	@Override
+	public void postFetch() {
+		try {
+			deserializeRequests();
+		} catch (IOException e) {
+			throw new InternalServerErrorException("Could not deserialize requests from json: "+e.getMessage());
+		}
+	}
+
 
 	@Override
 	public boolean equals(Object o) {

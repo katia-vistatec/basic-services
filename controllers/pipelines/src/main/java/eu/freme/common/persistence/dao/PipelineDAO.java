@@ -41,7 +41,7 @@ public class PipelineDAO extends OwnedResourceDAO<Pipeline> {
 	public Pipeline findOneByIdentifierUnsecured(String identifier){
 		Pipeline pipeline = repository.findOneById(Integer.parseInt(identifier));
 		try {
-			pipeline.unSerializeRequests();
+			pipeline.deserializeRequests();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

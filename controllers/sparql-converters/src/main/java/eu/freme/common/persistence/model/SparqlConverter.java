@@ -16,7 +16,6 @@ import javax.persistence.Transient;
  * Created by Arne on 11.12.2015.
  */
 
-@Component
 @Entity
 @Table(name = "sparqlconverter")
 public class SparqlConverter extends OwnedResource {
