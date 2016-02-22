@@ -19,6 +19,7 @@
         <module>logging</module>
         <module>internationalization-filter</module>
         <module>postprocessing</module>
+        <module>cors-filter</module>
     </modules>
 
 </project>
