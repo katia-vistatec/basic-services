@@ -236,7 +236,10 @@ public class PipelinesControllerTest {
 
         ormh.checkCRUDOperations(
                 new SimpleEntityRequest(pipeline1.toJson()),
-                new SimpleEntityRequest(pipeline2.toJson()));
+                new SimpleEntityRequest(pipeline2.toJson()),
+                pipeline1,
+                pipeline2,
+                "99999");
 
     }
 

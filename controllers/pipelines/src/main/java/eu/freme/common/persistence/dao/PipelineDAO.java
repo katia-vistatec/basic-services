@@ -37,17 +37,6 @@ public class PipelineDAO extends OwnedResourceDAO<Pipeline> {
 		return Pipeline.class.getSimpleName();
 	}
 
-	@Override
-	public Pipeline findOneByIdentifierUnsecured(String identifier){
-		Pipeline pipeline = repository.findOneById(Integer.parseInt(identifier));
-		try {
-			pipeline.deserializeRequests();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return pipeline;
-	}
-
 	/**
 	 * Deletes pipelines that are older than one week. This method runs once a day.
 	 */

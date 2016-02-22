@@ -17,6 +17,18 @@ public class SimpleEntityRequest {
         this.headers = headers;
     }
 
+    public SimpleEntityRequest(SimpleEntityRequest simpleEntityRequest){
+        this.body = simpleEntityRequest.body;
+        this.parameters = new HashMap<>();
+        this.headers = new HashMap<>();
+        if(simpleEntityRequest.parameters!=null) {
+            this.parameters.putAll(simpleEntityRequest.getParameters());
+        }
+        if(simpleEntityRequest.headers!=null) {
+            this.headers.putAll(simpleEntityRequest.getHeaders());
+        }
+    }
+
     public SimpleEntityRequest(String body){
         this.body = body;
     }
