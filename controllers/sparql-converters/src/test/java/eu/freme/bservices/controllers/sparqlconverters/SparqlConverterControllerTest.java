@@ -38,10 +38,10 @@ public class SparqlConverterControllerTest {
     private OwnedResourceManagingHelper<SparqlConverter> ormh;
     final static String serviceUrl = "/toolbox/convert";
 
-    public SparqlConverterControllerTest() throws  UnirestException {
+    public SparqlConverterControllerTest() throws UnirestException, IOException {
         ApplicationContext context = IntegrationTestSetup.getContext("sparql-converter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);//, SparqlConverterController.identifierName);
+        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);
         ath.authenticateUsers();
     }
 

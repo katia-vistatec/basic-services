@@ -2,11 +2,13 @@ package eu.freme.bservices.testhelper;
 
 import javax.annotation.PostConstruct;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 
+import eu.freme.common.persistence.model.User;
 import eu.freme.common.rest.BaseRestController;
 
 import org.apache.log4j.Logger;
@@ -15,6 +17,8 @@ import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -40,6 +44,9 @@ public class AuthenticatedTestHelper {
     private final String usernameWithoutPermission = "userwithoutpermission";
     private final String passwordWithoutPermission = "testpassword";
 
+    private static User userWithPermission;
+    private static User userWithoutPermission;
+
     public String getAPIBaseUrl(){
         return testHelper.getAPIBaseUrl();
     }
@@ -50,12 +57,12 @@ public class AuthenticatedTestHelper {
      *
      * @throws UnirestException
      */
-    public void authenticateUsers() throws UnirestException {
+    public void authenticateUsers() throws UnirestException, IOException {
         if (!authenticated) {
             //Creates two users, one intended to have permission, the other not
-            createUser(usernameWithPermission, passwordWithPermission);
+            userWithPermission = createUser(usernameWithPermission, passwordWithPermission);
             tokenWithPermission = authenticateUser(usernameWithPermission, passwordWithPermission);
-            createUser(usernameWithoutPermission, passwordWithoutPermission);
+            userWithoutPermission = createUser(usernameWithoutPermission, passwordWithoutPermission);
             tokenWithOutPermission = authenticateUser(usernameWithoutPermission, passwordWithoutPermission);
             //ConfigurableApplicationContext context = IntegrationTestSetup.getApplicationContext();
             tokenAdmin = authenticateUser(testHelper.getAdminUsername(), testHelper.getAdminPassword());
@@ -123,12 +130,15 @@ public class AuthenticatedTestHelper {
     }
 
 
-    public void createUser(String username, String password) throws UnirestException {
+    public User createUser(String username, String password) throws UnirestException, IOException {
         logger.info("create user: " + username);
         HttpResponse<String> response = Unirest.post(testHelper.getAPIBaseUrl() + "/user")
                 .queryString("username", username)
                 .queryString("password", password).asString();
         assertTrue(response.getStatus() == HttpStatus.OK.value());
+        ObjectMapper mapper = new ObjectMapper();
+        User user = mapper.readValue(response.getBody(), User.class);
+        return user;
     }
 
     public void deleteUser(String username, String token) throws UnirestException {
@@ -160,5 +170,13 @@ public class AuthenticatedTestHelper {
 
     public static String getTokenAdmin() {
         return tokenAdmin;
+    }
+
+    public static User getUserWithPermission() {
+        return userWithPermission;
+    }
+
+    public static User getUserWithoutPermission() {
+        return userWithoutPermission;
     }
 }
