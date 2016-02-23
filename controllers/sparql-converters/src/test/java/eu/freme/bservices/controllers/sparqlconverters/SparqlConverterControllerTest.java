@@ -57,9 +57,16 @@ public class SparqlConverterControllerTest {
     public void testSparqlConverterManagement() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(sparqlConverterSelect)
                 .putParameter(SparqlConverterController.identifierParameterName,"select-sparqlConverter");
-        SimpleEntityRequest updateRequest = new SimpleEntityRequest(sparqlConverterConstruct)
-                .putParameter(SparqlConverterController.identifierParameterName,"construct-sparqlConverter");
-        ormh.checkCRUDOperations(request, updateRequest);
+        SimpleEntityRequest updateRequest = new SimpleEntityRequest(sparqlConverterConstruct);
+                //.putParameter(SparqlConverterController.identifierParameterName,"construct-sparqlConverter");
+        SparqlConverter expectedCreatedEntity = new SparqlConverter();
+        expectedCreatedEntity.setName("select-sparqlConverter");
+        expectedCreatedEntity.setQuery(sparqlConverterSelect);
+        SparqlConverter expectedUpdatedEntity = new SparqlConverter();
+        expectedUpdatedEntity.setName("select-sparqlConverter");
+        expectedUpdatedEntity.setQuery(sparqlConverterConstruct);
+
+        ormh.checkCRUDOperations(request, updateRequest, expectedCreatedEntity, expectedUpdatedEntity, "xxxx");
     }
 
     @Test

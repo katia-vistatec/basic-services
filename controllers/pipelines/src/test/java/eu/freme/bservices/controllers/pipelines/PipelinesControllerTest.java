@@ -60,7 +60,6 @@ public class PipelinesControllerTest {
     }
 
 
-    @Ignore // wait for https://github.com/freme-project/FREMECommon/issues/17
     @Test
     public void testPipelineRepository() throws JsonProcessingException {
         long pipelineCountBefore = pipelineDAO.count();
@@ -237,7 +236,10 @@ public class PipelinesControllerTest {
 
         ormh.checkCRUDOperations(
                 new SimpleEntityRequest(pipeline1.toJson()),
-                new SimpleEntityRequest(pipeline2.toJson()));
+                new SimpleEntityRequest(pipeline2.toJson()),
+                pipeline1,
+                pipeline2,
+                "99999");
 
     }
 
