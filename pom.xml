@@ -8,7 +8,6 @@
 	
 	<modules>
 		<module>test-helper</module>
-		<module>package-maker</module>
 		<module>internationalization</module>
 		<module>controllers</module>
 		<module>filters</module>
