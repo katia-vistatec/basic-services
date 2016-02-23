@@ -52,7 +52,7 @@ public class PipelinesControllerTest {
     public PipelinesControllerTest() throws UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelines-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath, null);
+        ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath);//, null);
         ath.authenticateUsers();
         rf = new MockupRequestFactory(ath.getAPIBaseUrl());
         pipelineDAO = context.getBean(PipelineDAO.class);

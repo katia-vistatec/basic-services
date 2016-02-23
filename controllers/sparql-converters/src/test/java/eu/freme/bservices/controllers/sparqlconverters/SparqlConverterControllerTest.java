@@ -41,7 +41,7 @@ public class SparqlConverterControllerTest {
     public SparqlConverterControllerTest() throws  UnirestException {
         ApplicationContext context = IntegrationTestSetup.getContext("sparql-converter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath, SparqlConverterController.identifierName);
+        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);//, SparqlConverterController.identifierName);
         ath.authenticateUsers();
     }
 

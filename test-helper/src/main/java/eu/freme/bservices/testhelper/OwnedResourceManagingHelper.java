@@ -33,18 +33,18 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
 
     public final String creationTimeIdentifier = "creationTime";
     public final String idIdentifier = "id";
-    public final String identifierIdentifier;
+    //public final String identifierIdentifier;
 
     AuthenticatedTestHelper ath;
 
-    public OwnedResourceManagingHelper(String service, Class clazz, AuthenticatedTestHelper ath, String entityIdentifier){
+    public OwnedResourceManagingHelper(String service, Class clazz, AuthenticatedTestHelper ath){//}, String entityIdentifier){
         this.service = service;
         this.clazz = clazz;
         this.ath = ath;
-        if(entityIdentifier!=null)
-            this.identifierIdentifier = entityIdentifier;
-        else
-            this.identifierIdentifier = idIdentifier;
+        //if(entityIdentifier!=null)
+        //    this.identifierIdentifier = entityIdentifier;
+        //else
+        //    this.identifierIdentifier = idIdentifier;
     }
 
     public void checkCRUDOperations(SimpleEntityRequest request, SimpleEntityRequest updateRequest, T expectedCreatedEntity, T expectedUpdatedEntity, String notExistingIdentifier) throws IOException, UnirestException {
@@ -478,7 +478,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
         for(Iterator iterator = jObject2.keySet().iterator(); iterator.hasNext();) {
             String key = (String) iterator.next();
             Object o1 = jObject1.get(key);
-            if(jObject2.isNull(key) || key.equals(creationTimeIdentifier) || key.equals(idIdentifier) || key.equals(identifierIdentifier))
+            if(jObject2.isNull(key) || key.equals(creationTimeIdentifier) || key.equals(idIdentifier))// || key.equals(identifierIdentifier))
                 continue;
             Object o2 = jObject2.get(key);
             if(!o1.toString().equals(o2.toString())) {

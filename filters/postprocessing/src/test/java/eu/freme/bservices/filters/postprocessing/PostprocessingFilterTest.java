@@ -42,7 +42,7 @@ public class PostprocessingFilterTest {
         ApplicationContext context = IntegrationTestSetup.getContext("postprocessing-filter-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
         ath.authenticateUsers();
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath, SparqlConverterController.identifierName);
+        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);//, SparqlConverterController.identifierName);
     }
 
     @Test
