@@ -14,6 +14,8 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +30,7 @@ public class TestHelperTest {
    	ApplicationContext context = IntegrationTestSetup.getContext("test-helper-test-package.xml");//FREMEStarter.startPackageFromClasspath("test-helper-test-package.xml");
 
     @Test
-    public void testAuthenticatedTestHelper() throws UnirestException {
+    public void testAuthenticatedTestHelper() throws UnirestException, IOException {
         AuthenticatedTestHelper authenticatedTestHelper=context.getBean(AuthenticatedTestHelper.class);
         authenticatedTestHelper.authenticateUsers();
         authenticatedTestHelper.removeAuthenticatedUsers();

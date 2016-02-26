@@ -38,11 +38,11 @@ public class PostprocessingFilterTest {
             "http://dbpedia.org/resource/Paris\n" +
             "http://dbpedia.org/resource/Eiffel_(programming_language)";
 
-    public PostprocessingFilterTest() throws UnirestException {
+    public PostprocessingFilterTest() throws UnirestException, IOException {
         ApplicationContext context = IntegrationTestSetup.getContext("postprocessing-filter-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
         ath.authenticateUsers();
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath, SparqlConverterController.identifierName);
+        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);
     }
 
     @Test
@@ -54,13 +54,6 @@ public class PostprocessingFilterTest {
                 ath.getTokenWithPermission(),
                 HttpStatus.OK);
 
-        //String url = ath.getAPIBaseUrl() + "/toolbox/filter/manage";
-        //response = ath.addAuthentication(Unirest.post(url))
-         //       .queryString(SparqlConverterController.identifierParameterName, filterName)
-         //       .body(filterSelect)
-         //       .asString();
-        //assertEquals(HttpStatus.OK.value(), response.getStatus());
-
         String filename = "postprocessing-data.ttl";
         logger.info("request file: "+filename);
         response = Unirest.post(ath.getAPIBaseUrl() + "/mockups/file/"+filename+"?filter="+filterName+"&outformat=csv").asString();
@@ -71,8 +64,6 @@ public class PostprocessingFilterTest {
 
         logger.info("delete filter extract-entities-only");
         ormh.deleteEntity(filterName, ath.getTokenWithPermission(), HttpStatus.OK);
-        //response = ath.addAuthentication(Unirest.delete(ath.getAPIBaseUrl() + "/toolbox/filter/manage/"+filterName)).asString();
-        //assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
 
