@@ -12,6 +12,7 @@
 		<module>controllers</module>
 		<module>filters</module>
 		<module>cloud</module>
+		<module>package-maker</module>
 	</modules>
 
 	<parent>
