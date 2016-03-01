@@ -15,13 +15,13 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
+import net.sf.okapi.common.resource.Code;
+import net.sf.okapi.common.resource.TextFragment;
+
 import java.text.Normalizer;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-import net.sf.okapi.common.resource.Code;
-import net.sf.okapi.common.resource.TextFragment;
 
 /**
  * Helper class for markers management for the NIF skeleton writer filter.
@@ -54,10 +54,11 @@ public class NifSkeletonMarkerHelper {
 	 *            the text info list
 	 * @param skeletonParam
 	 *            the skeleton for the current text unit.
+	 * @param tuType the text unit type.        
 	 */
 	public void manageCodes(TextFragment content, String textUnitId,
 			LinkedHashMap<String, String> skeletonMap,
-			List<TextUnitInfo> textInfoList, String skeletonParam) {
+			List<TextUnitInfo> textInfoList, String skeletonParam, String tuType) {
 
 		codedText = content.getCodedText();
 		codes = content.getCodes();
@@ -87,6 +88,7 @@ public class NifSkeletonMarkerHelper {
 					tuInfo.setTextUnitSet(textUnitSet);
 					tuInfo.setText(getText(tmp.toString()));
 					tuInfo.setTuId(textUnitId + "-" + (++idCounter));
+					tuInfo.setIncludeInContext(getIncludeInContextValue(tuType));
 					manageTextUnitAndSkeleton(tuInfo, textInfoList,
 							skeletonMap, skeletonChunks);
 				} else {
@@ -120,6 +122,7 @@ public class NifSkeletonMarkerHelper {
 					tuInfo.setText(getText(tmp.toString()));
 					tuInfo.setTuId(textUnitId + "-" + (++idCounter));
 					tuInfo.setTextUnitSet(textUnitSet);
+					tuInfo.setIncludeInContext(getIncludeInContextValue(tuType));
 					skeletonMap.put(tuInfo.getTuId(), tuInfo.getText());
 					textInfoList.add(tuInfo);
 				}
@@ -144,6 +147,7 @@ public class NifSkeletonMarkerHelper {
 					tuInfo.setText(getText(tmp.toString()));
 					tuInfo.setTuId(textUnitId + "-" + (++idCounter));
 					tuInfo.setTextUnitSet(textUnitSet);
+					tuInfo.setIncludeInContext(getIncludeInContextValue(tuType));
 					manageTextUnitAndSkeleton(tuInfo, textInfoList,
 							skeletonMap, skeletonChunks);
 				} else {
@@ -180,6 +184,7 @@ public class NifSkeletonMarkerHelper {
 						tuInfo.setText(getText(tmp.toString()));
 						tuInfo.setTuId(textUnitId + "-" + (++idCounter));
 						tuInfo.setTextUnitSet(textUnitSet);
+						tuInfo.setIncludeInContext(getIncludeInContextValue(tuType));
 						manageTextUnitAndSkeleton(tuInfo, textInfoList,
 								skeletonMap, skeletonChunks);
 						tmp = new StringBuilder();
@@ -259,6 +264,7 @@ public class NifSkeletonMarkerHelper {
 				tuInfo.setTuId(textUnitId + "-" + (++idCounter));
 			}
 			tuInfo.setTextUnitSet(textUnitSet);
+			tuInfo.setIncludeInContext(getIncludeInContextValue(tuType));
 			manageTextUnitAndSkeleton(tuInfo, textInfoList, skeletonMap,
 					skeletonChunks);
 		}
@@ -343,5 +349,10 @@ public class NifSkeletonMarkerHelper {
 			text = Normalizer.normalize(text, Normalizer.Form.NFC);
 		}
 		return text;
+	}
+	
+	private boolean getIncludeInContextValue(String tuType){
+		
+		return tuType == null || !tuType.startsWith("x-");
 	}
 }

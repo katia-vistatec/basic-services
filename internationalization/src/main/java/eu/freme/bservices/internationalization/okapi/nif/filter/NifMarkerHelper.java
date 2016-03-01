@@ -17,13 +17,13 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import java.nio.charset.CharsetEncoder;
-import java.text.Normalizer;
-import java.util.List;
-
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.resource.Code;
 import net.sf.okapi.common.resource.TextFragment;
+
+import java.nio.charset.CharsetEncoder;
+import java.text.Normalizer;
+import java.util.List;
 
 /**
  * Helper class for markers management in NIF Writer filter.
