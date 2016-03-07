@@ -68,7 +68,7 @@ public class RateLimitingFilter extends GenericFilterBean {
 		try {
 			rateLimiterInMemory.refresh(rateLimiterYaml);
 		} catch (IOException e) {
-			logger.error("Caugh IOException: "+rateLimiterYaml+" for YAML Configuration of Ratelimiter was not found." +
+			logger.error("Caught IOException: "+rateLimiterYaml+" for YAML Configuration of Ratelimiter was not found." +
 					"The Ratelimiting Filter was turned off.");
 			setRateLimiterEnabled(false);
 		}
