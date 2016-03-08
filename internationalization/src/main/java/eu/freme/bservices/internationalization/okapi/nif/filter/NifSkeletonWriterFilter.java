@@ -15,28 +15,19 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map.Entry;
-
-import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
-import net.sf.okapi.common.Event;
-import net.sf.okapi.common.LocaleId;
-import net.sf.okapi.common.resource.BaseNameable;
-import net.sf.okapi.common.resource.DocumentPart;
-import net.sf.okapi.common.resource.Ending;
-import net.sf.okapi.common.resource.ITextUnit;
-import net.sf.okapi.common.resource.StartDocument;
-import net.sf.okapi.common.resource.TextPart;
-
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
+import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
+import net.sf.okapi.common.Event;
+import net.sf.okapi.common.LocaleId;
+import net.sf.okapi.common.resource.*;
+
+import java.io.OutputStreamWriter;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Writer filter for NIF Skeleton files. The NIF skeleton file is a NIF file
@@ -207,7 +198,8 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 		}
 		for (TextPart part : textUnit.getSource().getParts()) {
 			markerHelper.manageCodes(part.getContent(), textUnit.getId(),
-					skeletonMap, textUnitList, skeletonString);
+					skeletonMap, textUnitList, skeletonString,
+					textUnit.getType());
 		}
 
 	}
@@ -255,7 +247,9 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 															 * (idCounter++)
 															 */);
 
-					changeMapOrder(newMapOrder, pointedId, skelEntry.getKey());
+					if(pointedUnitInfo.isIncludeInContext()){
+						changeMapOrder(newMapOrder, pointedId, skelEntry.getKey());
+					}
 				}
 				String valuePointedFromSkeleton = findSkeletonReplaceValue(
 						pointedId, keyToDelete);
@@ -279,8 +273,8 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 			skeletonMap.remove(key);
 		}
 		LinkedHashMap<String, String> newSkeletonMap = new LinkedHashMap<String, String>();
-		for(String skelKey: newMapOrder){
-			if(skeletonMap.containsKey(skelKey)){
+		for (String skelKey : newMapOrder) {
+			if (skeletonMap.containsKey(skelKey)) {
 				newSkeletonMap.put(skelKey, skeletonMap.get(skelKey));
 			}
 		}
@@ -290,24 +284,23 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 	private void changeMapOrder(List<String> newMapOrder, String replacedId,
 			String idToMove) {
 
-		if(newMapOrder.contains(replacedId)){
+		if (newMapOrder.contains(replacedId)) {
 			newMapOrder.remove(idToMove);
 			newMapOrder.add(newMapOrder.indexOf(replacedId), idToMove);
 		} else {
 			boolean found = false;
 			int index = 0;
-			while(index < newMapOrder.size() && !found){
+			while (index < newMapOrder.size() && !found) {
 				found = newMapOrder.get(index).startsWith(replacedId + "-");
 				index++;
 			}
-			if(found){
-				String valueToReplace = newMapOrder.get(index-1);
+			if (found) {
+				String valueToReplace = newMapOrder.get(index - 1);
 				newMapOrder.remove(idToMove);
 				newMapOrder.add(newMapOrder.indexOf(valueToReplace), idToMove);
 			}
 		}
 	}
-
 
 	/**
 	 * Finds the first text unit associated to a specific ID. Sometimes the text
@@ -386,14 +379,16 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 			StringBuilder context2 = new StringBuilder();
 			int lastTuIdSet = 0;
 			for (TextUnitInfo currTextInfo : textUnitList) {
+				if (currTextInfo.isIncludeInContext()) {
 
-				if (lastTuIdSet != 0
-						&& lastTuIdSet != currTextInfo.getTextUnitSet()) {
-					context2.append(" ");
+					if (lastTuIdSet != 0
+							&& lastTuIdSet != currTextInfo.getTextUnitSet()) {
+						context2.append(" ");
+					}
+					currTextInfo.setOnlyTextOffset(context2.length());
+					context2.append(currTextInfo.getText());
+					lastTuIdSet = currTextInfo.getTextUnitSet();
 				}
-				currTextInfo.setOnlyTextOffset(context2.length());
-				context2.append(currTextInfo.getText());
-				lastTuIdSet = currTextInfo.getTextUnitSet();
 			}
 
 			Resource context2Resource = createContextResource(uriPrefix
@@ -401,17 +396,18 @@ public class NifSkeletonWriterFilter extends AbstractNifWriterFilter {
 
 			for (TextUnitInfo currTextInfo : textUnitList) {
 
-				createUnitResource(uriPrefix + CONTEXT2_URI_DOC,
-						context2Resource.getURI(),
-						uriPrefix + CONTEXT1_URI_DOC, currTextInfo);
+				if (currTextInfo.isIncludeInContext()) {
+					createUnitResource(uriPrefix + CONTEXT2_URI_DOC,
+							context2Resource.getURI(), uriPrefix
+									+ CONTEXT1_URI_DOC, currTextInfo);
+				}
 			}
+			model.write(new OutputStreamWriter(System.out), "TTL");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-
 
 	private List<TextUnitInfo> getTextUnitInfoListForSkel(String key) {
 
@@ -646,6 +642,12 @@ class TextUnitInfo {
 	private int textUnitSet;
 
 	/**
+	 * States if this text should be inserted in the context. Text units not
+	 * included are those representing attribute valuse.
+	 */
+	private boolean includeInContext;
+
+	/**
 	 * Gets the offset start index in the skeleton context.
 	 * 
 	 * @return the offset start index in the skeleton context.
@@ -729,6 +731,14 @@ class TextUnitInfo {
 		this.textUnitSet = textUnitSet;
 	}
 
+	public boolean isIncludeInContext() {
+		return includeInContext;
+	}
+
+	public void setIncludeInContext(boolean includeInContext) {
+		this.includeInContext = includeInContext;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -757,35 +767,35 @@ class TextUnitInfo {
 
 }
 
-//class TextUnitInfoIdComparator implements Comparator<TextUnitInfo> {
+// class TextUnitInfoIdComparator implements Comparator<TextUnitInfo> {
 //
-//	@Override
-//	public int compare(TextUnitInfo o1, TextUnitInfo o2) {
+// @Override
+// public int compare(TextUnitInfo o1, TextUnitInfo o2) {
 //
-//		int idxO1 = o1.getTuId().indexOf("-");
-//		Integer o1Id = null;
-//		if (idxO1 != -1) {
-//			o1Id = Integer.valueOf(o1.getTuId().substring(0, idxO1));
-//		} else {
-//			o1Id = Integer.valueOf(o1.getTuId());
-//		}
-//		int idxO2 = o2.getTuId().indexOf("-");
-//		Integer o2Id = null;
-//		if (idxO2 != -1) {
-//			o2Id = Integer.valueOf(o2.getTuId().substring(0, idxO2));
-//		} else {
-//			o2Id = Integer.valueOf(o2.getTuId());
-//		}
-//		int retValue = o1Id.compareTo(o2Id);
-//		if (retValue == 0 && idxO1 != -1 && idxO2 != -1) {
-//			retValue = Integer.valueOf(o1.getTuId().substring(idxO1 + 1))
-//					.compareTo(
-//							Integer.valueOf(o2.getTuId().substring(idxO2 + 1)));
-//		}
-//		return retValue;
-//	}
+// int idxO1 = o1.getTuId().indexOf("-");
+// Integer o1Id = null;
+// if (idxO1 != -1) {
+// o1Id = Integer.valueOf(o1.getTuId().substring(0, idxO1));
+// } else {
+// o1Id = Integer.valueOf(o1.getTuId());
+// }
+// int idxO2 = o2.getTuId().indexOf("-");
+// Integer o2Id = null;
+// if (idxO2 != -1) {
+// o2Id = Integer.valueOf(o2.getTuId().substring(0, idxO2));
+// } else {
+// o2Id = Integer.valueOf(o2.getTuId());
+// }
+// int retValue = o1Id.compareTo(o2Id);
+// if (retValue == 0 && idxO1 != -1 && idxO2 != -1) {
+// retValue = Integer.valueOf(o1.getTuId().substring(idxO1 + 1))
+// .compareTo(
+// Integer.valueOf(o2.getTuId().substring(idxO2 + 1)));
+// }
+// return retValue;
+// }
 //
-//}
+// }
 //
 class TextUnitInfoComparator implements Comparator<TextUnitInfo> {
 

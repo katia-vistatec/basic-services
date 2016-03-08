@@ -9,6 +9,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.FREMEHttpException;
+import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.persistence.model.SparqlConverter;
 import eu.freme.common.rest.NIFParameterSet;
 import eu.freme.common.rest.OwnedResourceManagingController;
@@ -100,6 +101,12 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
             return new ResponseEntity<>(serialization, responseHeaders,
                     HttpStatus.OK);
 
+        }catch (AccessDeniedException ex){
+            logger.error(ex.getMessage());
+            throw new eu.freme.common.exception.AccessDeniedException(ex.getMessage());
+        }catch (OwnedResourceNotFoundException ex){
+            logger.error(ex.getMessage());
+            throw ex;
         }catch (BadRequestException ex){
             logger.error(ex.getMessage());
             throw ex;

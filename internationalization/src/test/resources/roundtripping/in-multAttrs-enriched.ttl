@@ -1,0 +1,58 @@
+@prefix dbpedia-fr: <http://fr.dbpedia.org/resource/> .
+@prefix dbc:   <http://dbpedia.org/resource/Category:> .
+@prefix dbpedia-es: <http://es.dbpedia.org/resource/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix dbpedia-de: <http://de.dbpedia.org/resource/> .
+@prefix dbpedia-ru: <http://ru.dbpedia.org/resource/> .
+@prefix freme-onto: <http://freme-project.eu/ns#> .
+@prefix dbpedia-nl: <http://nl.dbpedia.org/resource/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dbpedia-it: <http://it.dbpedia.org/resource/> .
+
+<http://freme-project.eu/#char=0,38>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger , "0"^^xsd:int ;
+        nif:endIndex    "38"^^xsd:nonNegativeInteger , "38"^^xsd:int ;
+        nif:isString    "test Dublin is the capital of Ireland!"@en , "test Dublin is the capital of Ireland!"^^xsd:string .
+
+<http://freme-project.eu/#char=5,38>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:anchorOf          "Dublin is the capital of Ireland!"@en ;
+        nif:beginIndex        "5"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "38"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,38> ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "2" .
+
+<http://freme-project.eu/#char=5,11>
+        a                     nif:Phrase , nif:String , nif:RFC5147String , nif:Word ;
+        nif:anchorOf          "Dublin"^^xsd:string ;
+        nif:beginIndex        "5"^^xsd:int ;
+        nif:endIndex          "11"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,38> ;
+        itsrdf:taClassRef     <http://dbpedia.org/ontology/Place> , <http://dbpedia.org/ontology/Settlement> , <http://nerd.eurecom.fr/ontology#Location> , <http://dbpedia.org/ontology/Location> , <http://dbpedia.org/ontology/City> , <http://dbpedia.org/ontology/PopulatedPlace> ;
+        itsrdf:taConfidence   "0.9948140840251021"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Dublin .
+
+<http://freme-project.eu/#char=0,4>
+        a                     nif:Phrase , nif:RFC5147String , nif:String ;
+        nif:anchorOf          "test"@en ;
+        nif:beginIndex        "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "4"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,38> ;
+        <http://purl.org/dc/elements/1.1/identifier>
+                "1" .
+
+<http://freme-project.eu/#char=30,37>
+        a                     nif:String , nif:Word , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "Ireland"^^xsd:string ;
+        nif:beginIndex        "30"^^xsd:int ;
+        nif:endIndex          "37"^^xsd:int ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,38> ;
+        itsrdf:taClassRef     <http://dbpedia.org/ontology/Location> , <http://dbpedia.org/ontology/PopulatedPlace> , <http://dbpedia.org/ontology/Island> , <http://dbpedia.org/ontology/Place> , <http://nerd.eurecom.fr/ontology#Location> ;
+        itsrdf:taConfidence   "0.9745371176076814"^^xsd:double ;
+        itsrdf:taIdentRef     dbpedia:Ireland .

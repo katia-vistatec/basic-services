@@ -15,11 +15,11 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.step;
 
+import eu.freme.bservices.internationalization.okapi.nif.filter.NifSkeletonWriterFilter;
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.pipeline.BasePipelineStep;
 import net.sf.okapi.common.resource.DocumentPart;
-import eu.freme.bservices.internationalization.okapi.nif.filter.NifSkeletonWriterFilter;
 
 /**
  * This step can be used in the Okapi pipeline. It sends all events received

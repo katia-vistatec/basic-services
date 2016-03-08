@@ -1,4 +1,4 @@
-package eu.freme.bservices.internationalization.step;
+package eu.freme.bservices.internationalization.nif.step;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;

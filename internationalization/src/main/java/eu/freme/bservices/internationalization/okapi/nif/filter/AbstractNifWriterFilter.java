@@ -1,20 +1,7 @@
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-
-import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
-import org.apache.log4j.Logger;
-
 import com.hp.hpl.jena.rdf.model.Model;
-
-import eu.freme.bservices.internationalization.okapi.nif.filter.RDFConstants.RDFSerialization;
+import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
 import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.Util;
@@ -22,6 +9,11 @@ import net.sf.okapi.common.encoder.EncoderManager;
 import net.sf.okapi.common.exceptions.OkapiIOException;
 import net.sf.okapi.common.filterwriter.IFilterWriter;
 import net.sf.okapi.common.skeleton.ISkeletonWriter;
+
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 
 /**
  * Writer filter class for NIF documents. It handles filter events from Okapi
@@ -68,7 +60,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 		this.params = params;
 		this.sourceLocale = sourceLocale;
 	}
-	Logger logger = Logger.getLogger(AbstractNifWriterFilter.class);
+
 	/*
 	 * (non-Javadoc)
 	 * @see net.sf.okapi.common.filterwriter.IFilterWriter#getName()
@@ -136,7 +128,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				if (file.exists()) {
 					file.delete();
 				}
-				logger.debug(outputPath);
+				System.out.println(outputPath);
 				file.createNewFile();
 				outputStream = new FileOutputStream(file);
 
@@ -149,7 +141,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				OutputStreamWriter writer = new OutputStreamWriter(
 						outputStream, Charset.forName("UTF-8").newEncoder());
 				if (nifLang != null && !nifLang.isEmpty()) {
-					logger.debug(nifLang);
+					System.out.println(nifLang);
 					model.write(writer, nifLang);
 				} else {
 					model.write(writer);
@@ -174,9 +166,9 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 		String nifLanguage = params.getNifLanguage();
 		String ext = ".rdf";
 		if (nifLanguage != null) {
-			if (nifLanguage.equals(RDFSerialization.TURTLE.toRDFLang())) {
+			if (nifLanguage.equals(RDFConstants.RDFSerialization.TURTLE.toRDFLang())) {
 				ext = ".ttl";
-			} else if (nifLanguage.equals(RDFSerialization.JSON_LD.toRDFLang())) {
+			} else if (nifLanguage.equals(RDFConstants.RDFSerialization.JSON_LD.toRDFLang())) {
 				ext = ".json";
 			}
 		}

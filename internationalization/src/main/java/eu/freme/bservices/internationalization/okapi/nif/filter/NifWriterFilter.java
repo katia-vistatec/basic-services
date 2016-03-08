@@ -17,15 +17,12 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import java.text.Normalizer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
+import com.hp.hpl.jena.rdf.model.*;
+import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotAttribute;
+import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotation;
+import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotationsHelper;
+import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.annotation.GenericAnnotation;
@@ -36,18 +33,9 @@ import net.sf.okapi.common.resource.StartDocument;
 import net.sf.okapi.common.resource.TextContainer;
 import net.sf.okapi.common.resource.TextPart;
 
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
-import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-
-import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotAttribute;
-import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotation;
-import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotationsHelper;
-import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
+import java.text.Normalizer;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Writer filter class for NIF documents.
