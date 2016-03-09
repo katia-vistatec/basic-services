@@ -11,13 +11,13 @@
 		<module>internationalization</module>
 		<module>controllers</module>
 		<module>filters</module>
-                <module>package-maker</module>
+		<module>package-maker</module>
 	</modules>
 
 	<parent>
 		<groupId>eu.freme</groupId>
 		<artifactId>freme-parent</artifactId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
