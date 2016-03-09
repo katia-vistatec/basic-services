@@ -18,7 +18,12 @@
 package eu.freme.bservices.filters.proxy;
 
 
+import com.mashape.unirest.http.Headers;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.FileSystemResource;
@@ -26,16 +31,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
-import java.util.Properties;
+import java.util.*;
 
 @Component
 public class ProxyFilter extends GenericFilterBean {
@@ -50,7 +53,8 @@ public class ProxyFilter extends GenericFilterBean {
 
     Logger logger = Logger.getLogger(ProxyFilter.class);
     Properties proxyProperties;
-    String path,url;
+    String path;
+
     public void clear() {};
 
 
@@ -96,15 +100,64 @@ public class ProxyFilter extends GenericFilterBean {
             path=request.getServletPath();
 
             if (proxyProperties.containsKey(path)) {
+                RequestWrapper wrappedRequest = (RequestWrapper)(HttpServletRequest) new RequestWrapper(request);
 
-                ProxyServletRequest wrappedRequest = new ProxyServletRequest(request,(String)proxyProperties.get(path));
+
+
+
+                RequestWrapper wrapper = new RequestWrapper(request);
+                String body = wrapper.getReader().readLine();
+
+                String url = ((String) proxyProperties.get(path)) + "?" + request.getQueryString();
+                try {
+                    HttpResponse<String> proxiedResponse = Unirest.post(url)
+                            .headers(getAllHeaders(request))
+                            .body(body)
+                            .asString();
+                    Headers headers = proxiedResponse.getHeaders();
+
+                    String contentType=headers.getFirst("Content-Type");
+                    response.setContentType(contentType);
+                    response.setContentLength(Integer.parseInt(headers.getFirst("Content-Length")));
+                    response.setStatus(proxiedResponse.getStatus());
+                    response.getWriter().write(proxiedResponse.getBody());
+
+                } catch (UnirestException e) {
+                    e.printStackTrace();
+                    throw new ServletException("External Service failed after proxying with proxyUrl:" + url);
+                }
                 System.out.println(wrappedRequest);
-
             }
 
         } else {
             chain.doFilter(req, res);
         }
+    }
+
+    private boolean isMultipart(final HttpServletRequest request) {
+        return request.getContentType()!=null && request.getContentType().startsWith("multipart/form-data");
+    }
+
+    public HashMap<String,String> getAllHeaders(HttpServletRequest r) {
+      //  Headers headers= new Headers();
+        HashMap<String,String> headers = new HashMap<>();
+        List<String> current;
+        final Set<String> relevant = new HashSet<>(Arrays.asList(new String[] {"content-type","informat","outformat","accept","x-auth-token","x-auth-password","x-auth-username"}));
+        Enumeration<String> iterator = r.getHeaderNames();
+        while (iterator.hasMoreElements()) {
+            String s=iterator.nextElement();
+            current= Collections.list(r.getHeaders(s));
+            String header="";
+            if (relevant.contains(s)) {
+                for (String h : current){
+                    header+=h+" ";
+                }
+            }
+            if (!header.equals("")) {
+                headers.put(s,header);
+            }
+        }
+        return headers;
     }
 
 

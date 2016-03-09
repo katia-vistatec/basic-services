@@ -30,7 +30,6 @@ public class ProxyServletRequest extends HttpServletRequestWrapper {
     private String requestUrl;
 
 
-
     public ProxyServletRequest(HttpServletRequest request, String requestUrl) {
 
         super(request);

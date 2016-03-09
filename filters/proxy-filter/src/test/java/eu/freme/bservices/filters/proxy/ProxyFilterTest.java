@@ -42,6 +42,10 @@ public class ProxyFilterTest {
         response = Unirest.post( th.getAPIBaseUrl()+"/e-entity/freme-ner/documents")
                 .queryString("informat","text")
                 .queryString("outformat","turtle")
+                .queryString("dataset","dbpedia")
+                .queryString("language","en")
+                .header("Content-Type","text/plain")
+             //   .header("Accept","turtle")
                 .body("This is some text to be enriched")
                 .asString();
     }

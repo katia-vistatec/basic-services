@@ -1,2 +1,2 @@
-/e-entity/freme-ner/documents: http://worker.freme-project.eu:8080/e-entity/freme-ner/documents
+/e-entity/freme-ner/documents: http://api-dev.freme-project.eu/current/e-entity/freme-ner/documents
 /e-entity/freme-ner/other-endpoint: http://worker.freme-project.eu:8080/e-entity/freme-ner/other-endpoint

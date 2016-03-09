@@ -32,9 +32,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.atomic.AtomicLong;
@@ -121,7 +123,7 @@ public class LoggingFilter extends OncePerRequestFilter {
                 String charEncoding = requestWrapper.getCharacterEncoding() != null ? requestWrapper.getCharacterEncoding() :
                         "UTF-8";
                 if (request.getContentLength()==0 || checkAgainstWhitelist(request)) {
-                    String body = new String(requestWrapper.toByteArray(), charEncoding);
+                    String body = readContent(requestWrapper);//new String(requestWrapper.toByteArray(), charEncoding);
                     if (request.getContentLength() >= maxSize) {
                         try {
                             body = body.substring(0, maxSize).concat("... (truncated by LoggingFilter)");
@@ -134,12 +136,24 @@ public class LoggingFilter extends OncePerRequestFilter {
                     msg.append("; payload ommitted from logging as it is not in the whitelisted mime-types");
                 }
 
-            } catch (UnsupportedEncodingException e) {
+            } catch (IOException e) {
                 logger.warn("Failed to parse request payload", e);
             }
 
         }
         logger.info(msg.toString());
+    }
+    private String readContent(ServletRequestWrapper r) throws IOException{
+        BufferedReader reader = r.getReader();
+        reader.mark(0);
+        reader.reset();
+        StringBuilder str = new StringBuilder();
+        String line;
+        while ((line=reader.readLine())!=null){
+            str.append(line);
+        }
+        reader.close();
+        return str.toString();
     }
 
     private boolean isMultipart(final HttpServletRequest request) {

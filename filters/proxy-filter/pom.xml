@@ -9,6 +9,7 @@
 
   <artifactId>proxy-filter</artifactId>
   <dependencies>
+
     <dependency>
       <groupId>eu.freme.bservices</groupId>
       <artifactId>test-helper</artifactId>

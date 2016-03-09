@@ -7,6 +7,7 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<import resource="classpath:spring-configurations/logging.xml"/>
 	<import resource="classpath:spring-configurations/proxy-filter.xml"/>
 	<import resource="classpath:spring-configurations/freme-common.xml" />
 	<import resource="classpath:spring-configurations/test-helper.xml"/>
