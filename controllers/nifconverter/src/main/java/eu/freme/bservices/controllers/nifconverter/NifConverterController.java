@@ -10,8 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
+ * This implements an anything to NIF converter.
+ * You can send plaintext or the input formats
+ * that e-Internationalisation supports to the
+ * endpoint and it returns NIF.
+ *
  * Created by Arne Binder (arne.b.binder@gmail.com) on 09.03.2016.
  */
+@RestController
 public class NifConverterController {
 
     @Autowired
