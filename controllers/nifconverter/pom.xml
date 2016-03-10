@@ -15,7 +15,7 @@
         <dependency>
             <groupId>eu.freme.bservices</groupId>
             <artifactId>test-helper</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>${parent.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
