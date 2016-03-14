@@ -29,7 +29,7 @@ public class RDFConstants {
 	public static final String IS_STRING_PROP = nifPrefix + "isString";
 	public static final String ANCHOR_OF_PROP = nifPrefix + "anchorOf";
 	
-	public enum RDFSerialization {
+	public static enum RDFSerialization {
 		TURTLE("TTL"), JSON_LD("JSON-LD"), PLAINTEXT(null);
 		
 		private String rdfLang;

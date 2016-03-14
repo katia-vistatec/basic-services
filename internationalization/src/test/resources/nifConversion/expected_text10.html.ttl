@@ -3,44 +3,26 @@
 @prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 @prefix dc:    <http://purl.org/dc/elements/1.1/> .
 
-<http://freme-project.eu/#char=254,272>
-        a                     nif:String , nif:RFC5147String , nif:Phrase ;
-        nif:anchorOf          "This is an image: "@en ;
-        nif:beginIndex        "254"^^xsd:nonNegativeInteger ;
-        nif:endIndex          "272"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
-        dc:identifier         "8" .
-
-<http://freme-project.eu/#char=230,253>
-        a                     nif:String , nif:RFC5147String , nif:Phrase ;
-        nif:anchorOf          "Elephant Statue at Dusk"@en ;
-        nif:beginIndex        "230"^^xsd:nonNegativeInteger ;
-        nif:endIndex          "253"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
-        dc:identifier         "7" .
+<http://freme-project.eu/#char=0,250>
+        a               nif:String , nif:Context , nif:RFC5147String ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "250"^^xsd:nonNegativeInteger ;
+        nif:isString    "Title of the Document Test Document This is an example of bold, italic and underlined text. This paragraph has a link and text that is decorated. Preformatted text\nSecond line\nThird line Text with  different fonts and font sizes. This is an image:   "@en .
 
 <http://freme-project.eu/#char=36,91>
         a                     nif:String , nif:RFC5147String , nif:Phrase ;
         nif:anchorOf          "This is an example of bold, italic and underlined text."@en ;
         nif:beginIndex        "36"^^xsd:nonNegativeInteger ;
         nif:endIndex          "91"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "3" .
-
-<http://freme-project.eu/#char=273,274>
-        a                     nif:String , nif:RFC5147String , nif:Phrase ;
-        nif:anchorOf          " "@en ;
-        nif:beginIndex        "273"^^xsd:nonNegativeInteger ;
-        nif:endIndex          "274"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
-        dc:identifier         "9" .
 
 <http://freme-project.eu/#char=187,229>
         a                     nif:String , nif:RFC5147String , nif:Phrase ;
         nif:anchorOf          "Text with  different fonts and font sizes."@en ;
         nif:beginIndex        "187"^^xsd:nonNegativeInteger ;
         nif:endIndex          "229"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "6" .
 
 <http://freme-project.eu/#char=22,35>
@@ -48,23 +30,39 @@
         nif:anchorOf          "Test Document"@en ;
         nif:beginIndex        "22"^^xsd:nonNegativeInteger ;
         nif:endIndex          "35"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "2" .
+
+<http://freme-project.eu/#char=230,248>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          "This is an image: "@en ;
+        nif:beginIndex        "230"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "248"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
+        dc:identifier         "8" .
 
 <http://freme-project.eu/#char=0,21>
         a                     nif:String , nif:RFC5147String , nif:Phrase ;
         nif:anchorOf          "Title of the Document"@en ;
         nif:beginIndex        "0"^^xsd:nonNegativeInteger ;
         nif:endIndex          "21"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "1" .
+
+<http://freme-project.eu/#char=249,250>
+        a                     nif:String , nif:RFC5147String , nif:Phrase ;
+        nif:anchorOf          " "@en ;
+        nif:beginIndex        "249"^^xsd:nonNegativeInteger ;
+        nif:endIndex          "250"^^xsd:nonNegativeInteger ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
+        dc:identifier         "9" .
 
 <http://freme-project.eu/#char=146,186>
         a                     nif:String , nif:RFC5147String , nif:Phrase ;
         nif:anchorOf          "Preformatted text\nSecond line\nThird line"@en ;
         nif:beginIndex        "146"^^xsd:nonNegativeInteger ;
         nif:endIndex          "186"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "5" .
 
 <http://freme-project.eu/#char=92,145>
@@ -72,11 +70,5 @@
         nif:anchorOf          "This paragraph has a link and text that is decorated."@en ;
         nif:beginIndex        "92"^^xsd:nonNegativeInteger ;
         nif:endIndex          "145"^^xsd:nonNegativeInteger ;
-        nif:referenceContext  <http://freme-project.eu/#char=0,274> ;
+        nif:referenceContext  <http://freme-project.eu/#char=0,250> ;
         dc:identifier         "4" .
-
-<http://freme-project.eu/#char=0,274>
-        a               nif:String , nif:Context , nif:RFC5147String ;
-        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
-        nif:endIndex    "274"^^xsd:nonNegativeInteger ;
-        nif:isString    "Title of the Document Test Document This is an example of bold, italic and underlined text. This paragraph has a link and text that is decorated. Preformatted text\nSecond line\nThird line Text with  different fonts and font sizes. Elephant Statue at Dusk This is an image:   "@en .
