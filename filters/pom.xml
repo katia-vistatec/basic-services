@@ -20,6 +20,7 @@
         <module>internationalization-filter</module>
         <module>postprocessing</module>
         <module>cors-filter</module>
+        <module>proxy-filter</module>
     </modules>
 
 </project>

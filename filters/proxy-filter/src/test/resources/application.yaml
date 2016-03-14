@@ -1,0 +1,4 @@
+proxy:
+    test:
+        servlet_url: /e-proxy/test
+        target_url: http://localhost:8080/proxy-destination
