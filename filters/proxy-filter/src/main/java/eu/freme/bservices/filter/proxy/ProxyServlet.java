@@ -4,18 +4,12 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.stereotype.Component;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -35,13 +29,13 @@ public class ProxyServlet extends HttpServlet {
 	
 	Map<String,String> proxies;
 	
+	@Override
 	@PostConstruct
 	public void init(){
 		proxies = proxyService.getProxies();
 	}
-
-	public void doPost( HttpServletRequest request, HttpServletResponse response){
-		
+	
+	private void doProxy(HttpServletRequest request, HttpServletResponse response){
 		try {
 			HttpRequest proxy = proxyService.createProxy(request, proxies.get(request.getRequestURI()));
 			proxyService.writeProxyToResponse(response, proxy);
@@ -49,5 +43,30 @@ public class ProxyServlet extends HttpServlet {
 			logger.error("failed", e);
 			throw new InternalServerErrorException("Proxy failed");
 		}
+	}
+
+	@Override
+	public void doPost( HttpServletRequest request, HttpServletResponse response){
+		doProxy(request,response);
+	}
+
+	@Override
+	public void doGet( HttpServletRequest request, HttpServletResponse response){
+		doProxy(request,response);
+	}
+
+	@Override
+	public void doPut( HttpServletRequest request, HttpServletResponse response){
+		doProxy(request,response);
+	}
+
+	@Override
+	public void doDelete( HttpServletRequest request, HttpServletResponse response){
+		doProxy(request,response);
+	}
+
+	@Override
+	public void doOptions( HttpServletRequest request, HttpServletResponse response){
+		doProxy(request,response);
 	}
 }
