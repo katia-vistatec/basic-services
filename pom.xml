@@ -47,4 +47,12 @@
 			</releases>
 		</repository>
 	</repositories>
+
+	
+	<scm>
+		<connection>scm:git:git@github.com:freme-project/basic-services.git</connection>
+		<url>scm:git:git@github.com/freme-project:basics-services.git</url>
+		<developerConnection>scm:git:git@github.com:freme-project/basic-services.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 </project>
