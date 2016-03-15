@@ -2,3 +2,6 @@ proxy:
     test:
         servlet_url: /e-proxy/test
         target_url: http://localhost:8080/proxy-destination
+    other:
+        servlet_url: /e-proxy/test2
+        target_url: http://localhost:8080/proxy-destination2

@@ -37,4 +37,9 @@ public class ProxyServiceTestRestController {
 
 		return new ResponseEntity<String>("response", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/proxy-destination2", method = RequestMethod.GET)
+	public ResponseEntity<String> proxyTarget(){
+		return new ResponseEntity<String>("response", HttpStatus.OK);
+	}
 }

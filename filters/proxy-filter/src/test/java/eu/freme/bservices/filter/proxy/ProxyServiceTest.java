@@ -21,8 +21,13 @@ public class ProxyServiceTest {
 				.queryString("test", "value")
 				.header("my-header", "header-value").body("body\nbody")
 				.asString();
-		
-		assertTrue(response.getStatus()==200);
+
+		assertTrue(response.getStatus() == 200);
+		assertTrue(response.getBody().equals("response"));
+
+		response = Unirest.get("http://localhost:8080/e-proxy/test2")
+				.asString();
+		assertTrue(response.getStatus() == 200);
 		assertTrue(response.getBody().equals("response"));
 	}
 }
