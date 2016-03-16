@@ -17,7 +17,6 @@
 		<module>pipelines</module>
 		<module>sparql-converters</module>
 		<module>users</module>
-		<module>nifconverter</module>
 	</modules>
 
 	<repositories>
