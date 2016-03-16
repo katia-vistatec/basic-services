@@ -4,8 +4,8 @@
 	<parent>
 		<groupId>eu.freme.bservices.filters</groupId>
 		<artifactId>filters-parent</artifactId>
-		<version>0.1-SNAPSHOT</version>
+		<version>0.1</version>
 	</parent>
 	<artifactId>proxy-filter</artifactId>
-
+        <version>0.1</version>
 </project>

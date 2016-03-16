@@ -6,8 +6,10 @@
 	<parent>
         <artifactId>basic-services-parent</artifactId>
         <groupId>eu.freme.bservices</groupId>
-        <version>0.1-SNAPSHOT</version>
+        <version>0.1</version>
     </parent>
+
+	<version>0.1</version>
 
 	<distributionManagement>
 		<repository>

@@ -3,16 +3,17 @@
   <parent>
     <groupId>eu.freme.bservices.filters</groupId>
     <artifactId>filters-parent</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <artifactId>cors-filter</artifactId>
   
+  <version>0.1</version>
   
   <dependencies>
   	<dependency>
   		<groupId>eu.freme.bservices</groupId>
   		<artifactId>test-helper</artifactId>
-  		<version>0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<scope>test</scope>
   	</dependency>
   </dependencies>

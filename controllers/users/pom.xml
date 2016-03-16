@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>controllers-parent</artifactId>
 		<groupId>eu.freme.bservices.controllers</groupId>
-		<version>0.2-SNAPSHOT</version>
+		<version>0.1</version>
 	</parent>
 	<artifactId>users</artifactId>
 
@@ -24,9 +24,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>eu.freme.bservices.filter</groupId>
+			<groupId>eu.freme.bservices.filters</groupId>
 			<artifactId>logging</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
