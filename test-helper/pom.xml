@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>basic-services-parent</artifactId>
-        <groupId>eu.freme.bservices</groupId>
-        <version>0.1</version>
-    </parent>
-
-    <artifactId>test-helper</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>basic-services-parent</artifactId>
+		<groupId>eu.freme.bservices</groupId>
+		<version>0.1</version>
+	</parent>
+	<version>0.1</version>
+	<artifactId>test-helper</artifactId>
+	<dependencies>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>eu.freme.bservices.controllers</groupId>
-            <artifactId>users</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.freme.bservices.filters</groupId>
-            <artifactId>logging</artifactId>
-            <version>0.1</version>
-            <!--<scope>test</scope>-->
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>eu.freme.bservices.controllers</groupId>
+			<artifactId>users</artifactId>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.freme.bservices.filters</groupId>
+			<artifactId>logging</artifactId>
+			<version>0.1</version>
+			<!--<scope>test</scope> -->
+		</dependency>
+	</dependencies>
 
-
+	<repositories>
+		<repository>
+			<id>freme-release</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>freme-nexus</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
 </project>

@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>basic-services-parent</artifactId>
-        <groupId>eu.freme.bservices</groupId>
-        <version>0.1</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
+	<parent>
+		<artifactId>basic-services-parent</artifactId>
+		<groupId>eu.freme.bservices</groupId>
+		<version>0.1</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>pom</packaging>
 
-    <artifactId>controllers-parent</artifactId>
-    <groupId>eu.freme.bservices.controllers</groupId>
+	<artifactId>controllers-parent</artifactId>
+	<groupId>eu.freme.bservices.controllers</groupId>
 
-    <modules>
-        <module>pipelines</module>
-        <module>sparql-converters</module>
-        <module>users</module>
-        <module>nifconverter</module>
-    </modules>
+	<modules>
+		<module>pipelines</module>
+		<module>sparql-converters</module>
+		<module>users</module>
+		<module>nifconverter</module>
+	</modules>
+
+	<repositories>
+		<repository>
+			<id>freme-release</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>freme-nexus</id>
+			<name>freme-nexus</name>
+			<url>http://rv1443.1blu.de/nexus/content/repositories/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
 
 </project>
