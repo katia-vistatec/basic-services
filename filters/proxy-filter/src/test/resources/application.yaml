@@ -5,3 +5,6 @@ proxy:
     other:
         servlet_url: /e-proxy/test2
         target_url: http://localhost:8080/proxy-destination2
+    bad-gateway:
+        servlet_url: /e-proxy/test3
+        target_url: http://123456asd.xy/proxy-destination2

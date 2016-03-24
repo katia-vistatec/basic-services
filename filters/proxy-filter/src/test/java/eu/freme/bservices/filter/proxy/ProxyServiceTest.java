@@ -29,6 +29,11 @@ public class ProxyServiceTest {
 				.asString();
 
 		assertTrue(response.getStatus() == 200);
+
 		assertTrue(response.getBody().equals("response"));
+
+		response = Unirest.get("http://localhost:8080/e-proxy/test3")
+				.asString();
+		assertTrue(response.getStatus() == 502);
 	}
 }
