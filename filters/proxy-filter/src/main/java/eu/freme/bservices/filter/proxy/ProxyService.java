@@ -166,7 +166,12 @@ public class ProxyService implements EnvironmentAware{
 				throw new RuntimeException(
 						"Bad parameter configuration for proxy \"" + key + "\"");
 			}
-			proxies.put(proxy.servletUrl, proxy.targetUrl);
+			String url = proxy.servletUrl;
+			if( url.endsWith( "/" )){
+				url = url.substring(0, url.length()-1);
+			}
+			proxies.put(url, proxy.targetUrl);
+			proxies.put(url + "/", proxy.targetUrl);
 		}
 		
 		return proxies;
