@@ -7,7 +7,7 @@
 		<groupId>eu.freme.bservices</groupId>
 		<version>0.1</version>
 	</parent>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<artifactId>test-helper</artifactId>
 	<dependencies>
 		<dependency>

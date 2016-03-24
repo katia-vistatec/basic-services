@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>internationalization</artifactId>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<inceptionYear>2015</inceptionYear>
 	<properties>
 		<okapi.version>0.30-SNAPSHOT</okapi.version>

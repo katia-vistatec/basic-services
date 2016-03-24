@@ -9,7 +9,7 @@
 
 	<context:component-scan base-package="eu.freme.bservices.filter.proxy" />
 	<bean name="ProxyService" class="eu.freme.bservices.filter.proxy.ProxyService" />
-	<bean name="ProxyServlet" class="eu.freme.bservices.filter.proxy.ProxyServlet" />
+<!-- 	<bean name="ProxyServlet" class="eu.freme.bservices.filter.proxy.ProxyServlet" /> -->
 	<bean name="ProxyConfiguration" class="eu.freme.bservices.filter.proxy.ProxyConfiguration" />
 </beans>
 
