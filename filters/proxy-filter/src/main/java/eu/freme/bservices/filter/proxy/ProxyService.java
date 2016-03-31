@@ -32,6 +32,14 @@ public class ProxyService implements EnvironmentAware{
 	public ProxyService(){
 	}
 
+	/**
+	 * Create the proxy request from the original request and the target URI
+	 * 
+	 * @param request
+	 * @param targetUri
+	 * @return
+	 * @throws IOException
+	 */
 	public HttpRequest createProxy(HttpServletRequest request, String targetUri)
 			throws IOException {
 
@@ -87,6 +95,14 @@ public class ProxyService implements EnvironmentAware{
 		return proxy;
 	}
 	
+	/**
+	 * Perform proxy request and send response to the client
+	 * 
+	 * @param response
+	 * @param proxy
+	 * @throws UnirestException
+	 * @throws IOException
+	 */
 	public void writeProxyToResponse(HttpServletResponse response, HttpRequest proxy) throws UnirestException, IOException{
 		HttpResponse<String> proxyResponse = proxy.asString();
 		String body = proxyResponse.getBody();
@@ -109,6 +125,10 @@ public class ProxyService implements EnvironmentAware{
 		this.environment = environment;
 	}
 	
+	/**
+	 * Parse proxy configuration from configuration properties.
+	 * @return
+	 */
 	public Map<String,String> getProxies(){
 		
 		RelaxedPropertyResolver propertyResolver = new RelaxedPropertyResolver(
@@ -146,7 +166,12 @@ public class ProxyService implements EnvironmentAware{
 				throw new RuntimeException(
 						"Bad parameter configuration for proxy \"" + key + "\"");
 			}
-			proxies.put(proxy.servletUrl, proxy.targetUrl);
+			String url = proxy.servletUrl;
+			if( url.endsWith( "/" )){
+				url = url.substring(0, url.length()-1);
+			}
+			proxies.put(url, proxy.targetUrl);
+			proxies.put(url + "/", proxy.targetUrl);
 		}
 		
 		return proxies;
