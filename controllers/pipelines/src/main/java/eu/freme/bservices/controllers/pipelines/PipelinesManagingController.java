@@ -40,7 +40,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/pipelines/manage")
+@RequestMapping("/pipelining/templates")
 public class PipelinesManagingController extends OwnedResourceManagingController<Pipeline> {
 
     Logger logger = Logger.getLogger(PipelinesManagingController.class);

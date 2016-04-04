@@ -42,7 +42,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/pipelines")
+@RequestMapping("/pipelining")
 public class PipelinesController extends BaseRestController {
 
     Logger logger = Logger.getLogger(PipelinesController.class);
