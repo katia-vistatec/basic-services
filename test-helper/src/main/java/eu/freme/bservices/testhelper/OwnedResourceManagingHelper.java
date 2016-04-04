@@ -489,7 +489,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     @SuppressWarnings("unchecked")
     public T createEntity(SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
         HttpResponse<String> response;
-        String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
+        String url = ath.getAPIBaseUrl() + service;
         response = ath.addAuthentication(Unirest.post(url), token)
                 .headers(request.getHeaders())
                 .header("content-type", RDFConstants.RDFSerialization.JSON.contentType())
@@ -514,7 +514,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     @SuppressWarnings("unchecked")
     public T updateEntity(String identifier, SimpleEntityRequest request, String token, HttpStatus expectedStatus) throws IOException, UnirestException {
         HttpResponse<String> response;
-        String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
+        String url = ath.getAPIBaseUrl() + service;
         response = ath.addAuthentication(Unirest.put(url+"/"+identifier), token)
                 .headers(request.getHeaders())
                 .header("content-type", RDFConstants.RDFSerialization.JSON.contentType())
@@ -538,7 +538,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     //DELETE
     public void deleteEntity(String identifier, String token, HttpStatus expectedStatus ) throws UnirestException {
         HttpResponse<String> response;
-        String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath + "/"+identifier;
+        String url = ath.getAPIBaseUrl() + service + "/"+identifier;
         response = ath.addAuthentication(Unirest.delete(url), token)
                 .asString();
         assertEquals(expectedStatus.value(), response.getStatus());
@@ -549,7 +549,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     @SuppressWarnings("unchecked")
     public T getEntity(String identifier, String token, HttpStatus expectedStatus) throws UnirestException, IOException {
         HttpResponse<String> response;
-        String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
+        String url = ath.getAPIBaseUrl() + service;
         response = ath.addAuthentication(Unirest.get(url+"/"+identifier), token)
                 .asString();
         assertEquals(expectedStatus.value(), response.getStatus());
@@ -569,7 +569,7 @@ public class OwnedResourceManagingHelper<T extends OwnedResource> {
     //GETALL
     public List<T> getAllEntities(String token) throws UnirestException, IOException {
         HttpResponse<String> response;
-        String url = ath.getAPIBaseUrl() + service + OwnedResourceManagingController.relativeManagePath;
+        String url = ath.getAPIBaseUrl() + service;
         response = ath.addAuthentication(Unirest.get(url), token)
                 .asString();
         assertEquals(HttpStatus.OK.value(), response.getStatus());

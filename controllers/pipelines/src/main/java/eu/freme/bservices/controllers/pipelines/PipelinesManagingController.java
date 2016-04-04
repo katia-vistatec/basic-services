@@ -17,10 +17,8 @@ import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.InternalServerErrorException;
 import eu.freme.common.exception.OwnedResourceNotFoundException;
 import eu.freme.common.exception.TemplateNotFoundException;
-import eu.freme.common.persistence.dao.OwnedResourceDAO;
 import eu.freme.common.persistence.model.Pipeline;
 import eu.freme.common.persistence.model.SerializedRequest;
-import eu.freme.common.rest.BaseRestController;
 import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +40,13 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/pipelines")
-public class PipelinesController extends BaseRestController {
+@RequestMapping("/pipelines/manage")
+public class PipelinesManagingController extends OwnedResourceManagingController<Pipeline> {
 
-    Logger logger = Logger.getLogger(PipelinesController.class);
+    Logger logger = Logger.getLogger(PipelinesManagingController.class);
 
     @Autowired
     PipelineService pipelineAPI;
-
-    @Autowired
-    OwnedResourceDAO<Pipeline> entityDAO;
 
     /**
      * <p>Calls the pipelining service.</p>
@@ -79,7 +74,7 @@ public class PipelinesController extends BaseRestController {
             boolean wrapResult = Boolean.parseBoolean(stats);
             ObjectMapper mapper = new ObjectMapper();
             List<SerializedRequest> serializedRequests = mapper.readValue(requests,
-                    TypeFactory.defaultInstance().constructCollectionType(List.class, eu.freme.common.persistence.model.SerializedRequest.class));
+                    TypeFactory.defaultInstance().constructCollectionType(List.class, SerializedRequest.class));
             //List<SerializedRequest> serializedRequests = //Serializer.fromJson(requests);
             WrappedPipelineResponse pipelineResult = pipelineAPI.chain(serializedRequests);
             MultiValueMap<String, String> headers = new HttpHeaders();
@@ -97,7 +92,7 @@ public class PipelinesController extends BaseRestController {
             }
 
         } catch (ServiceException serviceError) {
-            // TODO: see if this can be replaced by excsption(s) defined in the broker.
+            // TODO: see if this can be replaced by exception(s) defined in the broker.
             logger.error(serviceError.getMessage(), serviceError);
             MultiValueMap<String, String> headers = new HttpHeaders();
             headers.add(HttpHeaders.CONTENT_TYPE, serviceError.getResponse().getContentType());
@@ -138,12 +133,12 @@ public class PipelinesController extends BaseRestController {
             @RequestParam (value = "stats", defaultValue = "false", required = false) String stats
     ) throws IOException {
         try {
-            Pipeline pipeline = entityDAO.findOneByIdentifier(id);
+            Pipeline pipeline = getEntityDAO().findOneByIdentifier(id);
             List<SerializedRequest> serializedRequests = pipeline.getSerializedRequests();// Serializer.fromJson(pipeline.getSerializedRequests());
             serializedRequests.get(0).setBody(body);
             pipeline.setSerializedRequests(serializedRequests);
             return pipeline(pipeline.getRequests(), stats);
-        } catch (org.springframework.security.access.AccessDeniedException | InsufficientAuthenticationException ex) {
+        } catch (AccessDeniedException | InsufficientAuthenticationException ex) {
             logger.error(ex.getMessage(), ex);
             throw new AccessDeniedException(ex.getMessage());
         } catch (JsonSyntaxException jsonException) {
@@ -156,4 +151,53 @@ public class PipelinesController extends BaseRestController {
         }
     }
 
+
+    @Override
+    protected Pipeline createEntity(String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
+        // just to perform a first validation of the pipeline...
+        //Pipeline pipelineInfoObj = Serializer.templateFromJson(body);
+
+        boolean toPersist = Boolean.parseBoolean(parameters.getOrDefault("persist","false"));
+        try {
+            // the body contains the label, the description and the serializedRequests
+            ObjectMapper mapper = new ObjectMapper();
+            Pipeline pipeline = mapper.readValue(body, Pipeline.class);
+            pipeline.setPersist(toPersist);
+            //pipeline.setOwnerToCurrentUser();
+            return pipeline;
+        } catch (IOException e) {
+            throw new BadRequestException("could not create pipeline template from \""+body+"\": "+e.getMessage());
+        }
+
+
+    }
+
+    @Override
+    protected void updateEntity(Pipeline pipeline, String body, Map<String, String> parameters, Map<String, String> headers) throws BadRequestException {
+
+        // process body
+        if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
+            try {
+                // create temp pipeline to get mapped content
+                ObjectMapper mapper = new ObjectMapper();
+                Pipeline newPipeline = mapper.readValue(body, Pipeline.class);
+                if(!newPipeline.getLabel().equals(pipeline.getLabel()))
+                    pipeline.setLabel(newPipeline.getLabel());
+                if(!newPipeline.getDescription().equals(pipeline.getDescription()))
+                    pipeline.setDescription(newPipeline.getDescription());
+                if(!newPipeline.getSerializedRequests().equals(pipeline.getSerializedRequests()))
+                    pipeline.setSerializedRequests(newPipeline.getSerializedRequests());
+            } catch (IOException e) {
+                throw new BadRequestException("could not update pipeline template with \""+body+"\": "+e.getMessage());
+            }
+        }
+
+        // process parameters
+        if (parameters.containsKey("persist")) {
+            boolean toPersist = Boolean.parseBoolean(parameters.get("persist"));
+            if (toPersist != pipeline.isPersist()) {
+                pipeline.setPersist(toPersist);
+            }
+        }
+    }
 }
