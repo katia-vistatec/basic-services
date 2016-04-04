@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.controllers.sparqlconverters.SparqlConverterController;
+import eu.freme.bservices.controllers.sparqlconverters.SparqlConverterManagingController;
 import eu.freme.bservices.testhelper.AuthenticatedTestHelper;
 import eu.freme.bservices.testhelper.LoggingHelper;
 import eu.freme.bservices.testhelper.OwnedResourceManagingHelper;
@@ -34,6 +35,7 @@ public class PostprocessingFilterTest {
     Logger logger = Logger.getLogger(PostprocessingFilterTest.class);
     private OwnedResourceManagingHelper<SparqlConverter> ormh;
     final static String serviceUrl = "/toolbox/convert";
+    final static String managingURL = "/toolbox/convert/manage";
 
     String filterSelect = "PREFIX itsrdf: <http://www.w3.org/2005/11/its/rdf#> SELECT ?entity WHERE {?charsequence itsrdf:taIdentRef ?entity}";
     String filterName = "extract-entities-only";
@@ -48,7 +50,7 @@ public class PostprocessingFilterTest {
         ApplicationContext context = IntegrationTestSetup.getContext("postprocessing-filter-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
         ath.authenticateUsers();
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);
+        ormh = new OwnedResourceManagingHelper<>(managingURL,SparqlConverter.class, ath);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class PostprocessingFilterTest {
         HttpResponse<String> response;
 
         logger.info("create filter "+filterName);
-        ormh.createEntity(new SimpleEntityRequest(filterSelect).putParameter(SparqlConverterController.identifierParameterName, filterName),
+        ormh.createEntity(new SimpleEntityRequest(filterSelect).putParameter(SparqlConverterManagingController.identifierParameterName, filterName),
                 ath.getTokenWithPermission(),
                 HttpStatus.OK);
 
@@ -91,7 +93,7 @@ public class PostprocessingFilterTest {
 
         logger.info("create filter "+filterName);
         ormh.createEntity(new SimpleEntityRequest(filterSelect)
-                .putParameter(SparqlConverterController.identifierParameterName, filterName)
+                .putParameter(SparqlConverterManagingController.identifierParameterName, filterName)
                 .putParameter(OwnedResourceManagingController.visibilityParameterName, OwnedResource.Visibility.PRIVATE.toString()),
                 ath.getTokenWithPermission(),
                 HttpStatus.OK);
@@ -135,7 +137,7 @@ public class PostprocessingFilterTest {
         HttpResponse<String> response;
 
         logger.info("create filter "+filterName);
-        ormh.createEntity(new SimpleEntityRequest(filterSelect).putParameter(SparqlConverterController.identifierParameterName, filterName),
+        ormh.createEntity(new SimpleEntityRequest(filterSelect).putParameter(SparqlConverterManagingController.identifierParameterName, filterName),
                 ath.getTokenWithPermission(),
                 HttpStatus.OK);
 
