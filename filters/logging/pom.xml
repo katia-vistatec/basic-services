@@ -4,10 +4,9 @@
 	<parent>
 		<artifactId>filters-parent</artifactId>
 		<groupId>eu.freme.bservices.filters</groupId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<version>0.2-SNAPSHOT</version>
 	<artifactId>logging</artifactId>
 
 	<dependencies>

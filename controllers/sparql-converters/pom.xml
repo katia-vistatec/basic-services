@@ -5,22 +5,21 @@
     <parent>
         <artifactId>controllers-parent</artifactId>
         <groupId>eu.freme.bservices.controllers</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>0.2-SNAPSHOT</version>
     <artifactId>sparql-converters</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>eu.freme.bservices.controllers</groupId>
             <artifactId>users</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.freme.bservices</groupId>
             <artifactId>test-helper</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <!--<dependency>

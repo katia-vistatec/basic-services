@@ -4,10 +4,9 @@
 	<parent>
 		<groupId>eu.freme.bservices.filters</groupId>
 		<artifactId>filters-parent</artifactId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<artifactId>proxy-filter</artifactId>
-	<version>0.2-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
