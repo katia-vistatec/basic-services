@@ -140,8 +140,11 @@ public class PipelinesController extends BaseRestController {
         try {
             Pipeline pipeline = entityDAO.findOneByIdentifier(id);
             List<SerializedRequest> serializedRequests = pipeline.getSerializedRequests();// Serializer.fromJson(pipeline.getSerializedRequests());
+            // add request body to first pipeline request
             serializedRequests.get(0).setBody(body);
+            // use pipeline object to get the deserialized requests
             pipeline.setSerializedRequests(serializedRequests);
+            pipeline.serializeRequests();
             return pipeline(pipeline.getRequests(), stats);
         } catch (org.springframework.security.access.AccessDeniedException | InsufficientAuthenticationException ex) {
             logger.error(ex.getMessage(), ex);
