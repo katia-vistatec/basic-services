@@ -89,13 +89,13 @@ public class NifConverterControllerTest {
         // testConversionToTURTLE("/data/source_odt.odt", "/data/expected_odt-test.odt", "application/x-openoffice");
     }
 
-    public void testConversionToTURTLE(String sourceResource, String expectedResource, String sourceType) throws Exception {
+    public void testConversionToTURTLE(String sourceResource, String expectedResource, String sourceMimeType) throws Exception {
 
         InputStream is = getClass().getResourceAsStream(sourceResource);
         String fileContent = new Scanner(is, "utf-8").useDelimiter("\\Z").next();
 
         HttpResponse<String> response =  Unirest.post(url)
-                .header("Content-Type", sourceType)
+                .header("Content-Type", sourceMimeType)
                 .header("Accept", RDFSerialization.TURTLE.contentType())
                 .body(fileContent)
                 .asString();
