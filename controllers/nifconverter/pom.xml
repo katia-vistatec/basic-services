@@ -12,8 +12,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>eu.freme.bservices</groupId>
-            <artifactId>internationalization</artifactId>
+            <groupId>eu.freme.bservices.filters</groupId>
+            <artifactId>internationalization-filter</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

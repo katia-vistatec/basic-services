@@ -38,37 +38,14 @@ public class NifConverterController {
 
     Logger logger = Logger.getLogger(NifConverterController.class);
 
-    private HashSet<String> internalizationContentTypes;
-    private HashSet<String> rdfContentTypes;
-
     @Autowired
     RestHelper restHelper;
-
-    @Autowired
-    InternationalizationAPI internationalizationApi;
 
     @Autowired
     RDFConversionService rdfConversionService;
 
     @Autowired
     NIFParameterFactory nifParameterFactory;
-
-
-    public NifConverterController() {
-        internalizationContentTypes = new HashSet<>();
-        internalizationContentTypes.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
-        internalizationContentTypes.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
-                .toLowerCase());
-        internalizationContentTypes.add(InternationalizationAPI.MIME_TYPE_XML.toLowerCase());
-        internalizationContentTypes.add(InternationalizationAPI.MIME_TYPE_ODT.toLowerCase());
-
-        rdfContentTypes = new HashSet<>();
-        rdfContentTypes.add(RDFConstants.RDFSerialization.JSON_LD.contentType());
-        rdfContentTypes.add(RDFConstants.RDFSerialization.TURTLE.contentType());
-        rdfContentTypes.add(RDFConstants.RDFSerialization.N3.contentType());
-        rdfContentTypes.add(RDFConstants.RDFSerialization.N_TRIPLES.contentType());
-        rdfContentTypes.add(RDFConstants.RDFSerialization.RDF_XML.contentType());
-    }
 
     @RequestMapping(value = "/toolbox/nif-converter", method = RequestMethod.POST)
     public ResponseEntity<String> convert(
@@ -77,34 +54,17 @@ public class NifConverterController {
             @RequestBody String postBody,
             @RequestParam Map<String, String> allParams) {
 
-        contentTypeHeader = contentTypeHeader.toLowerCase();
+        NIFParameterSet nifParameters =  restHelper.normalizeNif(postBody,
+                acceptHeader, contentTypeHeader, allParams, false);
         try {
             Model model;
-
-            // formats supported by e-Internalisation
-            if (internalizationContentTypes.contains(contentTypeHeader)) {
-                Reader nifReader;
-                ByteArrayInputStream stream = new ByteArrayInputStream(postBody.getBytes(StandardCharsets.UTF_8));
-
-                nifReader = internationalizationApi.convertToTurtle(stream,
-                        contentTypeHeader);
-
-                String nifString = new Scanner(nifReader).useDelimiter("\\Z").next();
-                model = rdfConversionService.unserializeRDF(nifString, RDFConstants.RDFSerialization.TURTLE);
-
-            // RDF formats
-            } else if (rdfContentTypes.contains(contentTypeHeader)) {
-                model = rdfConversionService.unserializeRDF(postBody, RDFConstants.RDFSerialization.fromValue(contentTypeHeader));
-
-            // plaintext
-            } else if (contentTypeHeader.equals(RDFConstants.RDFSerialization.PLAINTEXT.contentType())) {
+            if(nifParameters.getInformat().equals(RDFConstants.RDFSerialization.PLAINTEXT)){
                 model = ModelFactory.createDefaultModel();
-                rdfConversionService.plaintextToRDF(model, postBody, null, nifParameterFactory.getDefaultPrefix());
-            } else {
-                throw new BadRequestException("Can not convert from format: " + contentTypeHeader);
+                rdfConversionService.plaintextToRDF(model, nifParameters.getInput(), null, nifParameterFactory.getDefaultPrefix());
+            }else {
+                model = rdfConversionService.unserializeRDF(postBody, nifParameters.getInformat());
             }
-
-            return restHelper.createSuccessResponse(model, RDFConstants.RDFSerialization.fromValue(acceptHeader));
+            return restHelper.createSuccessResponse(model, nifParameters.getOutformat());
         }catch (ConversionException e){
             logger.error("Error", e);
             throw new InternalServerErrorException("Conversion from \""
