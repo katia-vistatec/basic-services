@@ -86,7 +86,7 @@ public class NifConverterControllerTest {
         testConversionToTURTLE("/data/source_xlf.xlf", "/data/expected_xlf.ttl", "application/x-xliff+xml");
 
         // TODO: fix odt conversion!
-        // testConversionToTURTLE("/data/source_odt.odt", "/data/expected_odt-test.odt", "application/x-openoffice");
+        testConversionToTURTLE("/data/source_odt.odt", "/data/expected_odt.odt", "application/x-openoffice");
     }
 
     public void testConversionToTURTLE(String sourceResource, String expectedResource, String sourceMimeType) throws Exception {

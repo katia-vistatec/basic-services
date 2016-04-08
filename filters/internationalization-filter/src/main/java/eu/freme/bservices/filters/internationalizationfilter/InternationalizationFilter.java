@@ -69,7 +69,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	 * the regular expression like /toolbox/.* will match the endpoint
 	 * http://localhost:8080/toolbox/test
 	 */
-	@Value("#{'${freme.einternationalization.endpoint-blacklist:/toolbox/.*}'.split(',')}")
+	@Value("#{'${freme.einternationalization.endpoint-blacklist:/toolbox/convert/.*}'.split(',')}")
 	Set<String> endpointBlacklist;
 
 	Set<Pattern> endpointBlacklistRegex;
