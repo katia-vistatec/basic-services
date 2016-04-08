@@ -20,5 +20,10 @@ SCRIPT=$(readlink -f "$0")
 BASEDIR=$(dirname "$SCRIPT")
 cd $BASEDIR"/.."
 
-nohup java -cp "./*:config" -Djava.security.egd=file:/dev/./urandom org.springframework.boot.loader.JarLauncher > /dev/null 2>&1 &
+if [ -a config/start-properties ]
+  then
+        source config/start-properties
+fi
+
+nohup java -cp "./*:config" $START_ARGS org.springframework.boot.loader.JarLauncher > /dev/null 2>&1 &
 echo $! > config/pid.txt
