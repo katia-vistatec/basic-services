@@ -20,5 +20,5 @@ SCRIPT=$(readlink -f "$0")
 BASEDIR=$(dirname "$SCRIPT")
 cd $BASEDIR"/.."
 
-[ -f config/pid.txt ] && kill `cat config/pid.txt`
+[ -f config/pid.txt ] && [ kill -s 0 `cat config/pid.txt` ] kill `cat config/pid.txt`
 
