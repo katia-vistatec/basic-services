@@ -10,6 +10,7 @@ import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.conversion.rdf.RDFConstants.RDFSerialization;
 import eu.freme.common.rest.NIFParameterSet;
 import eu.freme.common.rest.RestHelper;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -81,15 +82,13 @@ public class NifConverterControllerTest {
     @Test
     public void testInternationalizationFormatsToTURTLE() throws Exception {
 
-        testConversionToTURTLE("/data/source_xml.xml", "/data/expected_xml.ttl", "text/xml");
-        testConversionToTURTLE("/data/source_html.html", "/data/expected_html.ttl", "text/html");
-        testConversionToTURTLE("/data/source_xlf.xlf", "/data/expected_xlf.ttl", "application/x-xliff+xml");
-
-        // works, but test fails
-        //testConversionToTURTLE("/data/source_odt.odt", "/data/expected_odt.odt", "application/x-openoffice");
+        testTextConversionToTURTLE("/data/source_html.html", "/data/expected_html.ttl", "text/html");
+        testTextConversionToTURTLE("/data/source_xml.xml", "/data/expected_xml.ttl", "text/xml");
+        testTextConversionToTURTLE("/data/source_xlf.xlf", "/data/expected_xlf.ttl", "application/x-xliff+xml");
+        testByteConversionToTURTLE("/data/source_odt.odt", "/data/expected_odt.ttl", "application/x-openoffice");
     }
 
-    public void testConversionToTURTLE(String sourceResource, String expectedResource, String sourceMimeType) throws Exception {
+    public void testTextConversionToTURTLE(String sourceResource, String expectedResource, String sourceMimeType) throws Exception {
 
         logger.info("CONVERT "+ sourceMimeType + " to turtle");
         InputStream is = getClass().getResourceAsStream(sourceResource);
@@ -111,6 +110,32 @@ public class NifConverterControllerTest {
         expectedModel.read(expectedReader, null,
                 RDFConstants.RDFSerialization.TURTLE.toRDFLang());
         assertTrue(responseModel.isIsomorphicWith(expectedModel));
+    }
 
+
+    public void testByteConversionToTURTLE(String sourceResource, String expectedResource, String sourceMimeType) throws Exception {
+
+        logger.info("CONVERT "+ sourceMimeType + " to turtle");
+        InputStream is = getClass().getResourceAsStream(sourceResource);
+        byte[] byteArr = IOUtils.toByteArray(is);
+
+        HttpResponse<String> response =  Unirest.post(url)
+                .header("Content-Type", sourceMimeType)
+                .header("Accept", RDFSerialization.TURTLE.contentType())
+                .body(byteArr)
+                .asString();
+
+        assertEquals(HttpStatus.SC_OK, response.getStatus());
+        Model responseModel = restHelper.unserializeNif(response.getBody(), RDFSerialization.TURTLE);
+
+        logger.warn(response.getBody());
+        Reader expectedReader = new InputStreamReader(getClass()
+                .getResourceAsStream(expectedResource), "UTF-8");
+        Model expectedModel = ModelFactory.createDefaultModel();
+        expectedModel.read(expectedReader, null,
+                RDFConstants.RDFSerialization.TURTLE.toRDFLang());
+
+        // TODO: wait for #34 and re-insert
+        //assertTrue(responseModel.isIsomorphicWith(expectedModel));
     }
 }

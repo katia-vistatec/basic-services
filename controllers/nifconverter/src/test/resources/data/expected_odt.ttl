@@ -3,7 +3,7 @@
 @prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
 @prefix dc:    <http://purl.org/dc/elements/1.1/> .
 
-<http://freme-project.eu/~okapi-23_OpenOfficeFilter_9045272266468228051.tmp/#char=0,12>
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_1451016772117883742.tmp/#char=0,12>
         a               nif:String , nif:RFC5147String , nif:Context ;
         nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
         nif:endIndex    "12"^^xsd:nonNegativeInteger ;
