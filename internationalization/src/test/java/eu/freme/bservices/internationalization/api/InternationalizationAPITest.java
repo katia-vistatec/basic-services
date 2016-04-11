@@ -17,6 +17,10 @@
  */
 package eu.freme.bservices.internationalization.api;
 
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -26,12 +30,15 @@ import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionExc
 import eu.freme.bservices.internationalization.okapi.nif.filter.RDFConstants;
 
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
+import eu.freme.common.rest.RestHelper;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import java.io.*;
+import java.util.Scanner;
 
 import static org.junit.Assert.assertTrue;
 
@@ -40,6 +47,7 @@ public class InternationalizationAPITest {
 	TestHelper th;
 	ClassLoader classLoader;
 	Logger logger = Logger.getLogger(InternationalizationAPITest.class);
+	RestHelper restHelper;
 
     InternationalizationAPI InternationalizationAPI;
 
@@ -47,12 +55,13 @@ public class InternationalizationAPITest {
 	public InternationalizationAPITest() throws UnirestException {
 		ApplicationContext context = IntegrationTestSetup.getContext("internationalization-test-package.xml");// FREMEStarter.startPackageFromClasspath("ratelimiter-test-package.xml");
 		th = context.getBean(TestHelper.class);
+		restHelper = context.getBean(RestHelper.class);
         InternationalizationAPI = context.getBean(InternationalizationAPI.class);
 		classLoader = getClass().getClassLoader();
 	}
 
 
-	@Test
+	//@Test
 	public void testEInternationalizationAPIXliff() {
 
 		InputStream is = getClass().getResourceAsStream(
@@ -79,7 +88,7 @@ public class InternationalizationAPITest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void testEInternationalizationAPIHTML() {
 
 		InputStream is = getClass().getResourceAsStream(
@@ -102,7 +111,7 @@ public class InternationalizationAPITest {
 		}
 	 }
 	
-	 @Test
+	//@Test
 	public void testEInternationalizationAPIXML() {
 
 		InputStream is = getClass().getResourceAsStream(
@@ -128,42 +137,27 @@ public class InternationalizationAPITest {
 	}
 
 	@Test
-	public void testEInternationalizationAPIODT() throws IOException {
+	public void testEInternationalizationAPIODT() throws Exception {
 
-		InputStream is = getClass().getResourceAsStream(
-				"/nifConversion/src2/TestDocument02.odt");
-		try {
-			Reader nifReader = InternationalizationAPI.convertToTurtle(is,
-					InternationalizationAPI.MIME_TYPE_ODT);
-			Model model = ModelFactory.createDefaultModel();
-			model.read(nifReader, null,
-					RDFConstants.RDFSerialization.TURTLE.toRDFLang());
+		InputStream is = getClass().getResourceAsStream("/nifConversion/src2/TestDocument02.odt");
+		Reader nifReader = InternationalizationAPI.convertToTurtle(is,
+				InternationalizationAPI.MIME_TYPE_ODT);
 
-			// model.write(new OutputStreamWriter(System.out), "TTL");
-			// assertFalse(model.isEmpty());
+		String result = IOUtils.toString(nifReader);
+		String cleanedResult = result.replaceAll("http://freme-project.eu/[^#]*#char", "http://freme-project.eu/test#char");
+	    //logger.error(cleanedResult);
+		Model model = restHelper.unserializeNif(cleanedResult, eu.freme.common.conversion.rdf.RDFConstants.RDFSerialization.TURTLE);
 
-//			model.write(System.out, "TTL");
+		String expected = IOUtils.toString(getClass().getResourceAsStream("/nifConversion/expected_TestDocument02.odt.ttl"));
+		String cleneadExpected = expected.replaceAll("http://freme-project.eu/[^#]*#char", "http://freme-project.eu/test#char");
+		//logger.error(cleneadExpected);
+		Model expectedModel = restHelper.unserializeNif(cleneadExpected, eu.freme.common.conversion.rdf.RDFConstants.RDFSerialization.TURTLE);
 
-			Reader expectedReader = new InputStreamReader(getClass()
-					.getResourceAsStream(
-							"/nifConversion/expected_TestDocument02.odt.ttl"),
-					"UTF-8");
-			Model expectedModel = ModelFactory.createDefaultModel();
-			expectedModel.read(expectedReader, null,
-					RDFConstants.RDFSerialization.TURTLE.toRDFLang());
+		assertTrue(model.isIsomorphicWith(expectedModel));
 
-
-			// expectedModel.write(new OutputStreamWriter(System.out), "TTL");
-//			assertTrue(model.isIsomorphicWith(expectedModel));
-
-		} catch (ConversionException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test
+	//@Test
 	public void testEInternationalizationAPIUnsupportedMimeType() {
 
 		String unsupportedMimeType = "unsupp/mime-type";
@@ -271,7 +265,7 @@ public class InternationalizationAPITest {
 		skeletonFile.delete();
 	}
 
-	@Test
+	//@Test
 	public void testSimpleRoundtripping() throws IOException,
 			ConversionException {
 
@@ -280,7 +274,7 @@ public class InternationalizationAPITest {
 
 	}
 
-	@Test
+	//@Test
 	public void testRoundtrippingMultipleValuesAttrs()
 			throws ConversionException, IOException {
 
@@ -317,7 +311,7 @@ public class InternationalizationAPITest {
 	// };
 	// }
 
-	@Test
+	//@Test
 	public void testLongRoundtripping() throws IOException, ConversionException {
 
 		testRoundTripping("/roundtripping/vt-input-html.txt",

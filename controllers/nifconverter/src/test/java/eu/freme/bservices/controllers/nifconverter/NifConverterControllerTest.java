@@ -1,5 +1,9 @@
 package eu.freme.bservices.controllers.nifconverter;
 
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.mashape.unirest.http.HttpResponse;
@@ -126,16 +130,15 @@ public class NifConverterControllerTest {
                 .asString();
 
         assertEquals(HttpStatus.SC_OK, response.getStatus());
-        Model responseModel = restHelper.unserializeNif(response.getBody(), RDFSerialization.TURTLE);
+        String cleanedBody = response.getBody().replaceAll("http://freme-project.eu/[^#]*#char", "http://freme-project.eu/test#char");
+        Model responseModel = restHelper.unserializeNif(cleanedBody, RDFSerialization.TURTLE);
 
-        logger.warn(response.getBody());
-        Reader expectedReader = new InputStreamReader(getClass()
-                .getResourceAsStream(expectedResource), "UTF-8");
-        Model expectedModel = ModelFactory.createDefaultModel();
-        expectedModel.read(expectedReader, null,
-                RDFConstants.RDFSerialization.TURTLE.toRDFLang());
+        is = getClass().getResourceAsStream(expectedResource);
+        String fileContent = new Scanner(is, "utf-8").useDelimiter("\\Z").next();
+        String cleanedfileContent = fileContent.replaceAll("http://freme-project.eu/[^#]*#char", "http://freme-project.eu/test#char");
 
-        // TODO: wait for #34 and re-insert
-        //assertTrue(responseModel.isIsomorphicWith(expectedModel));
+        Model expectedModel = restHelper.unserializeNif(cleanedfileContent, RDFSerialization.TURTLE);
+
+        assertTrue(responseModel.isIsomorphicWith(expectedModel));
     }
 }
