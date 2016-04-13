@@ -27,3 +27,4 @@ fi
 
 nohup java -cp "./*:config" $START_ARGS org.springframework.boot.loader.JarLauncher > /dev/null 2>&1 &
 echo $! > config/pid.txt
+echo "Started FREME"
