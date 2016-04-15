@@ -8,6 +8,15 @@
 	</parent>
 	<artifactId>proxy-filter</artifactId>
 
+	<dependencies>
+		<dependency>
+			<groupId>eu.freme.bservices</groupId>
+			<artifactId>test-helper</artifactId>
+			<version>0.2-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
 	<repositories>
 		<repository>
 			<id>freme-release</id>
