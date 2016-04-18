@@ -46,7 +46,13 @@ public class ProxyService implements EnvironmentAware{
 		HttpRequest proxy = null;
 
 		// url with query string
-		String url = targetUri + "?" + request.getQueryString();
+		String url = targetUri;
+
+		if(request.getPathInfo()!=null)
+			url += request.getPathInfo();
+
+		if(request.getQueryString()!=null)
+			url += "?" + request.getQueryString();
 
 		// create request with method
 		switch (request.getMethod().toLowerCase()) {
@@ -166,12 +172,18 @@ public class ProxyService implements EnvironmentAware{
 				throw new RuntimeException(
 						"Bad parameter configuration for proxy \"" + key + "\"");
 			}
-			String url = proxy.servletUrl;
-			if( url.endsWith( "/" )){
-				url = url.substring(0, url.length()-1);
+			String sUrl = proxy.servletUrl;
+			if( sUrl.endsWith( "/" )){
+				sUrl = sUrl.substring(0, sUrl.length()-1);
 			}
-			proxies.put(url, proxy.targetUrl);
-			proxies.put(url + "/", proxy.targetUrl);
+			String tUrl = proxy.targetUrl;
+			if( tUrl.endsWith( "/" )){
+				tUrl = sUrl.substring(0, tUrl.length()-1);
+			}
+
+			proxies.put(sUrl, tUrl);
+			proxies.put(sUrl + "/", tUrl);
+			proxies.put(sUrl + "/*", tUrl);
 		}
 		
 		return proxies;
