@@ -9,7 +9,7 @@
         <groupId>eu.freme.bservices</groupId>
         <version>0.2</version>
     </parent>
-
+	<version>0.2-SNAPSHOT</version>
 	<distributionManagement>
 		<repository>
 			<id>freme-nexus</id>
