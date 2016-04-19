@@ -3,13 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<artifactId>package-maker</artifactId>
+
 	<parent>
         <artifactId>basic-services-parent</artifactId>
         <groupId>eu.freme.bservices</groupId>
-        <version>0.1</version>
+        <version>0.2-SNAPSHOT</version>
     </parent>
-
-	<version>0.2-SNAPSHOT</version>
 
 	<distributionManagement>
 		<repository>

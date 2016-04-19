@@ -10,7 +10,9 @@ import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.FREMEHttpException;
 import eu.freme.common.exception.OwnedResourceNotFoundException;
+import eu.freme.common.persistence.dao.OwnedResourceDAO;
 import eu.freme.common.persistence.model.SparqlConverter;
+import eu.freme.common.rest.BaseRestController;
 import eu.freme.common.rest.NIFParameterSet;
 import eu.freme.common.rest.OwnedResourceManagingController;
 import org.apache.log4j.Logger;
@@ -30,15 +32,15 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/toolbox/convert")
-public class SparqlConverterController extends OwnedResourceManagingController<SparqlConverter> {
+public class SparqlConverterController extends BaseRestController {
 
     Logger logger = Logger.getLogger(SparqlConverterController.class);
 
-    public static final String identifierParameterName = "name";
-    public static final String identifierName = "name"; // depends on SparqlConverter Model class
-
     @Autowired
     JenaRDFConversionService jenaRDFConversionService;
+
+    @Autowired
+    OwnedResourceDAO<SparqlConverter> entityDAO;
 
     @RequestMapping(value = "/documents/{identifier}", method = RequestMethod.POST)
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -53,7 +55,7 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
             NIFParameterSet nifParameters = this.normalizeNif(postBody,
                     acceptHeader, contentTypeHeader, allParams, false);
 
-            SparqlConverter sparqlConverter = getEntityDAO().findOneByIdentifier(identifier);
+            SparqlConverter sparqlConverter = entityDAO.findOneByIdentifier(identifier);
 
             Model model = jenaRDFConversionService.unserializeRDF(
                     nifParameters.getInput(), nifParameters.getInformat());
@@ -116,24 +118,4 @@ public class SparqlConverterController extends OwnedResourceManagingController<S
         }
     }
 
-    @Override
-    protected SparqlConverter createEntity(String body, Map<String, String> parameters, Map<String, String> headers) throws AccessDeniedException {
-
-        String identifier = parameters.get(identifierParameterName);
-        if(Strings.isNullOrEmpty(identifier))
-            throw new BadRequestException("No identifier provided! Please set the parameter \""+identifierParameterName+"\" to a valid value.");
-        SparqlConverter entity = getEntityDAO().findOneByIdentifierUnsecured(identifier);
-        if (entity != null)
-            throw new BadRequestException("Can not add entity: Entity with identifier: " + identifier + " already exists.");
-        // AccessDeniedException can be thrown, if current authentication is the anonymousUser
-        return new SparqlConverter(identifier, body);
-    }
-
-    @Override
-    protected void updateEntity(SparqlConverter filter, String body, Map<String, String> parameters, Map<String, String> headers) {
-        if(!Strings.isNullOrEmpty(body) && !body.trim().isEmpty() && !body.trim().toLowerCase().equals("null") && !body.trim().toLowerCase().equals("empty")){
-            filter.setQuery(body);
-            filter.constructQuery();
-        }
-    }
 }

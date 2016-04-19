@@ -41,7 +41,7 @@ public class SparqlConverterControllerTest {
     public SparqlConverterControllerTest() throws UnirestException, IOException {
         ApplicationContext context = IntegrationTestSetup.getContext("sparql-converter-controller-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>(serviceUrl,SparqlConverter.class, ath);
+        ormh = new OwnedResourceManagingHelper<>("/toolbox/convert/manage",SparqlConverter.class, ath);
         ath.authenticateUsers();
     }
 
@@ -56,7 +56,7 @@ public class SparqlConverterControllerTest {
     @Test
     public void testSparqlConverterManagement() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(sparqlConverterSelect)
-                .putParameter(SparqlConverterController.identifierParameterName,"select-sparqlConverter");
+                .putParameter(SparqlConverterManagingController.identifierParameterName,"select-sparqlConverter");
         SimpleEntityRequest updateRequest = new SimpleEntityRequest(sparqlConverterConstruct);
                 //.putParameter(SparqlConverterController.identifierParameterName,"construct-sparqlConverter");
         SparqlConverter expectedCreatedEntity = new SparqlConverter();
@@ -72,7 +72,7 @@ public class SparqlConverterControllerTest {
     @Test
     public void testCreateWithAlreadyExistingName() throws UnirestException, IOException {
         SimpleEntityRequest request = new SimpleEntityRequest(sparqlConverterSelect)
-                .putParameter(SparqlConverterController.identifierParameterName,"select-sparqlConverter");
+                .putParameter(SparqlConverterManagingController.identifierParameterName,"select-sparqlConverter");
         SparqlConverter sparqlConverter = ormh.createEntity(request, ath.getTokenWithPermission(),HttpStatus.OK);
 
         LoggingHelper.loggerIgnore("eu.freme.common.exception.BadRequestException");
@@ -92,13 +92,13 @@ public class SparqlConverterControllerTest {
         logger.info("create sparqlConverter1");
         ormh.createEntity(
                 new SimpleEntityRequest(sparqlConverterSelect)
-                        .putParameter(SparqlConverterController.identifierParameterName, "sparqlConverter1"),
+                        .putParameter(SparqlConverterManagingController.identifierParameterName, "sparqlConverter1"),
                 ath.getTokenWithPermission(), HttpStatus.OK);
 
         logger.info("create sparqlConverter2");
         ormh.createEntity(
                 new SimpleEntityRequest(sparqlConverterConstruct)
-                        .putParameter(SparqlConverterController.identifierParameterName, "sparqlConverter2"),
+                        .putParameter(SparqlConverterManagingController.identifierParameterName, "sparqlConverter2"),
                 ath.getTokenWithPermission(), HttpStatus.OK);
 
         String nifContent =

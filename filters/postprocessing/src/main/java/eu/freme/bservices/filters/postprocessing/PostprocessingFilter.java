@@ -71,7 +71,7 @@ public class PostprocessingFilter implements Filter {
                 String outTypeString = httpRequest.getParameter("outformat");
                 if(Strings.isNullOrEmpty(outTypeString))
                     outTypeString = httpRequest.getParameter("o");
-                if(Strings.isNullOrEmpty(outTypeString) && !httpRequest.getHeader("Accept").equals("*/*"))
+                if(Strings.isNullOrEmpty(outTypeString) && !Strings.isNullOrEmpty(httpRequest.getHeader("Accept")) && !httpRequest.getHeader("Accept").equals("*/*"))
                     outTypeString = httpRequest.getHeader("Accept").split(";")[0];
 
                 RDFConstants.RDFSerialization outType = RDFConstants.RDFSerialization.CSV;

@@ -41,6 +41,8 @@ import static org.junit.Assert.assertTrue;
  * Created by Arne Binder (arne.b.binder@gmail.com) on 19.01.2016.
  */
 public class PipelinesControllerTest {
+    final static String serviceUrl = "/pipelining";
+
     private Logger logger = Logger.getLogger(PipelinesControllerTest.class);
     AuthenticatedTestHelper ath;
     OwnedResourceManagingHelper<Pipeline> ormh;
@@ -52,7 +54,7 @@ public class PipelinesControllerTest {
     public PipelinesControllerTest() throws UnirestException, IOException {
         ApplicationContext context = IntegrationTestSetup.getContext("pipelines-test-package.xml");
         ath = context.getBean(AuthenticatedTestHelper.class);
-        ormh = new OwnedResourceManagingHelper<>("/pipelines", Pipeline.class, ath);
+        ormh = new OwnedResourceManagingHelper<>("/pipelining/templates", Pipeline.class, ath);
         ath.authenticateUsers();
         rf = new MockupRequestFactory(ath.getAPIBaseUrl());
         pipelineDAO = context.getBean(PipelineDAO.class);
@@ -66,7 +68,7 @@ public class PipelinesControllerTest {
         long userCountBefore = userDAO.count();
 
         logger.info("Create user");
-        User user = new User("hallo", "wereld", User.roleUser);
+        User user = new User("hello", "world", User.roleUser);
         user = userDAO.save(user);
 
         AuthenticationManager am = new SampleAuthenticationManager();
@@ -263,7 +265,7 @@ public class PipelinesControllerTest {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String body = ow.writeValueAsString(requests);
 
-        HttpResponse<String> response =   Unirest.post(ath.getAPIBaseUrl() + "/pipelines/chain")
+        HttpResponse<String> response =   Unirest.post(ath.getAPIBaseUrl() + serviceUrl + "/chain")
                 .header("content-type", RDFConstants.RDFSerialization.JSON.contentType())
                 .body(body)
                 .asString();
@@ -281,7 +283,7 @@ public class PipelinesControllerTest {
     }
 
     protected HttpResponse<String> sendRequest(final String token, int expectedResponseCode, String identifier, final String contents, final RDFConstants.RDFSerialization contentType) throws UnirestException {
-        HttpResponse<String> response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + "/pipelines/chain/"+identifier), token)
+        HttpResponse<String> response = ath.addAuthentication(Unirest.post(ath.getAPIBaseUrl() + serviceUrl + "/chain/"+identifier), token)
                 .header("content-type", contentType.contentType())
                 .body(contents)
                 .asString();

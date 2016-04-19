@@ -1,0 +1,11 @@
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix itsrdf: <http://www.w3.org/2005/11/its/rdf#> .
+@prefix nif:   <http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+
+<http://freme-project.eu/~okapi-23_OpenOfficeFilter_1451016772117883742.tmp/#char=0,12>
+        a               nif:String , nif:RFC5147String , nif:Context ;
+        nif:beginIndex  "0"^^xsd:nonNegativeInteger ;
+        nif:endIndex    "12"^^xsd:nonNegativeInteger ;
+        nif:isString    "Hello World!"@en ;
+        dc:identifier   "1" .

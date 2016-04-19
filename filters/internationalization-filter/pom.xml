@@ -4,10 +4,9 @@
 	<parent>
 		<artifactId>filters-parent</artifactId>
 		<groupId>eu.freme.bservices.filters</groupId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<version>0.2-SNAPSHOT</version>
 	<artifactId>internationalization-filter</artifactId>
 
 	<dependencies>
@@ -19,12 +18,12 @@
 		<dependency>
 			<groupId>eu.freme.bservices</groupId>
 			<artifactId>internationalization</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>eu.freme.bservices</groupId>
 			<artifactId>test-helper</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
