@@ -48,7 +48,7 @@ public class SparqlConverterController extends BaseRestController {
             @PathVariable("identifier") String identifier,
             @RequestHeader(value = "Accept", required = false) String acceptHeader,
             @RequestHeader(value = "Content-Type", required = false) String contentTypeHeader,
-            @RequestBody String postBody,
+            @RequestBody(required = false) String postBody,
             @RequestParam Map<String, String> allParams
     ){
         try {
