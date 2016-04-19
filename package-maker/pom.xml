@@ -7,7 +7,7 @@
 	<parent>
         <artifactId>basic-services-parent</artifactId>
         <groupId>eu.freme.bservices</groupId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.2</version>
     </parent>
 
 	<distributionManagement>
