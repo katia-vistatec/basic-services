@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Component;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.shared.Application;
+import com.netflix.discovery.shared.Applications;
 
 import eu.freme.bservices.filter.proxy.ProxyService;
 import eu.freme.bservices.filter.proxy.exception.BadGatewayException;
@@ -57,7 +61,6 @@ public class LoadBalancerServlet extends HttpServlet {
 	private void doProxy(HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			
 			LoadBalancingProxyConfig proxyConfig = proxies.get(request.getRequestURI());
 			List<ServiceInstance> instances = discoveryClient.getInstances(proxyConfig.getServiceName());
 			
@@ -74,7 +77,7 @@ public class LoadBalancerServlet extends HttpServlet {
 			}
 			
 			ServiceInstance si = instances.get(thisIndex);
-			String targetUri = si.getUri().toString() + proxyConfig.getTargetEndpoint();
+			String targetUri = "http://" + si.getHost() + ":" + si.getPort() + proxyConfig.getTargetEndpoint();
 			
 			HttpRequest proxy = proxyService.createProxy(request,targetUri);
 			proxyService.writeProxyToResponse(response, proxy);
