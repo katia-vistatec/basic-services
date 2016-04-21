@@ -44,7 +44,7 @@ public class ProxyServlet extends HttpServlet {
 			HttpServletResponse response) {
 		try {
 			HttpRequest proxy = proxyService.createProxy(request,
-					proxies.get(request.getRequestURI()));
+					proxies.get(request.getServletPath()));
 			proxyService.writeProxyToResponse(response, proxy);
 		} catch (IOException | UnirestException e) {
 			logger.error("failed", e);

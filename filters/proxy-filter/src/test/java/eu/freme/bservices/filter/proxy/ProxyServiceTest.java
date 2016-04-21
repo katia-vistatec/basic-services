@@ -1,5 +1,6 @@
 package eu.freme.bservices.filter.proxy;
 
+import eu.freme.bservices.testhelper.LoggingHelper;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +9,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import eu.freme.common.starter.FREMEStarter;
+
+import java.net.UnknownHostException;
 
 public class ProxyServiceTest {
 
@@ -35,8 +38,10 @@ public class ProxyServiceTest {
 		assertTrue(response.getStatus() == 200);
 		assertTrue(response.getBody().equals("response"));
 
+		LoggingHelper.loggerIgnore(UnknownHostException.class.getCanonicalName());
 		response = Unirest.get("http://localhost:8080/e-proxy/test3")
 				.asString();
+		LoggingHelper.loggerUnignore(UnknownHostException.class.getCanonicalName());
 		assertTrue(response.getStatus() == 502);
 	}
 }

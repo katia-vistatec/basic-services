@@ -41,7 +41,7 @@
 
 	<modules>
 		<module>eureka-server</module>
-		<module>microservices</module>
+		<!--<module>microservices</module>-->
 		<module>load-balancer</module>
 		<module>eureka-client</module>
 	</modules>
