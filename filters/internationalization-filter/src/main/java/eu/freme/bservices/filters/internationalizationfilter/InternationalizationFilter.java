@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eu.freme.bservices.internationalization.api.InternationalizationAPI;
+import eu.freme.common.rest.MimeTypeMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.log4j.Logger;
@@ -77,10 +78,13 @@ public class InternationalizationFilter extends GenericFilterBean {
 	@Autowired
 	ExceptionHandlerService exceptionHandlerService;
 
+	@Autowired
+	MimeTypeMapper mimeTypeMapper;
+
 	/*
 	 * EInternationalization accepts these formats for conversion to NIF
 	 */
-	private HashSet<String> contentTypes;
+	//private HashSet<String> contentTypes;
 
 	/*
 	 * EInternationalization accepts these formats for roundtripping
@@ -93,14 +97,14 @@ public class InternationalizationFilter extends GenericFilterBean {
 	InternationalizationAPI internationalizationApi;
 
 	public InternationalizationFilter() {
-		contentTypes = new HashSet<String>();
+		/*contentTypes = new HashSet<String>();
 		contentTypes.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
 		contentTypes.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
 				.toLowerCase());
 		contentTypes.add(InternationalizationAPI.MIME_TYPE_XML.toLowerCase());
-		contentTypes.add(InternationalizationAPI.MIME_TYPE_ODT.toLowerCase());
+		contentTypes.add(InternationalizationAPI.MIME_TYPE_ODT.toLowerCase());*/
 
-		outputFormats = new HashSet<String>();
+		outputFormats = new HashSet<>();
 		outputFormats
 				.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
 		outputFormats.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
@@ -122,7 +126,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	 * @param req
 	 * @return
 	 */
-	public String getInformat(HttpServletRequest req) {
+	public String getInformat(HttpServletRequest req) throws BadRequestException {
 		String informat = req.getParameter("informat");
 		if (informat == null && req.getContentType() != null) {
 			informat = req.getContentType();
@@ -132,10 +136,14 @@ public class InternationalizationFilter extends GenericFilterBean {
 			}
 		}
 		if (informat == null) {
-			return informat;
+			return null;
 		}
-		informat = informat.toLowerCase();
-		if (contentTypes.contains(informat)) {
+
+		if(mimeTypeMapper.get(informat.toLowerCase()) == null){
+			throw new BadRequestException("Unsopported informat \"" + informat + "\" ");
+		}
+		informat = mimeTypeMapper.get(informat.toLowerCase());
+		if (internationalizationApi.getSupportedMimeTypes().contains(informat)) {
 			return informat;
 		} else {
 			return null;
@@ -149,7 +157,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	 * @param req
 	 * @return
 	 */
-	public String getOutformat(HttpServletRequest req) {
+	public String getOutformat(HttpServletRequest req) throws BadRequestException{
 		String outformat = req.getParameter("outformat");
 		if (outformat == null && req.getHeader("Accept") != null) {
 			outformat = req.getHeader("Accept");
@@ -161,8 +169,12 @@ public class InternationalizationFilter extends GenericFilterBean {
 		if (outformat == null) {
 			return null;
 		}
-		outformat = outformat.toLowerCase();
-		if (contentTypes.contains(outformat)) {
+
+		if(mimeTypeMapper.get(outformat.toLowerCase()) == null){
+			throw new BadRequestException("Unsopported outformat \"" + outformat + "\" ");
+		}
+		outformat = mimeTypeMapper.get(outformat.toLowerCase());
+		if (internationalizationApi.getSupportedMimeTypes().contains(outformat)) {
 			return outformat;
 		} else {
 			return null;
@@ -193,8 +205,16 @@ public class InternationalizationFilter extends GenericFilterBean {
 			}
 		}
 
-		String informat = getInformat(httpRequest);
-		String outformat = getOutformat(httpRequest);
+		String informat;
+		String outformat;
+		try {
+			informat = getInformat(httpRequest);
+			outformat = getOutformat(httpRequest);
+		}catch (BadRequestException exception){
+			exceptionHandlerService.writeExceptionToResponse(httpRequest,
+					httpResponse, exception);
+			return;
+		}
 
 		if (outformat != null
 				&& (informat == null || !outformat.equals(informat))) {

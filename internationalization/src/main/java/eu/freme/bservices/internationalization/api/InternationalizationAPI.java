@@ -21,34 +21,63 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
 
 import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionException;
 import eu.freme.bservices.internationalization.okapi.nif.converter.NifConverter;
-import net.sf.okapi.common.MimeTypeMapper;
+//import net.sf.okapi.common.MimeTypeMapper;
 import eu.freme.bservices.internationalization.okapi.nif.converter.HTMLBackConverter;
+import eu.freme.common.rest.MimeTypeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
 
 @Component
 public class InternationalizationAPI {
 
-	public static final String MIME_TYPE_XLIFF_1_2 = MimeTypeMapper.XLIFF_MIME_TYPE;
+	@Autowired
+	MimeTypeMapper mimeTypeMapper;
 
-	public static final String MIME_TYPE_HTML = MimeTypeMapper.HTML_MIME_TYPE;
-	
-	public static final String MIME_TYPE_XML = MimeTypeMapper.XML_MIME_TYPE;
-	
-	public static final String MIME_TYPE_ODT = MimeTypeMapper.OPENOFFICE_MIME_TYPE;
-	
+	private HashSet<String> supportedMimeTypes;
+
+	public static final String MIME_TYPE_XLIFF_1_2 = net.sf.okapi.common.MimeTypeMapper.XLIFF_MIME_TYPE;
+
+	public static final String MIME_TYPE_HTML = net.sf.okapi.common.MimeTypeMapper.HTML_MIME_TYPE;
+
+	public static final String MIME_TYPE_XML = net.sf.okapi.common.MimeTypeMapper.XML_MIME_TYPE;
+
+	public static final String MIME_TYPE_ODT = net.sf.okapi.common.MimeTypeMapper.OPENOFFICE_MIME_TYPE;
+
 	private static final String FREME_NIF_URI_PREFIX = "http://freme-project.eu/";
 
 	private NifConverter converter;
-	
+
 	private HTMLBackConverter backConverter;
 
 	public InternationalizationAPI() {
 
 		converter = new NifConverter();
 		backConverter = new HTMLBackConverter();
+		supportedMimeTypes = new HashSet<>();
+
+		supportedMimeTypes.add(MIME_TYPE_XLIFF_1_2);
+		supportedMimeTypes.add(MIME_TYPE_HTML);
+		supportedMimeTypes.add(MIME_TYPE_XML);
+		supportedMimeTypes.add(MIME_TYPE_ODT);
+	}
+
+	@PostConstruct
+	public void init(){
+		mimeTypeMapper.put(MIME_TYPE_XLIFF_1_2, MIME_TYPE_XLIFF_1_2);
+		mimeTypeMapper.put(MIME_TYPE_HTML, MIME_TYPE_HTML);
+		mimeTypeMapper.put(MIME_TYPE_XML, MIME_TYPE_XML);
+		mimeTypeMapper.put("application/xml", MIME_TYPE_XML);
+		mimeTypeMapper.put(MIME_TYPE_ODT, MIME_TYPE_ODT);
+	}
+
+	public HashSet<String> getSupportedMimeTypes() {
+		return supportedMimeTypes;
 	}
 
 	public Reader convertToTurtle(InputStream is, String mimeType)

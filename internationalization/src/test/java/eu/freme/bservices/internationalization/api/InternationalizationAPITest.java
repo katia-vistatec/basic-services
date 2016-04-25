@@ -17,18 +17,13 @@
  */
 package eu.freme.bservices.internationalization.api;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import eu.freme.bservices.internationalization.okapi.nif.converter.UnsupportedMimeTypeException;
-import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionException;
+import eu.freme.bservices.internationalization.okapi.nif.converter.UnsupportedMimeTypeException;
 import eu.freme.bservices.internationalization.okapi.nif.filter.RDFConstants;
-
+import eu.freme.bservices.testhelper.TestHelper;
 import eu.freme.bservices.testhelper.api.IntegrationTestSetup;
 import eu.freme.common.rest.RestHelper;
 import org.apache.commons.io.IOUtils;
@@ -38,7 +33,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 
 import java.io.*;
-import java.util.Scanner;
 
 import static org.junit.Assert.assertTrue;
 
@@ -157,7 +151,7 @@ public class InternationalizationAPITest {
 
 	}
 
-	//@Test
+	@Test
 	public void testEInternationalizationAPIUnsupportedMimeType() {
 
 		String unsupportedMimeType = "unsupp/mime-type";
