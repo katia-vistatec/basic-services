@@ -1,15 +1,11 @@
 package eu.freme.bservices.cloud.loadbalancer;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequest;
+import eu.freme.bservices.filter.proxy.ProxyService;
+import eu.freme.bservices.filter.proxy.exception.BadGatewayException;
+import eu.freme.common.exception.ExceptionHandlerService;
+import eu.freme.common.exception.InternalServerErrorException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -17,16 +13,13 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.HttpRequest;
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.shared.Application;
-import com.netflix.discovery.shared.Applications;
-
-import eu.freme.bservices.filter.proxy.ProxyService;
-import eu.freme.bservices.filter.proxy.exception.BadGatewayException;
-import eu.freme.common.exception.ExceptionHandlerService;
-import eu.freme.common.exception.InternalServerErrorException;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 @Component
@@ -70,7 +63,7 @@ public class LoadBalancerServlet extends HttpServlet {
 			
 			int thisIndex;
 			synchronized(index){
-				if(index > instances.size()){
+				if(index >= instances.size()){
 					index=0;
 				}
 				thisIndex = index++;

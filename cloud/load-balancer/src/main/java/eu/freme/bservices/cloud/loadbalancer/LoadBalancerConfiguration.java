@@ -13,7 +13,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Configuration
-@Component
+//@Component
 public class LoadBalancerConfiguration implements EnvironmentAware{
 
 	static final String PROPERTY_KEY = "load-balancer";
