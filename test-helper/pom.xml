@@ -22,12 +22,12 @@
 		<dependency>
 			<groupId>eu.freme.bservices.controllers</groupId>
 			<artifactId>users</artifactId>
-			<version>0.1</version>
+			<version>0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>eu.freme.bservices.filters</groupId>
 			<artifactId>logging</artifactId>
-			<version>0.1</version>
+			<version>0.2-SNAPSHOT</version>
 			<!--<scope>test</scope> -->
 		</dependency>
 	</dependencies>
