@@ -27,7 +27,7 @@ import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionExc
 import eu.freme.bservices.internationalization.okapi.nif.converter.NifConverter;
 //import net.sf.okapi.common.MimeTypeMapper;
 import eu.freme.bservices.internationalization.okapi.nif.converter.HTMLBackConverter;
-import eu.freme.common.rest.MimeTypeMapper;
+import eu.freme.common.conversion.SerializationFormatMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ import javax.annotation.PostConstruct;
 public class InternationalizationAPI {
 
 	@Autowired
-	MimeTypeMapper mimeTypeMapper;
+	SerializationFormatMapper serializationFormatMapper;
 
 	private HashSet<String> supportedMimeTypes;
 
@@ -69,11 +69,11 @@ public class InternationalizationAPI {
 
 	@PostConstruct
 	public void init(){
-		mimeTypeMapper.put(MIME_TYPE_XLIFF_1_2, MIME_TYPE_XLIFF_1_2);
-		mimeTypeMapper.put(MIME_TYPE_HTML, MIME_TYPE_HTML);
-		mimeTypeMapper.put(MIME_TYPE_XML, MIME_TYPE_XML);
-		mimeTypeMapper.put("application/xml", MIME_TYPE_XML);
-		mimeTypeMapper.put(MIME_TYPE_ODT, MIME_TYPE_ODT);
+		serializationFormatMapper.put(MIME_TYPE_XLIFF_1_2, MIME_TYPE_XLIFF_1_2);
+		serializationFormatMapper.put(MIME_TYPE_HTML, MIME_TYPE_HTML);
+		serializationFormatMapper.put(MIME_TYPE_XML, MIME_TYPE_XML);
+		serializationFormatMapper.put("application/xml", MIME_TYPE_XML);
+		serializationFormatMapper.put(MIME_TYPE_ODT, MIME_TYPE_ODT);
 	}
 
 	public HashSet<String> getSupportedMimeTypes() {

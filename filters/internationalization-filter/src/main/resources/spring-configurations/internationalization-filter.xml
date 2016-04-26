@@ -9,7 +9,8 @@
 
 
 	<context:component-scan base-package="eu.freme.bservices.filters.internationalizationfilter" />
-	<context:component-scan base-package="eu.freme.bservices.internationalization" />
+	<!--<context:component-scan base-package="eu.freme.bservices.internationalization" />-->
+	<import resource="classpath:spring-configurations/internationalization.xml"/>
 </beans>
 
 

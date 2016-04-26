@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import eu.freme.bservices.internationalization.api.InternationalizationAPI;
-import eu.freme.common.rest.MimeTypeMapper;
+import eu.freme.common.conversion.SerializationFormatMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.ReaderInputStream;
 import org.apache.log4j.Logger;
@@ -79,7 +79,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	ExceptionHandlerService exceptionHandlerService;
 
 	@Autowired
-	MimeTypeMapper mimeTypeMapper;
+	SerializationFormatMapper serializationFormatMapper;
 
 	/*
 	 * EInternationalization accepts these formats for conversion to NIF
@@ -139,10 +139,10 @@ public class InternationalizationFilter extends GenericFilterBean {
 			return null;
 		}
 
-		if(mimeTypeMapper.get(informat.toLowerCase()) == null){
+		if(serializationFormatMapper.get(informat.toLowerCase()) == null){
 			throw new BadRequestException("Unsopported informat \"" + informat + "\" ");
 		}
-		informat = mimeTypeMapper.get(informat.toLowerCase());
+		informat = serializationFormatMapper.get(informat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(informat)) {
 			return informat;
 		} else {
@@ -170,10 +170,10 @@ public class InternationalizationFilter extends GenericFilterBean {
 			return null;
 		}
 
-		if(mimeTypeMapper.get(outformat.toLowerCase()) == null){
+		if(serializationFormatMapper.get(outformat.toLowerCase()) == null){
 			throw new BadRequestException("Unsopported outformat \"" + outformat + "\" ");
 		}
-		outformat = mimeTypeMapper.get(outformat.toLowerCase());
+		outformat = serializationFormatMapper.get(outformat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(outformat)) {
 			return outformat;
 		} else {

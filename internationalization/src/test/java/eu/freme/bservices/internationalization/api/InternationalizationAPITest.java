@@ -130,7 +130,7 @@ public class InternationalizationAPITest {
 		}
 	}
 
-	@Test
+	//@Test
 	public void testEInternationalizationAPIODT() throws Exception {
 
 		InputStream is = getClass().getResourceAsStream("/nifConversion/src2/TestDocument02.odt");
