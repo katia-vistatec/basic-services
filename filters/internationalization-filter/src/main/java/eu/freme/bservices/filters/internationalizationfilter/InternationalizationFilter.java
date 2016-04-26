@@ -82,11 +82,6 @@ public class InternationalizationFilter extends GenericFilterBean {
 	SerializationFormatMapper serializationFormatMapper;
 
 	/*
-	 * EInternationalization accepts these formats for conversion to NIF
-	 */
-	//private HashSet<String> contentTypes;
-
-	/*
 	 * EInternationalization accepts these formats for roundtripping
 	 */
 	private HashSet<String> outputFormats;
@@ -97,13 +92,6 @@ public class InternationalizationFilter extends GenericFilterBean {
 	InternationalizationAPI internationalizationApi;
 
 	public InternationalizationFilter() {
-		/*contentTypes = new HashSet<String>();
-		contentTypes.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
-		contentTypes.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
-				.toLowerCase());
-		contentTypes.add(InternationalizationAPI.MIME_TYPE_XML.toLowerCase());
-		contentTypes.add(InternationalizationAPI.MIME_TYPE_ODT.toLowerCase());*/
-
 		outputFormats = new HashSet<>();
 		outputFormats
 				.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
@@ -134,13 +122,15 @@ public class InternationalizationFilter extends GenericFilterBean {
 			if (parts.length > 1) {
 				informat = parts[0].trim();
 			}
+			if(informat.equals("*/*"))
+				informat = null;
 		}
 		if (informat == null) {
 			return null;
 		}
 
 		if(serializationFormatMapper.get(informat.toLowerCase()) == null){
-			throw new BadRequestException("Unsopported informat \"" + informat + "\" ");
+			throw new BadRequestException("Unsupported informat \"" + informat + "\" ");
 		}
 		informat = serializationFormatMapper.get(informat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(informat)) {
@@ -165,13 +155,15 @@ public class InternationalizationFilter extends GenericFilterBean {
 			if (parts.length > 1) {
 				outformat = parts[0].trim();
 			}
+			if(outformat.equals("*/*"))
+				outformat = null;
 		}
 		if (outformat == null) {
 			return null;
 		}
 
 		if(serializationFormatMapper.get(outformat.toLowerCase()) == null){
-			throw new BadRequestException("Unsopported outformat \"" + outformat + "\" ");
+			throw new BadRequestException("Unsupported outformat \"" + outformat + "\" ");
 		}
 		outformat = serializationFormatMapper.get(outformat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(outformat)) {
