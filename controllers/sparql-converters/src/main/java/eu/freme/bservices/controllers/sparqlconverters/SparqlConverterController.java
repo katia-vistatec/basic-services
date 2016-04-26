@@ -6,6 +6,7 @@ import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
+import eu.freme.common.conversion.SerializationFormatMapper;
 import eu.freme.common.conversion.rdf.JenaRDFConversionService;
 import eu.freme.common.exception.BadRequestException;
 import eu.freme.common.exception.FREMEHttpException;
@@ -24,6 +25,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
@@ -36,11 +38,26 @@ public class SparqlConverterController extends BaseRestController {
 
     Logger logger = Logger.getLogger(SparqlConverterController.class);
 
+    public static final String CSV = "text/comma-separated-values";
+    public static final String XML = "text/xml";
+
     @Autowired
     JenaRDFConversionService jenaRDFConversionService;
 
     @Autowired
+    SerializationFormatMapper serializationFormatMapper;
+
+    @Autowired
     OwnedResourceDAO<SparqlConverter> entityDAO;
+
+    @PostConstruct
+    public void init(){
+        // RDF types, plain text and json are added automatically (by SerializationFormatMapper)
+        serializationFormatMapper.put(CSV, CSV);
+        serializationFormatMapper.put("csv", CSV);
+        serializationFormatMapper.put(XML, XML);
+        serializationFormatMapper.put("xml", XML);
+    }
 
     @RequestMapping(value = "/documents/{identifier}", method = RequestMethod.POST)
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
