@@ -83,6 +83,19 @@ public class ModifiableParametersWrappedRequest extends HttpServletRequestWrappe
         return getParameterMap().get(name);
     }
 
+    @Override
+    public String getQueryString() {
+        String result = "";
+        Enumeration<String> names = getParameterNames();
+        while(names.hasMoreElements()){
+            String name = names.nextElement();
+            result += name+"="+getParameter(name);
+            if(names.hasMoreElements())
+                result += "&";
+        }
+
+        return result.equals("")?null:result;
+    }
 
     @Override
     public long getDateHeader(String name) {

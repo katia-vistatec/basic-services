@@ -85,7 +85,8 @@ public class PostprocessingFilter implements Filter {
                 // set Accept header for original request to turtle
                 Map<String, String[]> extraParams = new TreeMap<>();
                 // delete outformat parameter
-                extraParams.put("outformat", null);//new String[]{"turtle"});
+                extraParams.put("outformat", new String[]{"turtle"});
+                extraParams.put("filter", null);//new String[]{"turtle"});
                 Map<String, String[]> extraHeaders = new TreeMap<>();
                 extraHeaders.put("Accept", new String[]{RDFConstants.RDFSerialization.TURTLE.contentType()});
                 HttpServletRequest wrappedRequest = new ModifiableParametersWrappedRequest(httpRequest, extraParams,extraHeaders);
