@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.mashape.unirest.http.HttpResponse;
@@ -121,7 +123,11 @@ public class ProxyService implements EnvironmentAware{
 	}
 	
 
-	
+	public ResponseEntity<String> createResponse( HttpRequest proxy ) throws UnirestException{
+		HttpResponse<String> proxyResponse = proxy.asString();
+		ResponseEntity<String> response = new ResponseEntity<String>(proxyResponse.getBody(), HttpStatus.valueOf(proxyResponse.getStatus()));
+		return response;
+	}
 
 	/**
 	 * parse proxy configuration properties
