@@ -1,31 +1,31 @@
 package eu.freme.bservices.filter.proxy;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.handler.SimpleUrlHandlerMapping;
 
 @Configuration
 public class ProxyConfiguration {
-	
-	@Autowired 
-	ProxyService proxyService;
-	
+
 	@Autowired
-	ProxyServlet proxyServlet;
-	
+	ProxyService proxyService;
+
+	@Autowired
+	ProxyController proxyServlet;
+
 	@Bean
-	public ServletRegistrationBean servletRegistrationBean(){
-		
-		Map<String,String> proxies = proxyService.getProxies();
-		String[] urlMappings = new String[proxies.size()];
-		int i=0;
-		for( String url : proxies.keySet()){
-			urlMappings[i++] = url;
+	public SimpleUrlHandlerMapping registerProxyController() {
+		SimpleUrlHandlerMapping suhm = new SimpleUrlHandlerMapping();
+		Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> proxies = proxyService.getProxies();
+		for (String url : proxies.keySet()) {
+			map.put(url, "ProxyController");
 		}
-		
-		return new ServletRegistrationBean(proxyServlet, urlMappings);
+		suhm.setUrlMap(map);
+		return suhm;
 	}
 }
