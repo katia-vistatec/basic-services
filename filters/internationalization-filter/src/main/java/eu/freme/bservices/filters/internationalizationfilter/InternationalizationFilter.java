@@ -27,6 +27,8 @@ import java.io.StringReader;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
@@ -84,7 +86,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	/*
 	 * EInternationalization accepts these formats for roundtripping
 	 */
-	private HashSet<String> outputFormats;
+	private HashSet<String> roundtrippingFormats;
 
 	private Logger logger = Logger.getLogger(InternationalizationFilter.class);
 
@@ -92,10 +94,10 @@ public class InternationalizationFilter extends GenericFilterBean {
 	InternationalizationAPI internationalizationApi;
 
 	public InternationalizationFilter() {
-		outputFormats = new HashSet<>();
-		outputFormats
+		roundtrippingFormats = new HashSet<>();
+		roundtrippingFormats
 				.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
-		outputFormats.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
+		roundtrippingFormats.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
 				.toLowerCase());
 	}
 
@@ -130,7 +132,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 		}
 
 		if(serializationFormatMapper.get(informat.toLowerCase()) == null){
-			throw new BadRequestException("Unsupported informat \"" + informat + "\" ");
+			throw new BadRequestException("Unsupported informat='" + informat + "'. The following serialization format values are acceptable: "+serializationFormatMapper.keySet().stream().collect(Collectors.joining(", ")));
 		}
 		informat = serializationFormatMapper.get(informat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(informat)) {
@@ -163,10 +165,10 @@ public class InternationalizationFilter extends GenericFilterBean {
 		}
 
 		if(serializationFormatMapper.get(outformat.toLowerCase()) == null){
-			throw new BadRequestException("Unsupported outformat \"" + outformat + "\" ");
+			throw new BadRequestException("Unsupported outformat='" + outformat + "'. The following serialization format values are acceptable: "+serializationFormatMapper.keySet().stream().collect(Collectors.joining(", ")));
 		}
 		outformat = serializationFormatMapper.get(outformat.toLowerCase());
-		if (internationalizationApi.getSupportedMimeTypes().contains(outformat)) {
+		if (roundtrippingFormats.contains(outformat)) {
 			return outformat;
 		} else {
 			return null;
@@ -218,7 +220,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 			return;
 		}
 
-		if (outformat != null && !outputFormats.contains(outformat)) {
+		if (outformat != null && !roundtrippingFormats.contains(outformat)) {
 			Exception exception = new BadRequestException("\"" + outformat
 					+ "\" is not a valid output format");
 			exceptionHandlerService.writeExceptionToResponse(httpRequest,
