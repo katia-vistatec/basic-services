@@ -6,9 +6,9 @@
 	<parent>
         <artifactId>basic-services-parent</artifactId>
         <groupId>eu.freme.bservices</groupId>
-        <version>0.3-SNAPSHOT</version>
+        <version>0.21</version>
     </parent>
-	<version>0.3-SNAPSHOT</version>
+	<version>0.21</version>
 	<distributionManagement>
 		<repository>
 			<id>freme-nexus</id>
