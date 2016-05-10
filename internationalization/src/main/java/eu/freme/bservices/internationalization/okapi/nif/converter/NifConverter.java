@@ -39,12 +39,15 @@ import net.sf.okapi.lib.extra.pipelinebuilder.XParameter;
 import net.sf.okapi.lib.extra.pipelinebuilder.XPipeline;
 import net.sf.okapi.lib.extra.pipelinebuilder.XPipelineStep;
 import net.sf.okapi.steps.common.RawDocumentToFilterEventsStep;
+import org.apache.log4j.Logger;
 
 /**
  * This class provides methods for converting a XLIFF and HTML files to NIF
  * format.
  */
 public class NifConverter {
+
+	private Logger logger = Logger.getLogger(NifConverter.class);
 
 	private InputStream convert2NifWithMarkers(final InputStream rawDocument,
 			String mimeType, final LocaleId sourceLocale,
@@ -85,9 +88,6 @@ public class NifConverter {
 				// Retrieve the input stream from the output file and then
 				// delete it.
 				nifInStream = new FileInputStream(outputFile);
-				if (outputFile.exists()) {
-					outputFile.delete();
-				}
 			} else {
 				exception = new ConversionException(
 						"Unexpected pipeline exit status: " + retValue.name());
@@ -96,7 +96,13 @@ public class NifConverter {
 			exception = new ConversionException(e.getMessage(), e);
 		} catch (Exception e) {
 			exception = new ConversionException(
-					"Error while coverting the document", e);
+					"Error while converting the document", e);
+		}finally {
+			if (outputFile.exists()) {
+				boolean fileDeleted = outputFile.delete();
+				if(!fileDeleted)
+					logger.warn("Could not delete temporary file: "+outputFile);
+			}
 		}
 		if (exception != null) {
 			throw exception;
@@ -114,7 +120,7 @@ public class NifConverter {
 	 *            the document MIME type
 	 * @param sourceLocale
 	 *            the source locale
-	 * @param uriPrefix
+	 * @param nifUriPrefix
 	 *            the URI prefix to be used for resources in NIF document
 	 * @return the NIF input stream
 	 * @throws ConversionException
@@ -172,9 +178,6 @@ public class NifConverter {
 				// Retrieve the input stream from the output file and then
 				// delete it.
 				nifInStream = new FileInputStream(outputFile);
-				if (outputFile.exists()) {
-					outputFile.delete();
-				}
 			} else {
 				exception = new ConversionException(
 						"Unexpected pipeline exit status: " + retValue.name());
@@ -183,7 +186,13 @@ public class NifConverter {
 			exception = new ConversionException(e.getMessage(), e);
 		} catch (Exception e) {
 			exception = new ConversionException(
-					"Error while coverting the document", e);
+					"Error while converting the document", e);
+		}finally {
+			if (outputFile.exists()) {
+				boolean fileDeleted = outputFile.delete();
+				if(!fileDeleted)
+					logger.warn("Could not delete temporary file: "+outputFile);
+			}
 		}
 		if (exception != null) {
 			throw exception;
