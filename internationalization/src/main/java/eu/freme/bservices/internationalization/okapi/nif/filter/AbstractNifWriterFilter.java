@@ -1,6 +1,6 @@
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import com.hp.hpl.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Model;
 import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
 import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.LocaleId;

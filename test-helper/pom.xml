@@ -5,7 +5,7 @@
 	<parent>
 		<artifactId>basic-services-parent</artifactId>
 		<groupId>eu.freme.bservices</groupId>
-		<version>0.21</version>
+		<version>0.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>test-helper</artifactId>
 	<version>0.3-SNAPSHOT</version>
@@ -22,12 +22,12 @@
 		<dependency>
 			<groupId>eu.freme.bservices.controllers</groupId>
 			<artifactId>users</artifactId>
-			<version>0.2</version>
+			<version>0.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>eu.freme.bservices.filters</groupId>
 			<artifactId>logging</artifactId>
-			<version>0.2</version>
+			<version>0.3-SNAPSHOT</version>
 			<!--<scope>test</scope> -->
 		</dependency>
 	</dependencies>

@@ -1,9 +1,9 @@
 package eu.freme.common.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.hp.hpl.jena.query.*;
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.rdf.model.Model;
+import org.apache.jena.query.*;
+import org.apache.jena.query.Query;
+import org.apache.jena.rdf.model.Model;
 import eu.freme.common.exception.FREMEHttpException;
 import org.springframework.stereotype.Component;
 

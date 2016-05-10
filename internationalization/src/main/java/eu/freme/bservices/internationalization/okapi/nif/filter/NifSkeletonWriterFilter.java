@@ -15,11 +15,11 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
-import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.Resource;
+import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
 import eu.freme.bservices.internationalization.okapi.nif.step.NifParameters;
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.LocaleId;

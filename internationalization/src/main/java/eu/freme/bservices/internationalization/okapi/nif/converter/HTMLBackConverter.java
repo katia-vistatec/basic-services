@@ -15,7 +15,7 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.converter;
 
-import com.hp.hpl.jena.rdf.model.*;
+import org.apache.jena.rdf.model.*;
 import eu.freme.bservices.internationalization.okapi.nif.filter.RDFConstants;
 import eu.freme.bservices.internationalization.okapi.nif.its.ItsRdfConstants;
 

@@ -17,8 +17,8 @@
  */
 package eu.freme.bservices.internationalization.okapi.nif.filter;
 
-import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
-import com.hp.hpl.jena.rdf.model.*;
+import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.rdf.model.*;
 import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotAttribute;
 import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotation;
 import eu.freme.bservices.internationalization.okapi.nif.its.ITSAnnotationsHelper;

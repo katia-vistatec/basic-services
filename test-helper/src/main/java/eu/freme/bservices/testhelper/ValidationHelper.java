@@ -1,6 +1,5 @@
 package eu.freme.bservices.testhelper;
 
-import com.hp.hpl.jena.shared.AssertionFailureException;
 import com.mashape.unirest.http.HttpResponse;
 
 import eu.freme.common.conversion.rdf.RDFConstants;
@@ -46,7 +45,7 @@ public class ValidationHelper {
             try {
                 assertNotNull(converter.unserializeRDF(response.getBody(), nifformat));
             } catch (Exception e) {
-                throw new AssertionFailureException("RDF validation failed");
+                throw new IOException("RDF validation failed");
             }
         }
 

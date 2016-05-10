@@ -17,8 +17,8 @@
  */
 package eu.freme.bservices.internationalization.api;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.freme.bservices.internationalization.okapi.nif.converter.ConversionException;
 import eu.freme.bservices.internationalization.okapi.nif.converter.UnsupportedMimeTypeException;
