@@ -1,6 +1,0 @@
-eureka:
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${http://user:password@127.0.0.1:8761}/eureka/pp
