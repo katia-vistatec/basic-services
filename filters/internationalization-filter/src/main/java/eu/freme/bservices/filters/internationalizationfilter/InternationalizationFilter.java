@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2015 Agro-Know, Deutsches Forschungszentrum für Künstliche Intelligenz, iMinds,
  * Institut für Angewandte Informatik e. V. an der Universität Leipzig,
@@ -95,8 +94,8 @@ public class InternationalizationFilter extends GenericFilterBean {
 
 	public InternationalizationFilter() {
 		roundtrippingFormats = new HashSet<>();
-		roundtrippingFormats
-				.add(InternationalizationAPI.MIME_TYPE_HTML.toLowerCase());
+		roundtrippingFormats.add(InternationalizationAPI.MIME_TYPE_HTML
+				.toLowerCase());
 		roundtrippingFormats.add(InternationalizationAPI.MIME_TYPE_XLIFF_1_2
 				.toLowerCase());
 	}
@@ -116,7 +115,8 @@ public class InternationalizationFilter extends GenericFilterBean {
 	 * @param req
 	 * @return
 	 */
-	public String getInformat(HttpServletRequest req) throws BadRequestException {
+	public String getInformat(HttpServletRequest req)
+			throws BadRequestException {
 		String informat = req.getParameter("informat");
 		if (informat == null && req.getContentType() != null) {
 			informat = req.getContentType();
@@ -124,15 +124,20 @@ public class InternationalizationFilter extends GenericFilterBean {
 			if (parts.length > 1) {
 				informat = parts[0].trim();
 			}
-			if(informat.equals("*/*"))
+			if (informat.equals("*/*"))
 				informat = null;
 		}
 		if (informat == null) {
 			return null;
 		}
 
-		if(serializationFormatMapper.get(informat.toLowerCase()) == null){
-			throw new BadRequestException("Unsupported informat='" + informat + "'. The following serialization format values are acceptable: "+serializationFormatMapper.keySet().stream().collect(Collectors.joining(", ")));
+		if (serializationFormatMapper.get(informat.toLowerCase()) == null) {
+			throw new BadRequestException(
+					"Unsupported informat='"
+							+ informat
+							+ "'. The following serialization format values are acceptable: "
+							+ serializationFormatMapper.keySet().stream()
+									.collect(Collectors.joining(", ")));
 		}
 		informat = serializationFormatMapper.get(informat.toLowerCase());
 		if (internationalizationApi.getSupportedMimeTypes().contains(informat)) {
@@ -149,7 +154,8 @@ public class InternationalizationFilter extends GenericFilterBean {
 	 * @param req
 	 * @return
 	 */
-	public String getOutformat(HttpServletRequest req) throws BadRequestException{
+	public String getOutformat(HttpServletRequest req)
+			throws BadRequestException {
 		String outformat = req.getParameter("outformat");
 		if (outformat == null && req.getHeader("Accept") != null) {
 			outformat = req.getHeader("Accept");
@@ -157,15 +163,20 @@ public class InternationalizationFilter extends GenericFilterBean {
 			if (parts.length > 1) {
 				outformat = parts[0].trim();
 			}
-			if(outformat.equals("*/*"))
+			if (outformat.equals("*/*"))
 				outformat = null;
 		}
 		if (outformat == null) {
 			return null;
 		}
 
-		if(serializationFormatMapper.get(outformat.toLowerCase()) == null){
-			throw new BadRequestException("Unsupported outformat='" + outformat + "'. The following serialization format values are acceptable: "+serializationFormatMapper.keySet().stream().collect(Collectors.joining(", ")));
+		if (serializationFormatMapper.get(outformat.toLowerCase()) == null) {
+			throw new BadRequestException(
+					"Unsupported outformat='"
+							+ outformat
+							+ "'. The following serialization format values are acceptable: "
+							+ serializationFormatMapper.keySet().stream()
+									.collect(Collectors.joining(", ")));
 		}
 		outformat = serializationFormatMapper.get(outformat.toLowerCase());
 		if (roundtrippingFormats.contains(outformat)) {
@@ -176,7 +187,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 	}
 
 	public void doFilter(ServletRequest req, ServletResponse res,
-						 FilterChain chain) throws IOException, ServletException {
+			FilterChain chain) throws IOException, ServletException {
 		if (!(req instanceof HttpServletRequest)
 				|| !(res instanceof HttpServletResponse)) {
 			chain.doFilter(req, res);
@@ -204,7 +215,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 		try {
 			informat = getInformat(httpRequest);
 			outformat = getOutformat(httpRequest);
-		}catch (BadRequestException exception){
+		} catch (BadRequestException exception) {
 			exceptionHandlerService.writeExceptionToResponse(httpRequest,
 					httpResponse, exception);
 			return;
@@ -261,6 +272,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 				inputQueryString), "UTF-8")) {
 			// copy request content to buffer
 			IOUtils.copy(requestInputStream, baos);
+			requestInputStream.close();
 		}
 
 		// create request wrapper that converts the body of the request from the
@@ -284,6 +296,8 @@ public class InternationalizationFilter extends GenericFilterBean {
 			logger.error("Error", e);
 			throw new InternalServerErrorException("Conversion from \""
 					+ informat + "\" to NIF failed");
+		} finally{
+			bais.close();
 		}
 
 		BodySwappingServletRequest bssr = new BodySwappingServletRequest(
@@ -318,8 +332,8 @@ public class InternationalizationFilter extends GenericFilterBean {
 		}
 	}
 
-	//public void init(FilterConfig filterConfig) {
-	//}
+	// public void init(FilterConfig filterConfig) {
+	// }
 
 	public void destroy() {
 	}
