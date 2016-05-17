@@ -24,6 +24,8 @@ public class ProxyConfiguration {
 		Map<String, String> proxies = proxyService.getProxies();
 		for (String url : proxies.keySet()) {
 			map.put(url, "ProxyController");
+			map.put(url.substring(0, url.length()) + "*", "ProxyController");
+			map.put(url.substring(0, url.length()-1), "ProxyController");
 		}
 		suhm.setUrlMap(map);
 		return suhm;

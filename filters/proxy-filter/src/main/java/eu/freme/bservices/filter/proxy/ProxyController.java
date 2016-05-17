@@ -39,10 +39,14 @@ public class ProxyController{
 
 	private ResponseEntity<String> doProxy(HttpServletRequest request) {
 		try {
+			String url = request.getServletPath();
+			if( !url.endsWith("/")){
+				url += "/";
+			}
 			for( String prefix : proxies.keySet() ){
-				if( request.getServletPath().startsWith(prefix)){
+				if( url.startsWith(prefix)){
 					
-					String pathParam = request.getServletPath().substring(prefix.length());
+					String pathParam = url.substring(prefix.length());
 					
 					String targetUrl = proxies.get(prefix);
 					if( pathParam.length() > 0){

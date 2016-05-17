@@ -187,9 +187,9 @@ public class ProxyService implements EnvironmentAware{
 				tUrl = sUrl.substring(0, tUrl.length()-1);
 			}
 
-			proxies.put(sUrl, tUrl);
+			//proxies.put(sUrl, tUrl);
 			proxies.put(sUrl + "/", tUrl);
-			proxies.put(sUrl + "/*", tUrl);
+			//proxies.put(sUrl + "/*", tUrl);
 		}
 		
 		return proxies;
