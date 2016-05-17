@@ -58,8 +58,8 @@ public class ProxyController{
 							pathParam = pathParam.substring(1);
 						}
 					}
-					pathParam += targetUrl;
-					
+					targetUrl += pathParam;
+
 					HttpRequest proxy = proxyService.createProxy(request, targetUrl);
 					return proxyService.createResponse(proxy);					
 				}
