@@ -17,6 +17,7 @@ import com.mashape.unirest.request.HttpRequest;
 
 import eu.freme.bservices.filter.proxy.exception.BadGatewayException;
 import eu.freme.common.exception.ExceptionHandlerService;
+import eu.freme.common.exception.InternalServerErrorException;
 
 @Controller("ProxyController")
 public class ProxyController{
@@ -38,9 +39,29 @@ public class ProxyController{
 
 	private ResponseEntity<String> doProxy(HttpServletRequest request) {
 		try {
-			HttpRequest proxy = proxyService.createProxy(request,
-					proxies.get(request.getServletPath()));
-			return proxyService.createResponse(proxy);
+			for( String prefix : proxies.keySet() ){
+				if( request.getServletPath().startsWith(prefix)){
+					
+					String pathParam = request.getServletPath().substring(prefix.length());
+					
+					String targetUrl = proxies.get(prefix);
+					if( pathParam.length() > 0){
+						if( !targetUrl.endsWith("/")){
+							targetUrl += "/";
+						}
+						
+						if( pathParam.startsWith("/")){
+							pathParam = pathParam.substring(1);
+						}
+					}
+					
+					HttpRequest proxy = proxyService.createProxy(request, targetUrl);
+					return proxyService.createResponse(proxy);					
+				}
+			}
+			
+			throw new InternalServerErrorException();
+			
 		} catch (IOException | UnirestException e) {
 			logger.error("failed", e);
 			throw new BadGatewayException("Proxy failed: " + e.getMessage());
