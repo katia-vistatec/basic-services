@@ -111,6 +111,7 @@ public class BodySwappingServletRequest extends HttpServletRequestWrapper {
 			int i = ris.read();
 			if (i == -1) {
 				finished = true;
+				ris.close();
 			}
 			return i;
 		}

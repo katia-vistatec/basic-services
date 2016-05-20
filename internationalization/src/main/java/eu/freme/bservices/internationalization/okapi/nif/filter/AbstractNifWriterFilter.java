@@ -9,6 +9,7 @@ import net.sf.okapi.common.encoder.EncoderManager;
 import net.sf.okapi.common.exceptions.OkapiIOException;
 import net.sf.okapi.common.filterwriter.IFilterWriter;
 import net.sf.okapi.common.skeleton.ISkeletonWriter;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.URI;
@@ -50,6 +51,8 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 
 	/** The source locale. */
 	protected LocaleId sourceLocale;
+
+	private Logger logger = Logger.getLogger(AbstractNifWriterFilter.class);
 
 	/**
 	 * Constructor.
@@ -126,9 +129,11 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				Util.createDirectories(outputPath);
 				File file = new File(new URI(outputPath));
 				if (file.exists()) {
-					file.delete();
+					boolean fileDeleted = file.delete();
+					logger.debug("fileDeleted: "+fileDeleted);
 				}
-				System.out.println(outputPath);
+				logger.debug("outputPath: "+outputPath);
+				//System.out.println(outputPath);
 				file.createNewFile();
 				outputStream = new FileOutputStream(file);
 
@@ -141,7 +146,8 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				OutputStreamWriter writer = new OutputStreamWriter(
 						outputStream, Charset.forName("UTF-8").newEncoder());
 				if (nifLang != null && !nifLang.isEmpty()) {
-					System.out.println(nifLang);
+					logger.debug("nifLang: "+nifLang);
+					//System.out.println(nifLang);
 					model.write(writer, nifLang);
 				} else {
 					model.write(writer);
@@ -151,7 +157,7 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 		} catch (IOException e) {
 			throw new OkapiIOException("Error while saving the NIF file.", e);
 		} catch (URISyntaxException e) {
-			throw new OkapiIOException("invalid output file URI sintax.", e);
+			throw new OkapiIOException("invalid output file URI syntax.", e);
 		}
 
 	}

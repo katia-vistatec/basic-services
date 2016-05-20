@@ -70,6 +70,7 @@ public class ConversionHttpServletResponseWrapper extends
 			baos.write(buffer, 0, read);
 		}
 		is.close();
+		markupInTurtle.close();
 		setContentLengthLong(length);
 		
 		return baos.toByteArray();
@@ -101,6 +102,9 @@ public class ConversionHttpServletResponseWrapper extends
 		public InputStream getInputStream(){
 			return new ByteArrayInputStream(buffer.toByteArray());
 		}
+		
+		public void close() throws IOException{
+			buffer.close();
+		}
 	}
-
 }
