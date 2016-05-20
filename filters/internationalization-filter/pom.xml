@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>eu.freme.bservices</groupId>
 			<artifactId>internationalization</artifactId>
-			<version>0.3-SNAPSHOT</version>
+			<version>0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>eu.freme.bservices</groupId>
