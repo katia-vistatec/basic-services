@@ -1,6 +1,8 @@
 package eu.freme.bservices.filters.postprocessing;
 
 import org.apache.http.client.utils.DateUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -85,14 +87,18 @@ public class ModifiableParametersWrappedRequest extends HttpServletRequestWrappe
 
     @Override
     public String getQueryString() {
-        String result = "";
+        final List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+
         Enumeration<String> names = getParameterNames();
         while(names.hasMoreElements()){
             String name = names.nextElement();
-            result += name+"="+getParameter(name);
+            params.add(new BasicNameValuePair(name, getParameter(name)));
+
+            /*result += name+"="+getParameter(name);
             if(names.hasMoreElements())
-                result += "&";
+                result += "&";*/
         }
+        String result = URLEncodedUtils.format(params,"UTF-8");
 
         return result.equals("")?null:result;
     }
