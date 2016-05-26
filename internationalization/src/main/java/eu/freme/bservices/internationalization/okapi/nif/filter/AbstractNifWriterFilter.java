@@ -152,6 +152,13 @@ public abstract class AbstractNifWriterFilter implements IFilterWriter {
 				} else {
 					model.write(writer);
 				}
+				outputStream.close();
+				/*
+				// dummy deletion to detect file access
+				if (file!=null && file.exists()) {
+					boolean fileDeleted = file.delete();
+					logger.debug("fileDeleted: "+fileDeleted);
+				}*/
 			}
 
 		} catch (IOException e) {

@@ -305,6 +305,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 
 		if (!roundtripping) {
 			chain.doFilter(bssr, res);
+			nif.close();
 			return;
 		}
 
@@ -316,6 +317,7 @@ public class InternationalizationFilter extends GenericFilterBean {
 					new ByteArrayInputStream(baosData), informat, outformat);
 
 			chain.doFilter(bssr, dummyResponse);
+			nif.close();
 
 			ServletOutputStream sos = httpResponse.getOutputStream();
 
