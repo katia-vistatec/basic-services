@@ -1,5 +1,6 @@
 package eu.freme.bservices.controllers.pipelines;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.type.TypeFactory;
@@ -33,7 +34,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,19 +95,19 @@ public class PipelinesController extends BaseRestController {
                 return new ResponseEntity<>(lastResponse.getBody(), headers, HttpStatus.OK);
             }
 
-        } catch (ServiceException serviceError) {
+        } catch (ServiceException e) {
             // TODO: see if this can be replaced by exception(s) defined in the broker.
-            logger.error(serviceError.getMessage(), serviceError);
+            logger.error(e.getMessage(), e);
             MultiValueMap<String, String> headers = new HttpHeaders();
-            headers.add(HttpHeaders.CONTENT_TYPE, serviceError.getResponse().getContentType());
-            return new ResponseEntity<>(serviceError.getMessage(), headers, serviceError.getStatus());
-        } catch (JsonSyntaxException jsonException) {
-            logger.error(jsonException.getMessage(), jsonException);
-            String errormsg = jsonException.getCause() != null ? jsonException.getCause().getMessage() : jsonException.getMessage();
+            headers.add(HttpHeaders.CONTENT_TYPE, e.getResponse().getContentType());
+            return new ResponseEntity<>(e.getMessage(), headers, e.getStatus());
+        } catch (JsonSyntaxException e) {
+            logger.error(e.getMessage(), e);
+            String errormsg = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
             throw new BadRequestException("Error detected in the JSON body contents: " + errormsg);
-        } catch (UnirestException unirestException) {
-            logger.error(unirestException.getMessage(), unirestException);
-            throw new BadRequestException(unirestException.getMessage());
+        } catch (UnirestException | JsonMappingException e) {
+            logger.error(e.getMessage(), e);
+            throw new BadRequestException(e.getMessage());
         } catch (Throwable t) {
             logger.error(t.getMessage(), t);
             // throw an Internal Server exception if anything goes really wrong...
